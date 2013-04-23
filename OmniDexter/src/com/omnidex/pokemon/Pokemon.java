@@ -81,4 +81,7 @@ public interface Pokemon extends Status, Stats{
     void setCursed(boolean state);
     void setSeeded(boolean state);
     void decrementMagnetRise();
+    
+    void setWeight(double weight);
+    double getWeight();
 }

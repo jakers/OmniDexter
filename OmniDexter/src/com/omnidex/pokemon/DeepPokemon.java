@@ -33,6 +33,7 @@ public class DeepPokemon implements Pokemon, Status, Stats {
     private Status status;
     private Ability ability;
     private Item item;
+    private double weight;
     
     private Move move1;
     private Move move2;
@@ -1169,5 +1170,15 @@ public class DeepPokemon implements Pokemon, Status, Stats {
 	@Override
 	public String getStatAt(int position) {
 		return stats.getStatAt(position);
+	}
+
+	@Override
+	public void setWeight(double weight) {
+		this.weight=weight;
+	}
+
+	@Override
+	public double getWeight() {
+		return weight;
 	}
 }

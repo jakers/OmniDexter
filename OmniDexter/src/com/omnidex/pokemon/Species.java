@@ -9,50 +9,50 @@ import com.omnidex.type.Type;
 public enum Species {
 	
 	/* Pokemon that begin with A */
-	ABOMASNOW("Abomasnow",Type.GRASS,Type.ICE,90,92,75,92,85,60),
-	ABRA("Abra",Type.PSYCHIC,Type.NO_TYPE,25,20,15,105,55,90),
-	ABSOL("Absol",Type.DARK,Type.NO_TYPE,65,130,60,75,60,75),
-	ACCELGOR("Accelgor",Type.BUG,Type.NO_TYPE,80,70,40,100,60,145),
-	AERODACTYL("Aerodactyl",Type.ROCK,Type.FLYING,80,105,65,60,75,130),
-	AGGRON("Aggron",Type.STEEL,Type.ROCK,70,110,180,60,60,50),
-	AIPOM("Aipom",Type.NORMAL,Type.NO_TYPE,55,70,55,40,55,85),
-	ALAKAZAM("Alakazam",Type.PSYCHIC,Type.NO_TYPE,55,50,45,135,85,120),
-	ALOMOMOLA("Alomomola",Type.WATER,Type.NO_TYPE,165,75,80,40,45,65),
-	ALTARIA("Altaria",Type.DRAGON,Type.FLYING,75,70,90,70,105,80),
-	AMBIPOM("Ambipom",Type.NORMAL,Type.NO_TYPE,75,100,66,60,66,115),
-	AMOONGUSS("Amoonguss",Type.GRASS,Type.POISON,114,85,70,85,80,30),
-	AMPHAROS("Ampharos",Type.ELECTRIC,Type.NO_TYPE,90,75,75,115,90,55),
-	ANORITH("Anorith",Type.ROCK,Type.BUG,45,95,50,40,50,75),
-	ARBOK("Arbok",Type.POISON,Type.NO_TYPE,60,85,69,65,79,80),
-	ARCANINE("Arcanine",Type.FIRE,Type.NO_TYPE,90,110,80,100,80,95),
-	ARCEUS("Arceus",Type.NORMAL,Type.NO_TYPE,120,120,120,120,120,120),
-	ARCEUS_BUG("Arceus-Bug",Type.BUG,Type.NO_TYPE,120,120,120,120,120,120),
-	ARCEUS_DARK("Arceus-Dark",Type.DARK,Type.NO_TYPE,120,120,120,120,120,120),
-	ARCEUS_DRAGON("Arceus-Dragon",Type.DRAGON,Type.NO_TYPE,120,120,120,120,120,120),
-	ARCEUS_ELECTRIC("Arceus-Electric",Type.ELECTRIC,Type.NO_TYPE,120,120,120,120,120,120),
-	ARCEUS_FIGHTING("Arceus-Fighting",Type.FIGHTING,Type.NO_TYPE,120,120,120,120,120,120),
-	ARCEUS_FIRE("Arceus-Fire",Type.FIRE,Type.NO_TYPE,120,120,120,120,120,120),
-	ARCEUS_FLYING("Arceus-Flying",Type.FLYING,Type.NO_TYPE,120,120,120,120,120,120),
-	ARCEUS_GHOST("Arceus-Ghost",Type.GHOST,Type.NO_TYPE,120,120,120,120,120,120),
-	ARCEUS_GRASS("Arceus-Grass",Type.GRASS,Type.NO_TYPE,120,120,120,120,120,120),
-	ARCEUS_GROUND("Arceus-Ground",Type.GROUND,Type.NO_TYPE,120,120,120,120,120,120),
-	ARCEUS_ICE("Arceus-Ice",Type.ICE,Type.NO_TYPE,120,120,120,120,120,120),
-	ARCEUS_POISON("Arceus-Poison",Type.POISON,Type.NO_TYPE,120,120,120,120,120,120),
-	ARCEUS_PSYCHIC("Arceus-Psychic",Type.PSYCHIC,Type.NO_TYPE,120,120,120,120,120,120),
-	ARCEUS_ROCK("Arceus-Rock",Type.ROCK,Type.NO_TYPE,120,120,120,120,120,120),
-	ARCEUS_STEEL("Arceus-Steel",Type.STEEL,Type.NO_TYPE,120,120,120,120,120,120),
-	ARCEUS_WATER("Arceus-Water",Type.WATER,Type.NO_TYPE,120,120,120,120,120,120),
-	ARCHEN("Archen",Type.ROCK,Type.FLYING,55,112,45,74,45,70),
-	ARCHEOPS("Archeops",Type.ROCK,Type.FLYING,75,140,65,112,65,110),
-	ARIADOS("Ariados",Type.BUG,Type.POISON,70,90,70,60,60,40),
-	ARMALDO("Armaldo",Type.ROCK,Type.BUG,75,125,100,70,80,45),
-	ARON("Aron",Type.STEEL,Type.ROCK,50,70,100,40,40,30),
-	ARTICUNO("Articuno",Type.ICE,Type.FLYING,90,85,100,95,125,85),
-	AUDINO("Audino",Type.NORMAL,Type.NO_TYPE,103,60,86,60,86,50),
-	AXEW("Axew",Type.DRAGON,Type.NO_TYPE,46,87,60,30,40,57),
-	AZELF("Azelf",Type.PSYCHIC,Type.NO_TYPE,75,125,70,125,70,115),
-	AZUMARILL("Azumarill",Type.WATER,Type.NO_TYPE,100,50,80,50,80,50),
-	AZURILL("Azurill",Type.NORMAL,Type.NO_TYPE,50,20,40,20,40,20),
+	ABOMASNOW("Abomasnow",Type.GRASS,Type.ICE,90,92,75,92,85,60,298.7),
+	ABRA("Abra",Type.PSYCHIC,Type.NO_TYPE,25,20,15,105,55,90,43.0),
+	ABSOL("Absol",Type.DARK,Type.NO_TYPE,65,130,60,75,60,75,103.6),
+	ACCELGOR("Accelgor",Type.BUG,Type.NO_TYPE,80,70,40,100,60,145,55.8),
+	AERODACTYL("Aerodactyl",Type.ROCK,Type.FLYING,80,105,65,60,75,130,130.1),
+	AGGRON("Aggron",Type.STEEL,Type.ROCK,70,110,180,60,60,50,793.7),
+	AIPOM("Aipom",Type.NORMAL,Type.NO_TYPE,55,70,55,40,55,85,25.4),
+	ALAKAZAM("Alakazam",Type.PSYCHIC,Type.NO_TYPE,55,50,45,135,85,120,105.8),
+	ALOMOMOLA("Alomomola",Type.WATER,Type.NO_TYPE,165,75,80,40,45,65,69.7),
+	ALTARIA("Altaria",Type.DRAGON,Type.FLYING,75,70,90,70,105,80,45.4),
+	AMBIPOM("Ambipom",Type.NORMAL,Type.NO_TYPE,75,100,66,60,66,115,44.8),
+	AMOONGUSS("Amoonguss",Type.GRASS,Type.POISON,114,85,70,85,80,30,23.1),
+	AMPHAROS("Ampharos",Type.ELECTRIC,Type.NO_TYPE,90,75,75,115,90,55,135.6),
+	ANORITH("Anorith",Type.ROCK,Type.BUG,45,95,50,40,50,75,27.6),
+	ARBOK("Arbok",Type.POISON,Type.NO_TYPE,60,85,69,65,79,80,143.3),
+	ARCANINE("Arcanine",Type.FIRE,Type.NO_TYPE,90,110,80,100,80,95,341.7),
+	ARCEUS("Arceus",Type.NORMAL,Type.NO_TYPE,120,120,120,120,120,120,705.5),
+	ARCEUS_BUG("Arceus-Bug",Type.BUG,Type.NO_TYPE,120,120,120,120,120,120,705.5),
+	ARCEUS_DARK("Arceus-Dark",Type.DARK,Type.NO_TYPE,120,120,120,120,120,120,705.5),
+	ARCEUS_DRAGON("Arceus-Dragon",Type.DRAGON,Type.NO_TYPE,120,120,120,120,120,120,705.5),
+	ARCEUS_ELECTRIC("Arceus-Electric",Type.ELECTRIC,Type.NO_TYPE,120,120,120,120,120,120,705.5),
+	ARCEUS_FIGHTING("Arceus-Fighting",Type.FIGHTING,Type.NO_TYPE,120,120,120,120,120,120,705.5),
+	ARCEUS_FIRE("Arceus-Fire",Type.FIRE,Type.NO_TYPE,120,120,120,120,120,120,705.5),
+	ARCEUS_FLYING("Arceus-Flying",Type.FLYING,Type.NO_TYPE,120,120,120,120,120,120,705.5),
+	ARCEUS_GHOST("Arceus-Ghost",Type.GHOST,Type.NO_TYPE,120,120,120,120,120,120,705.5),
+	ARCEUS_GRASS("Arceus-Grass",Type.GRASS,Type.NO_TYPE,120,120,120,120,120,120,705.5),
+	ARCEUS_GROUND("Arceus-Ground",Type.GROUND,Type.NO_TYPE,120,120,120,120,120,120,705.5),
+	ARCEUS_ICE("Arceus-Ice",Type.ICE,Type.NO_TYPE,120,120,120,120,120,120,705.5),
+	ARCEUS_POISON("Arceus-Poison",Type.POISON,Type.NO_TYPE,120,120,120,120,120,120,705.5),
+	ARCEUS_PSYCHIC("Arceus-Psychic",Type.PSYCHIC,Type.NO_TYPE,120,120,120,120,120,120,705.5),
+	ARCEUS_ROCK("Arceus-Rock",Type.ROCK,Type.NO_TYPE,120,120,120,120,120,120,705.5),
+	ARCEUS_STEEL("Arceus-Steel",Type.STEEL,Type.NO_TYPE,120,120,120,120,120,120,705.5),
+	ARCEUS_WATER("Arceus-Water",Type.WATER,Type.NO_TYPE,120,120,120,120,120,120,705.5),
+	ARCHEN("Archen",Type.ROCK,Type.FLYING,55,112,45,74,45,70,20.9),
+	ARCHEOPS("Archeops",Type.ROCK,Type.FLYING,75,140,65,112,65,110,70.5),
+	ARIADOS("Ariados",Type.BUG,Type.POISON,70,90,70,60,60,40,73.9),
+	ARMALDO("Armaldo",Type.ROCK,Type.BUG,75,125,100,70,80,45,150.4),
+	ARON("Aron",Type.STEEL,Type.ROCK,50,70,100,40,40,30,132.3),
+	ARTICUNO("Articuno",Type.ICE,Type.FLYING,90,85,100,95,125,85,122.1),
+	AUDINO("Audino",Type.NORMAL,Type.NO_TYPE,103,60,86,60,86,50,68.3),
+	AXEW("Axew",Type.DRAGON,Type.NO_TYPE,46,87,60,30,40,57,39.7),
+	AZELF("Azelf",Type.PSYCHIC,Type.NO_TYPE,75,125,70,125,70,115,0.7),
+	AZUMARILL("Azumarill",Type.WATER,Type.NO_TYPE,100,50,80,50,80,50,62.8),
+	AZURILL("Azurill",Type.NORMAL,Type.NO_TYPE,50,20,40,20,40,20,4.4),
 	
 	/* Pokemon that begin with B */
 	BAGON("Bagon",Type.DRAGON,Type.NO_TYPE,45,75,60,40,30,50),
@@ -416,7 +416,7 @@ public enum Species {
 	MINUN("Minun",Type.ELECTRIC,Type.NO_TYPE,60,40,50,75,85,95),
 	MISDREAVUS("Misdreavus",Type.GHOST,Type.NO_TYPE,60,60,60,85,85,85),
 	MISMAGIUS("Mismagius",Type.GHOST,Type.NO_TYPE,60,60,60,105,105,105),
-	MISSINGNO("MissingNo",Type.NO_TYPE,Type.NO_TYPE,33,136,0,6,6,29),
+	MISSINGNO("MissingNo",Type.NO_TYPE,Type.NO_TYPE,33,136,0,6,6,29,3507.2),
 	MOLTRES("Moltres",Type.FIRE,Type.FLYING,90,100,90,125,85,90),
 	MONFERNO("Monferno",Type.FIRE,Type.FIGHTING,64,78,52,78,52,81),
 	MOTHIM("Mothim",Type.BUG,Type.FLYING,70,94,50,94,50,66),
@@ -445,12 +445,12 @@ public enum Species {
 	NUZLEAF("Nuzleaf",Type.GRASS,Type.DARK,70,70,40,60,40,60),
 		
 	/* Pokemon that begin with O */
-	OCTILLERY("Octillery",Type.WATER,Type.NO_TYPE,75,105,75,105,75,45),
-	ODDISH("Oddish",Type.GRASS,Type.POISON,45,50,55,75,65,30),
-	OMANYTE("Omanyte",Type.ROCK,Type.WATER,35,40,100,90,55,35),
-	OMASTAR("Omastar",Type.ROCK,Type.WATER,70,60,125,115,70,55),
-	ONIX("Onix",Type.ROCK,Type.GROUND,35,45,160,30,45,70),
-	OSHAWOTT("Oshawott",Type.WATER,Type.NO_TYPE,55,55,45,63,45,45),
+	OCTILLERY("Octillery",Type.WATER,Type.NO_TYPE,75,105,75,105,75,45,62.8),
+	ODDISH("Oddish",Type.GRASS,Type.POISON,45,50,55,75,65,30,11.9),
+	OMANYTE("Omanyte",Type.ROCK,Type.WATER,35,40,100,90,55,35,16.5),
+	OMASTAR("Omastar",Type.ROCK,Type.WATER,70,60,125,115,70,55,77.2),
+	ONIX("Onix",Type.ROCK,Type.GROUND,35,45,160,30,45,70,463.0),
+	OSHAWOTT("Oshawott",Type.WATER,Type.NO_TYPE,55,55,45,63,45,45,13.0),
 		
 	/* Pokemon that begin with P */
 	PACHIRISU("Pachirisu",Type.ELECTRIC,Type.NO_TYPE,60,45,70,45,90,95),
@@ -498,9 +498,9 @@ public enum Species {
 	PURUGLY("Purugly",Type.NORMAL,Type.NO_TYPE,71,82,64,64,59,112),
 	
 	/* Pokemon that begin with Q */
-	QUAGSIRE("Quagsire",Type.WATER,Type.GROUND,95,85,85,65,65,35),
-	QUILAVA("Quilava",Type.FIRE,Type.NO_TYPE,58,64,58,80,65,80),
-	QWILFISH("Qwilfish",Type.WATER,Type.POISON,65,95,75,55,55,85),
+	QUAGSIRE("Quagsire",Type.WATER,Type.GROUND,95,85,85,65,65,35,165.3),
+	QUILAVA("Quilava",Type.FIRE,Type.NO_TYPE,58,64,58,80,65,80,41.9),
+	QWILFISH("Qwilfish",Type.WATER,Type.POISON,65,95,75,55,55,85,8.6),
 		
 	/* Pokemon that begin with R-Z */
 	RAICHU("Raichu",Type.ELECTRIC,Type.NO_TYPE,60,90,55,90,80,100),
@@ -722,12 +722,12 @@ public enum Species {
 	WYNAUT("Wynaut",Type.PSYCHIC,Type.NO_TYPE,95,23,48,23,48,23),
 	
 	/* Pokemon that begin with X */
-	XATU("Xatu",Type.PSYCHIC,Type.FLYING,65,75,70,95,70,95),
+	XATU("Xatu",Type.PSYCHIC,Type.FLYING,65,75,70,95,70,95,33.1),
 		
 	/* Pokemon that begin with Y */
-	YAMASK("Yamask",Type.GHOST,Type.NO_TYPE,38,30,85,55,65,30),
-	YANMA("Yanma",Type.BUG,Type.FLYING,65,65,45,75,45,95),
-	YANMEGA("Yanmega",Type.BUG,Type.FLYING,86,76,86,116,56,95),
+	YAMASK("Yamask",Type.GHOST,Type.NO_TYPE,38,30,85,55,65,30,3.3),
+	YANMA("Yanma",Type.BUG,Type.FLYING,65,65,45,75,45,95,83.8),
+	YANMEGA("Yanmega",Type.BUG,Type.FLYING,86,76,86,116,56,95,113.5),
 		
 	/* Pokemon that begin with Z */
 	ZANGOOSE("Zangoose",Type.NORMAL,Type.NO_TYPE,73,115,60,60,60,90),
@@ -740,40 +740,46 @@ public enum Species {
 	ZUBAT("Zubat",Type.POISON,Type.FLYING,40,45,35,30,40,55),
 	ZWEILOUS("Zweilous",Type.DARK,Type.DRAGON,72,85,70,65,70,58);
 	    
-	    private String forme;
-	    private Type t1, t2;
-	    private int hpBase, atkBase, defBase;
-	    private int spAtkBase, spDefBase, speBase;
+	private String forme;
+	private Type firstType, secondType;
+	private int hpBase, atkBase, defBase;
+	private int spAtkBase, spDefBase, speBase;
+	private double weight;
 	    
-	    Species(String forme, Type t1, Type t2, int hpBase, int atkBase, int defBase, int spAtkBase, int spDefBase, int speBase) {
-			this.forme = forme;
-			this.t1 = t1;
-			this.t2 = t2;
-			this.hpBase = hpBase;
-			this.atkBase = atkBase;
-			this.defBase = defBase;
-			this.spAtkBase = spAtkBase;
-			this.spDefBase = spDefBase;
-			this.speBase = speBase;
-		}
-	    public static Species findSpeciesByName(String name) {
-	    	Species species = null;
-	    	for (Species s : Species.values()) {
-	    		if (s.toString().toLowerCase().equals(name.toLowerCase())) {
-	    			species = s;   			
-	    			break;
-	    		}
-	    	}
-	    	return species;
-	    }
-	    public String toString() { return forme;}
-	    public Type getFirstType() { return t1;}
-	    public Type getSecondType() { return t2;}
-	    public int getHpBase(){return hpBase;}
-	    public int getAtkBase(){return atkBase;}
-	    public int getDefBase(){return defBase;}
-	    public int getspAtkBase(){return spAtkBase;}
-        public int getspDefBase(){return spDefBase;}
-        public int getspeBase(){return speBase;}
-        public int[] getAllBases(){return new int[]{hpBase, atkBase, defBase, spAtkBase, spDefBase, speBase};}
+	Species(String forme, Type t1, Type t2, int hpBase, int atkBase, int defBase,
+	    		int spAtkBase, int spDefBase, int speBase, double weight) {
+		this.forme = forme;
+		this.firstType = t1;
+		this.secondType = t2;
+		this.hpBase = hpBase;
+		this.atkBase = atkBase;
+		this.defBase = defBase;
+		this.spAtkBase = spAtkBase;
+		this.spDefBase = spDefBase;
+		this.speBase = speBase;
+		this.weight = weight;
+	}
+	
+	public static Species findSpeciesByName(String name) {
+	   	Species species = null;
+	   	for (Species s : Species.values()) {
+	  		if (s.toString().toLowerCase().equals(name.toLowerCase())) {
+	   			species = s;   			
+	   			break;
+	   		}
+	   	}
+	   	return species;
+	}
+	    
+	public String toString() { return forme;}
+	public Type getFirstType() { return firstType;}
+	public Type getSecondType() { return secondType;}
+	public int getHpBase(){return hpBase;}
+	public int getAtkBase(){return atkBase;}
+	public int getDefBase(){return defBase;}
+	public int getspAtkBase(){return spAtkBase;}
+    public int getspDefBase(){return spDefBase;}
+    public int getspeBase(){return speBase;}
+    public int[] getAllBases(){return new int[]{hpBase, atkBase, defBase, spAtkBase, spDefBase, speBase};}
+    public double getWeight(){return weight;}
 }
