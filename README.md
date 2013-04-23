@@ -1,0 +1,4 @@
+OmniDexter
+==========
+
+Pokemon Battler AI
