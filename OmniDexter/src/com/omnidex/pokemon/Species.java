@@ -670,11 +670,11 @@ public enum Species {
 	TYROGUE("Tyrogue",Type.FIGHTING,Type.NO_TYPE,35,35,35,35,35,35),
 		
 	/* Pokemon that begin with U */
-	UMBREON("Umbreon",Type.DARK,Type.NO_TYPE,95,65,110,60,130,65),
-	UNFEZANT("Unfezant",Type.NORMAL,Type.FLYING,80,105,80,65,55,93),
-	UNOWN("Unown",Type.PSYCHIC,Type.NO_TYPE,48,72,48,72,48,48),
-	URSARING("Ursaring",Type.NORMAL,Type.NO_TYPE,90,130,75,75,75,55),
-	UXIE("Uxie",Type.PSYCHIC,Type.NO_TYPE,75,75,130,75,130,95),
+	UMBREON("Umbreon",Type.DARK,Type.NO_TYPE,95,65,110,60,130,65,59.5),
+	UNFEZANT("Unfezant",Type.NORMAL,Type.FLYING,80,105,80,65,55,93,63.9),
+	UNOWN("Unown",Type.PSYCHIC,Type.NO_TYPE,48,72,48,72,48,48,11.0),
+	URSARING("Ursaring",Type.NORMAL,Type.NO_TYPE,90,130,75,75,75,55,277.3),
+	UXIE("Uxie",Type.PSYCHIC,Type.NO_TYPE,75,75,130,75,130,95,0.7),
 		
 	/* Pokemon that begin with V */
 	VANILLISH("Vanillish",Type.ICE,Type.NO_TYPE,51,65,65,80,75,59),
