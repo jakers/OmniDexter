@@ -301,13 +301,13 @@ public enum Species {
 	IVYSAUR("Ivysaur",Type.GRASS,Type.POISON,60,62,63,80,80,60,28.7),
 	
 	/* Pokemon that begin with J */
-	JELLICENT("Jellicent",Type.WATER,Type.GHOST,100,60,70,85,105,60),
-	JIGGLYPUFF("Jigglypuff",Type.NORMAL,Type.NO_TYPE,115,45,20,45,25,20),
-	JIRACHI("Jirachi",Type.STEEL,Type.PSYCHIC,100,100,100,100,100,100),
-	JOLTEON("Jolteon",Type.ELECTRIC,Type.NO_TYPE,65,65,60,110,95,130),
-	JOLTIK("Joltik",Type.BUG,Type.ELECTRIC,50,47,50,57,50,65),
-	JUMPLUFF("Jumpluff",Type.GRASS,Type.FLYING,75,55,70,55,85,110),
-	JYNX("Jynx",Type.ICE,Type.PSYCHIC,65,50,35,115,95,95),
+	JELLICENT("Jellicent",Type.WATER,Type.GHOST,100,60,70,85,105,60,297.6),
+	JIGGLYPUFF("Jigglypuff",Type.NORMAL,Type.NO_TYPE,115,45,20,45,25,20,12.1),
+	JIRACHI("Jirachi",Type.STEEL,Type.PSYCHIC,100,100,100,100,100,100,2.4),
+	JOLTEON("Jolteon",Type.ELECTRIC,Type.NO_TYPE,65,65,60,110,95,130,54.0),
+	JOLTIK("Joltik",Type.BUG,Type.ELECTRIC,50,47,50,57,50,65,1.3),
+	JUMPLUFF("Jumpluff",Type.GRASS,Type.FLYING,75,55,70,55,85,110,6.6),
+	JYNX("Jynx",Type.ICE,Type.PSYCHIC,65,50,35,115,95,95,89.5),
 	
 	/* Pokemon that begin with K */
 	KABUTO("Kabuto",Type.ROCK,Type.WATER,30,80,90,55,45,55),
