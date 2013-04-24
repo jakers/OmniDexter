@@ -732,15 +732,15 @@ public enum Species {
 	YANMEGA("Yanmega",Type.BUG,Type.FLYING,86,76,86,116,56,95,113.5),
 		
 	/* Pokemon that begin with Z */
-	ZANGOOSE("Zangoose",Type.NORMAL,Type.NO_TYPE,73,115,60,60,60,90),
-	ZAPDOS("Zapdos",Type.ELECTRIC,Type.FLYING,90,90,85,125,90,100),
-	ZEBSTRIKA("Zebstrika",Type.ELECTRIC,Type.NO_TYPE,75,100,63,80,63,116),
-	ZEKROM("Zekrom",Type.DRAGON,Type.ELECTRIC,100,150,120,120,100,90),
-	ZIGZAGOON("Zigzagoon",Type.NORMAL,Type.NO_TYPE,38,30,41,30,41,60),
-	ZOROARK("Zoroark",Type.DARK,Type.NO_TYPE,60,105,60,120,60,105),
-	ZORUA("Zorua",Type.DARK,Type.NO_TYPE,40,65,40,80,40,65),
-	ZUBAT("Zubat",Type.POISON,Type.FLYING,40,45,35,30,40,55),
-	ZWEILOUS("Zweilous",Type.DARK,Type.DRAGON,72,85,70,65,70,58);
+	ZANGOOSE("Zangoose",Type.NORMAL,Type.NO_TYPE,73,115,60,60,60,90,88.8),
+	ZAPDOS("Zapdos",Type.ELECTRIC,Type.FLYING,90,90,85,125,90,100,116.0),
+	ZEBSTRIKA("Zebstrika",Type.ELECTRIC,Type.NO_TYPE,75,100,63,80,63,116,175.3),
+	ZEKROM("Zekrom",Type.DRAGON,Type.ELECTRIC,100,150,120,120,100,90,760.6),
+	ZIGZAGOON("Zigzagoon",Type.NORMAL,Type.NO_TYPE,38,30,41,30,41,60,38.6),
+	ZOROARK("Zoroark",Type.DARK,Type.NO_TYPE,60,105,60,120,60,105,178.8),
+	ZORUA("Zorua",Type.DARK,Type.NO_TYPE,40,65,40,80,40,65,27.6),
+	ZUBAT("Zubat",Type.POISON,Type.FLYING,40,45,35,30,40,55,16.5),
+	ZWEILOUS("Zweilous",Type.DARK,Type.DRAGON,72,85,70,65,70,58,110.2);
 	    
 	private String forme;
 	private Type firstType, secondType;
