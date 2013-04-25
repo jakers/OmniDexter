@@ -44,7 +44,7 @@ public interface Pokemon extends Status, Stats{
     /**
      * @param type a Type enum to check the type of against the
      * Pokemon's type(s)
-     * @return true if type matchs either of the possible two types
+     * @return true if type matches either of the possible two types
      * the Pokemon has.
      */
     boolean isType(Type type);
@@ -81,4 +81,7 @@ public interface Pokemon extends Status, Stats{
     void setCursed(boolean state);
     void setSeeded(boolean state);
     void decrementMagnetRise();
+    
+    void setWeight(double weight);
+    double getWeight();
 }
