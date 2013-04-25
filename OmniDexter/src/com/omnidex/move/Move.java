@@ -1,5 +1,6 @@
 package com.omnidex.move;
 
+import com.omnidex.battlefield.team.Team;
 import com.omnidex.damage.BasePower;
 import com.omnidex.move.Category;
 import com.omnidex.pokemon.Pokemon;
@@ -667,7 +668,6 @@ public enum Move {
 	}
 	
 	public int getBasePower(Pokemon attacker, Pokemon target) {
-		
 		switch(this) {
 			case LOW_KICK:
 			case GRASS_KNOT:
@@ -681,7 +681,13 @@ public enum Move {
 			case ERUPTION:
 			case WATER_SPOUT:
 				return BasePower.EruptionOrWaterSpout(attacker);
-		
+			case BEAT_UP:
+				return BasePower.BeatUp(attacker);
+			case CRUSH_GRIP:
+			case WRING_OUT:
+				return BasePower.CrushGripOrWringOut(target);
+			case ELECTRO_BALL:
+				return BasePower.ElectroBall(attacker,target);
 			default:
 				return basePower;
 		}
