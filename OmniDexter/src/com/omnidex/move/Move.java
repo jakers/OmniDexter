@@ -1,6 +1,8 @@
 package com.omnidex.move;
 
+import com.omnidex.damage.BasePower;
 import com.omnidex.move.Category;
+import com.omnidex.pokemon.Pokemon;
 import com.omnidex.type.Type;
 
 public enum Move {
@@ -662,6 +664,27 @@ public enum Move {
 
 	public int getBasePower() {
 		return basePower;
+	}
+	
+	public int getBasePower(Pokemon attacker, Pokemon target) {
+		
+		switch(this) {
+			case LOW_KICK:
+			case GRASS_KNOT:
+				return BasePower.LowKickOrGrassKnot(target);
+//			case PSYWAVE:
+//				return BasePower.Psywave(attacker);
+			case FLAIL:
+				return BasePower.Flail(attacker);
+			case REVERSAL:
+				return BasePower.Reversal(attacker);
+			case ERUPTION:
+			case WATER_SPOUT:
+				return BasePower.EruptionOrWaterSpout(attacker);
+		
+			default:
+				return basePower;
+		}
 	}
 
 	public Category getCategory() {

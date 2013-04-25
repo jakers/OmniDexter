@@ -75,7 +75,7 @@ public class AbilityDamageMod {
             damage *= 1.2;
             damage = (int) damage;
         } else if (attacker.getAbility().equals(Ability.TECHNICIAN)
-                && move.getBasePower() <= 60) {
+                && move.getBasePower(attacker,defender) <= 60) {
             damage *= 1.5;
             damage = (int) damage;
         } else if (attacker.getCurrHp() / (double) attacker.getMaxHp()

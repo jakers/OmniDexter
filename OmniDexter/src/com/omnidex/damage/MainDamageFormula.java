@@ -41,7 +41,7 @@ public class MainDamageFormula {
         
         // TODO extra base power calculation
         
-        damage *= move.getBasePower();
+        damage *= move.getBasePower(attacker,defender);
 
         damage = ItemDamageMod.doBasePowerItemMod(attacker, move, damage);
 
