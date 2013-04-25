@@ -619,7 +619,7 @@ public enum Species {
 	STARYU("Staryu",Type.WATER,Type.NO_TYPE,30,45,55,70,55,85,76.1),
 	STEELIX("Steelix",Type.STEEL,Type.GROUND,75,85,200,55,65,30,881.8),
 	STOUTLAND("Stoutland",Type.NORMAL,Type.NO_TYPE,85,100,90,45,90,80,134.5),
-	//STRATAGEM("Stratagem", Type.ROCK, Type.NO_TYPE,90,60,65,120,70,130),
+	
 	STUNFISK("Stunfisk",Type.GROUND,Type.ELECTRIC,109,66,84,81,99,32,24.3),
 	STUNKY("Stunky",Type.POISON,Type.DARK,63,63,47,41,41,74,42.3),
 	SUDOWOODO("Sudowoodo",Type.ROCK,Type.NO_TYPE,70,100,115,30,65,30,83.8),
@@ -744,8 +744,25 @@ public enum Species {
 	ZOROARK("Zoroark",Type.DARK,Type.NO_TYPE,60,105,60,120,60,105,178.8),
 	ZORUA("Zorua",Type.DARK,Type.NO_TYPE,40,65,40,80,40,65,27.6),
 	ZUBAT("Zubat",Type.POISON,Type.FLYING,40,45,35,30,40,55,16.5),
-	ZWEILOUS("Zweilous",Type.DARK,Type.DRAGON,72,85,70,65,70,58,110.2);
-	    
+	ZWEILOUS("Zweilous",Type.DARK,Type.DRAGON,72,85,70,65,70,58,110.2),
+	
+	/* CAP Pokemon */
+	ARGHONAUT("Arghonaut",Type.WATER,Type.FIGHTING,105,110,95,70,100,75,333.0),
+	AURUMOTH("Aurumoth",Type.BUG,Type.PSYCHIC,110,120,99,117,60,94,425.5),
+	COLOSSOIL("Colossoil",Type.DARK,Type.GROUND,133,122,72,71,72,95,1507.0),
+	CYCLOHM("Cyclohm",Type.ELECTRIC,Type.DRAGON,108,60,118,112,70,80,129.5),
+	FIDGIT("Fidgit",Type.POISON,Type.GROUND,95,76,109,90,80,105,116.8),
+	KITSUNOH("Kitsunoh",Type.STEEL,Type.GHOST,80,103,85,55,80,110,112.0),
+	KRILOWATT("Krilowatt",Type.ELECTRIC,Type.WATER,151,84,73,83,74,105,23.4),
+	MOLLUX("Mollux",Type.FIRE,Type.POISON,95,45,83,131,105,76,90.2),
+	NECTURNA("Necturna",Type.GRASS,Type.GHOST,64,120,100,85,120,81,109.3),
+	PYROAK("Pyroak",Type.FIRE,Type.GRASS,120,70,105,95,90,60,370.0),
+	REVENANKH("Revenankh",Type.GHOST,Type.FIGHTING,90,105,90,65,110,65,97.0),
+	STRATAGEM("Stratagem", Type.ROCK, Type.NO_TYPE,90,60,65,120,70,130,99.0),
+	SYCLANT("Syclant", Type.ICE,Type.BUG,70,116,70,114,64,121,115.0),
+	TOMOHAWK("Tomohawk",Type.FLYING,Type.FIGHTING,105,60,90,115,80,85,82.0),
+	VOODOOM("Voodoom",Type.FIGHTING, Type.DARK, 90,85,80,105,80,110,166.6);
+	
 	private String forme;
 	private Type firstType, secondType;
 	private int hpBase, atkBase, defBase;
