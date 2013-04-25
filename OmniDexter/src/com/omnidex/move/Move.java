@@ -687,6 +687,34 @@ public enum Move {
 		}
 	}
 
+	public boolean isSetDamageMove(){
+		switch(this) {
+			case SONICBOOM:
+			case DRAGON_RAGE:
+			case NIGHT_SHADE:
+			case SEISMIC_TOSS:
+				return true;
+			default:
+				return false;
+		}
+	}
+	
+	public int getSetDamage(Pokemon attacker) {
+		switch(this) {
+			case SONICBOOM:
+				return 20;
+			case DRAGON_RAGE:
+				return 40;
+			case NIGHT_SHADE:
+			case SEISMIC_TOSS:
+				return attacker.getLevel();
+			default:
+				return -1;
+		}
+	}
+	
+	
+	
 	public Category getCategory() {
 		return category;
 	}
