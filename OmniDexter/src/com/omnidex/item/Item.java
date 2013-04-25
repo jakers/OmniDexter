@@ -17,7 +17,9 @@ public enum Item {
     
     /* B items */
     BABIRI_BERRY("Babiri Berry"), 
-    BIG_ROOT("Big Root"), 
+    BIG_ROOT("Big Root"),
+    BIG_MUSHROOM("Big Mushroom"),
+    BIG_PEARL("Big Pearl"),
     BINDING_BAND("Binding Band"), 
     BLACK_BELT("Black Belt"), 
     BLACK_SLUDGE("Black Sludge"), 
@@ -42,20 +44,22 @@ public enum Item {
     COBA_BERRY("Coba Berry"), 
     COLBUR_BERRY("Colbur Berry"),
     COVER_FOSSIL("Cover Fossil"),
+    CUSTAP_BERRY("Custap Berry"),
     
     /* D items */
     DAMP_ROCK("Damp Rock"), 
     DARK_GEM("Dark Gem"),
     DAWN_STONE("Dawn Stone"),
-    DEEP_SEA_SCALE("DeepSeaScale"), 
-    DEEP_SEA_TOOTH("DeepSeaTooth"), 
+    DEEPSEASCALE("DeepSeaScale"), 
+    DEEPSEATOOTH("DeepSeaTooth"), 
     DESTINY_KNOT("Destiny Knot"), 
     DOME_FOSSIL("Dome Fossil"),
     DOUSE_DRIVE("Douse Driver"), 
     DRACO_PLATE("Draco Plate"),
     DRAGON_FANG("Dragon Fang"), 
-    DRAGON_GEM("Dragon Gem"), 
-    DREAD_PLATE("Dread Plate"), 
+    DRAGON_GEM("Dragon Gem"),
+    DREAD_PLATE("Dread Plate"),
+    DRAGON_SCALE("Dragon Scale"),
     DUBIOUS_DISC("Dubious Disc"),
     DUSK_STONE("Dusk Stone"),
     
@@ -93,7 +97,9 @@ public enum Item {
     HABAN_BERRY("Haban Berry"),
     HARD_STONE("Hard Stone"),
     HEAT_ROCK("Heat Rock"),
+    HEART_SCALE("Heart Scale"),
     HELIX_FOSSIL("Helix Fossil"),
+    HONEY("Honey"),
     
     /* I items */
     ICE_GEM("Ice Gem"),
@@ -104,6 +110,7 @@ public enum Item {
     IRON_PLATE("Iron Plate"), 
     
     /* J items */
+    JABOCA_BERRY("Jaboca Berry"),
     
     /* K items */
     KASIB_BERRY("Kasib Berry"), 
@@ -115,7 +122,8 @@ public enum Item {
     LAX_INCENSE("Lax Incense"), 
     LEFTOVERS("Leftovers"), 
     LIFE_ORB("Life Orb"), 
-    LIGHT_BALL("Light Ball"), 
+    LIGHT_BALL("Light Ball"),
+    LIGHT_CLAY("Light Clay"),
     LUCK_INCENSE("Luck Incense"), 
     LUCKY_EGG("Lucky Egg"), 
     LUCKY_PUNCH("Lucky Punch"), 
@@ -130,15 +138,17 @@ public enum Item {
     METAL_COAT("Metal Coat"), 
     METAL_POWDER("Metal Powder"), 
     METRONOME("Metronome"), 
-    MIND_PLATE("Mind Plate"), 
-    MIRICALE_SEED("Miricale Seed"), 
+    MICLE_BERRY("Micle Berry"),
+    MIND_PLATE("Mind Plate"),
+    MIRACLE_SEED("Miracle Seed"), 
     MUSCLE_BAND("Muscle Band"), 
     MYSTIC_WATER("Mystic Water"), 
     
     /* N items */
     NEVERMELTICE("Nevermeltice"), 
     NO_ITEM("Nothing"), 
-    NORMAL_GEM("Normal Gem"), 
+    NORMAL_GEM("Normal Gem"),
+    NUGGET("Nugget"),
     
     /* O items */
     OCCA_BERRY("Occa Berry"), 
@@ -149,7 +159,8 @@ public enum Item {
     
     /* P items */
     PASSHO_BERRY("Passho Berry"), 
-    PAYAPA_BERRY("Payapa Berry"), 
+    PAYAPA_BERRY("Payapa Berry"),
+    PEARL("Pearl"),
     PINK_SCARF("Pink Scarf"),
     PLUME_FOSSIL("Plume Fossil"),
     POISON_BARB("Poison Barb"), 
@@ -183,12 +194,14 @@ public enum Item {
     ROCKY_HELMET("Rocky Helmet"),
     ROOT_FOSSIL("Root Fossil"),
     ROSE_INCENSE("Rose Incense"), 
+    ROWAP_BERRY("Rowap Berry"),
     
     /* S items */
     SCOPE_LENS("Scope Lens"), 
     SEA_INCENSE("Sea Incense"), 
     SHARP_BEAK("Sharp Beak"),
-    SHED_SHELL("Shed Shell"), 
+    SHED_SHELL("Shed Shell"),
+    SHELL_BELL("Shell Bell"),
     SHINY_STONE("Shiny Stone"),
     SHOCK_DRIVE("Shock Drive"), 
     SHUCA_BERRY("Shuca Berry"),
@@ -204,6 +217,8 @@ public enum Item {
     SPELL_TAG("Spell Tag"), 
     SPLASH_PLATE("Splash Plate"), 
     SPOOKY_PLATE("Spooky Plate"), 
+    STARDUST("Stardust"),
+    STAR_PIECE("Star Piece"),
     STEEL_GEM("Steel Gem"), 
     STICK("Stick"),
     STICKY_BARB("Sticky Barb"), 
@@ -211,12 +226,14 @@ public enum Item {
     
     /* T items */
     TANGA_BERRY("Tanga Berry"), 
-    THICK_CLUB("Thick Club"), 
+    THICK_CLUB("Thick Club"),
+    TINYMUSHROOM("Tinymushroom"),
     TOXIC_ORB("Toxic Orb"), 
     TOXIC_PLATE("Toxic Plate"), 
     TWISTEDSPOON("Twistedspoon"),
     
     /* U items */
+    UP_GRADE("Up-Grade"),
     
     /* V items */
     

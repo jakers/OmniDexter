@@ -23,7 +23,7 @@ public class ItemDamageMod {
                 && (attacker.getSpecies().equals(Species.LATIAS)
                 || attacker.getSpecies().equals(Species.LATIOS))) {
             damage *= 1.5;
-        } else if (attacker.getItem().equals(Item.DEEP_SEA_TOOTH)
+        } else if (attacker.getItem().equals(Item.DEEPSEATOOTH)
                 && (attacker.getSpecies().equals(Species.CLAMPERL))) {
             damage *= 2.0;
         }
