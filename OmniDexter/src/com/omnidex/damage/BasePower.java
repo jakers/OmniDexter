@@ -1,8 +1,5 @@
 package com.omnidex.damage;
 
-import java.util.Random;
-
-import com.omnidex.battlefield.team.Team;
 import com.omnidex.pokemon.Pokemon;
 
 public class BasePower {
@@ -378,10 +375,5 @@ public class BasePower {
 			default:
 				return 0;
 		}
-		
-		
 	}
-	
-	
-	
 }
