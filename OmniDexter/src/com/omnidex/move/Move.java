@@ -1,6 +1,5 @@
 package com.omnidex.move;
 
-import com.omnidex.battlefield.team.Team;
 import com.omnidex.damage.BasePower;
 import com.omnidex.move.Category;
 import com.omnidex.pokemon.Pokemon;
@@ -10,7 +9,13 @@ public enum Move {
 	
 	NONE("(none)", Type.NO_TYPE, 0,0,0,0, Category.STATUS, Target.ANY_ADJACENT),
 	UNKNOWN("(unknown)",Type.NO_TYPE, 0,0,0,0, Category.STATUS, Target.ANY_ADJACENT),
-
+	SWITCH_1("Switch 1", Type.NO_TYPE,0,0,0,0, Category.SWITCH, Target.SELF),
+	SWITCH_2("Switch 2", Type.NO_TYPE,0,0,0,0, Category.SWITCH, Target.SELF),
+	SWITCH_3("Switch 3", Type.NO_TYPE,0,0,0,0, Category.SWITCH, Target.SELF),
+	SWITCH_4("Switch 4", Type.NO_TYPE,0,0,0,0, Category.SWITCH, Target.SELF),
+	SWITCH_5("Switch 5", Type.NO_TYPE,0,0,0,0, Category.SWITCH, Target.SELF),
+	SWITCH_6("Switch 6", Type.NO_TYPE,0,0,0,0, Category.SWITCH, Target.SELF),
+	
 	ABSORB("Absorb", Type.GRASS, 20,100,25,0, Category.SPECIAL, Target.ANY_ADJACENT),
 	ACID("Acid",Type.POISON, 40,100,30,0, Category.SPECIAL,Target.ALL_ADJACENT_FOES),
 	ACID_ARMOR("Acid Armor",Type.POISON, 0,-1,40,0, Category.STATUS, Target.SELF),
@@ -667,6 +672,21 @@ public enum Move {
 		return basePower;
 	}
 	
+	public boolean isSwitch() {
+		switch(this) {
+			case SWITCH_1:
+			case SWITCH_2:
+			case SWITCH_3:
+			case SWITCH_4:
+			case SWITCH_5:
+			case SWITCH_6:
+				return true;
+			default:
+				return false;
+		}
+	}
+	
+	
 	public int getBasePower(Pokemon attacker, Pokemon target) {
 		switch(this) {
 			case LOW_KICK:
@@ -695,10 +715,11 @@ public enum Move {
 
 	public boolean isSetDamageMove(){
 		switch(this) {
-			case SONICBOOM:
-			case DRAGON_RAGE:
+			case DRAGON_RAGE:	
 			case NIGHT_SHADE:
+			case PSYWAVE:
 			case SEISMIC_TOSS:
+			case SONICBOOM:
 				return true;
 			default:
 				return false;
@@ -714,12 +735,12 @@ public enum Move {
 			case NIGHT_SHADE:
 			case SEISMIC_TOSS:
 				return attacker.getLevel();
+			case PSYWAVE:
+				return BasePower.Psywave(attacker);
 			default:
 				return -1;
 		}
 	}
-	
-	
 	
 	public Category getCategory() {
 		return category;
@@ -729,7 +750,7 @@ public enum Move {
 		return target;
 	}
 	
-	public int getPP(){
+	public int getPP() {
 		return pp;
 	}
 	
@@ -751,90 +772,90 @@ public enum Move {
 
 	public boolean isPunch() {
 		switch (this) {
-		case BULLET_PUNCH:
-		case COMET_PUNCH:
-		case DIZZY_PUNCH:
-		case DRAIN_PUNCH:
-		case DYNAMICPUNCH:
-		case FIRE_PUNCH:
-		case FOCUS_PUNCH:
-		case HAMMER_ARM:
-		case ICE_PUNCH:
-		case MACH_PUNCH:
-		case MEGA_PUNCH:
-		case METEOR_MASH:
-		case SHADOW_PUNCH:
-		case SKY_UPPERCUT:
-		case THUNDERPUNCH:
-			return true;
-		default:
-			return false;
+			case BULLET_PUNCH:
+			case COMET_PUNCH:
+			case DIZZY_PUNCH:
+			case DRAIN_PUNCH:
+			case DYNAMICPUNCH:
+			case FIRE_PUNCH:
+			case FOCUS_PUNCH:
+			case HAMMER_ARM:
+			case ICE_PUNCH:
+			case MACH_PUNCH:
+			case MEGA_PUNCH:
+			case METEOR_MASH:
+			case SHADOW_PUNCH:
+			case SKY_UPPERCUT:
+			case THUNDERPUNCH:
+				return true;
+			default:
+				return false;
 		}
 	}
 
 	public boolean isSoundBased() {
 		switch (this) {
-		case BUG_BUZZ:
-		case CHATTER:
-		case ECHOED_VOICE:
-		case GRASSWHISTLE:
-		case GROWL:
-		case HEAL_BELL:
-		case HYPER_VOICE:
-		case METAL_SOUND:
-		case PERISH_SONG:
-		case ROAR:
-		case ROUND:
-		case SCREECH:
-		case SING:
-        case SNARL:
-		case SNORE:
-		case SUPERSONIC:
-		case UPROAR:
-			return true;
-		default:
-			return false;
+			case BUG_BUZZ:
+			case CHATTER:
+			case ECHOED_VOICE:
+			case GRASSWHISTLE:
+			case GROWL:
+			case HEAL_BELL:
+			case HYPER_VOICE:
+			case METAL_SOUND:
+			case PERISH_SONG:
+			case ROAR:
+			case ROUND:
+			case SCREECH:
+			case SING:
+			case SNARL:
+			case SNORE:
+			case SUPERSONIC:
+			case UPROAR:
+				return true;
+			default:
+				return false;
 		}
 	}
 
 	public boolean isHealing() {
 		switch (this) {
-		case HEAL_ORDER:
-		case MILK_DRINK:
-		case MOONLIGHT:
-		case MORNING_SUN:
-		case RECOVER:
-		case REST:
-		case ROOST:
-		case SLACK_OFF:
-		case SOFTBOILED:
-		case SWALLOW:
-		case SYNTHESIS:
-		case WISH:
-			return true;
-		default:
-			return false;
+			case HEAL_ORDER:
+			case MILK_DRINK:
+			case MOONLIGHT:
+			case MORNING_SUN:
+			case RECOVER:
+			case REST:
+			case ROOST:
+			case SLACK_OFF:
+			case SOFTBOILED:
+			case SWALLOW:
+			case SYNTHESIS:
+			case WISH:
+				return true;
+			default:
+				return false;
 		}
 	}
 
 	public boolean usableWhileAsleep() {
 		switch (this) {
-		case SLEEP_TALK:
-		case SNORE:
-			return true;
-		default:
-			return false;
+			case SLEEP_TALK:
+			case SNORE:
+				return true;
+			default:
+				return false;
 		}
 	}
 
 	public boolean usableWhileFrozen() {
 		switch (this) {
-		case FLAME_WHEEL:
-		case SACRED_FIRE:
-		case SCALD:
-			return true;
-		default:
-			return false;
+			case FLAME_WHEEL:
+			case SACRED_FIRE:
+			case SCALD:
+				return true;
+			default:
+				return false;
 		}
 	}
 
@@ -866,17 +887,17 @@ public enum Move {
 	
 	public boolean hasRecoil() {
 		switch (this) {
-		case BRAVE_BIRD:
-		case DOUBLE_EDGE:
-		case FLARE_BLITZ:
-		case HEAD_SMASH:
-		case SUBMISSION:
-		case TAKE_DOWN:
-		case VOLT_TACKLE:
-		case WOOD_HAMMER:
-			return true;
-		default:
-			return false;
+			case BRAVE_BIRD:
+			case DOUBLE_EDGE:
+			case FLARE_BLITZ:
+			case HEAD_SMASH:
+			case SUBMISSION:
+			case TAKE_DOWN:
+			case VOLT_TACKLE:
+			case WOOD_HAMMER:
+				return true;
+			default:
+				return false;
 		}
 	}
 }

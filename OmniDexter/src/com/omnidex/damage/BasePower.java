@@ -1,5 +1,7 @@
 package com.omnidex.damage;
 
+import java.util.Random;
+
 import com.omnidex.pokemon.Pokemon;
 
 public class BasePower {
@@ -20,15 +22,14 @@ public class BasePower {
 		}
 	}
 
-//	public static int Psywave(Pokemon attacker) {
-//		Random r = new Random();
-//		return (int) ((r.nextInt(11) + 5) * (attacker.getLevel() / 10.0));
-//	}
+	public static int Psywave(Pokemon attacker) {
+		Random r = new Random();
+		return (int) ((r.nextInt(11) + 5) * (attacker.getLevel() / 10.0));
+	}
 
 	public static int EruptionOrWaterSpout(Pokemon attacker) {
 		return 150 * (attacker.getCurrHp()/attacker.getMaxHp());
 	}
-	
 	
 	public static int Flail(Pokemon attacker) {
 
@@ -46,7 +47,6 @@ public class BasePower {
 		} else {
 			return 150;
 		}
-
 	}
 
 	public static int Reversal(Pokemon attacker) {
