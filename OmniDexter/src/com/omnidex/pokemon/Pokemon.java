@@ -12,10 +12,17 @@ public interface Pokemon extends Status, Stats{
 
     static final int MAX_IV_VALUE = 31;
     static final int MAX_LEVEL = 100;
+
     static final int MOVE_ONE = 0;
     static final int MOVE_TWO = 1;
     static final int MOVE_THREE = 2;
     static final int MOVE_FOUR = 3;
+
+    static final int SWITCH_ONE = -1;
+    static final int SWITCH_TWO = -2;
+    static final int SWITCH_THREE = -3;
+    static final int SWITCH_FOUR = -4;
+    static final int SWITCH_FIVE = -5;
 
     /**
      * @return a Type enum representing the Pokemon's

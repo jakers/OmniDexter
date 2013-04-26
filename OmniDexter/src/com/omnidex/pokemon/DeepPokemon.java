@@ -39,7 +39,12 @@ public class DeepPokemon implements Pokemon, Status, Stats {
     private Move move2;
     private Move move3;
     private Move move4;
-
+    private Move switch1;
+    private Move switch2;
+    private Move switch3;
+    private Move switch4;
+    private Move switch5;
+    
     private boolean hasFlashFireBoost;
     private boolean hasDug;
     private boolean hasNightmare;
@@ -205,8 +210,18 @@ public class DeepPokemon implements Pokemon, Status, Stats {
             move2 = move;
         } else if (slot == MOVE_THREE) {
             move3 = move;
-        } else {
+        } else if (slot == MOVE_FOUR) {
             move4 = move;
+        } else if (slot == SWITCH_ONE) {
+        	switch1 = move;
+        } else if (slot == SWITCH_TWO) {
+        	switch2 = move;
+        } else if (slot == SWITCH_THREE) {
+        	switch3 = move;
+        } else if (slot == SWITCH_FOUR) {
+        	switch4 = move;
+        } else if (slot == SWITCH_FIVE) {
+        	switch5 = move;
         }
     }
 
@@ -285,14 +300,26 @@ public class DeepPokemon implements Pokemon, Status, Stats {
     }
 
     @Override
-    public Move getMove(int moveSlot) {
-        Move result = move1;
-        if (moveSlot == MOVE_TWO) {
-            result = move2;
-        } else if (moveSlot == MOVE_THREE) {
-            result = move3;
-        } else if (moveSlot == MOVE_FOUR) {
-            result = move4;
+    public Move getMove(int slot) {
+        Move result = null;
+        if (slot == MOVE_ONE) {
+            result = move1;
+        } else if (slot == MOVE_TWO) {
+        	result = move2;
+        } else if (slot == MOVE_THREE) {
+        	result = move3;
+        } else if (slot == MOVE_FOUR) {
+        	result = move4;
+        } else if (slot == SWITCH_ONE) {
+        	result = switch1;
+        } else if (slot == SWITCH_TWO) {
+        	result = switch2;
+        } else if (slot == SWITCH_THREE) {
+        	result = switch3;
+        } else if (slot == SWITCH_FOUR) {
+        	result = switch4;
+        } else if (slot == SWITCH_FIVE) {
+        	result = switch5;
         }
         return result;
     }
