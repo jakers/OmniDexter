@@ -2,6 +2,7 @@ package com.omnidex.damage;
 
 import java.util.Random;
 
+import com.omnidex.move.Move;
 import com.omnidex.pokemon.Pokemon;
 
 public class BasePower {
@@ -22,6 +23,72 @@ public class BasePower {
 		}
 	}
 
+	public static int HiddenPower(Pokemon attacker) {
+		/*
+		 * | (u + 2*v +A*w+B*x+C*y+D*z)*E + F | HP(power) = floor |
+		 * ------------------------------- | | G | --- --- u = hpIv v = atkIv w
+		 * = defIv x = spdIv y = spAtkIv z = spDefIv
+		 * 
+		 * A = 4.0 B = 8.0 C = 16.0 D = 32.0 E = 40.0 F = 30.0 G = 63.0
+		 */
+		int hpIv = attacker.getHpIv();
+		int atkIv = attacker.getAtkIv();
+		int defIv = attacker.getDefIv();
+		int spAtkIv = attacker.getSpAtkIv();
+		int spDefIv = attacker.getSpDefIv();
+		int spdIv = attacker.getSpeIv();
+		
+		final double A = 4.0;
+		final double B = 8.0;
+		final double C = 16.0;
+		final double D = 32.0;
+		final double E = 40.0;
+		final double F = 30.0;
+		final double G = 63.0;
+
+		if (((hpIv % 4) == 2) || ((hpIv % 4) == 3)) {
+			hpIv = 1;
+		} else {
+			hpIv = 0;
+		}
+		if (((atkIv % 4) == 2) || ((atkIv % 4) == 3)) {
+			atkIv = 1;
+		} else {
+			atkIv = 0;
+		}
+		if (((defIv % 4) == 2) || ((defIv % 4) == 3)) {
+			defIv = 1;
+		} else {
+			defIv = 0;
+		}
+		if (((spAtkIv % 4) == 2) || ((spAtkIv % 4) == 3)) {
+			spAtkIv = 1;
+		} else {
+			spAtkIv = 0;
+		}
+		if (((spDefIv % 4) == 2) || ((spDefIv % 4) == 3)) {
+			spDefIv = 1;
+		} else {
+			spDefIv = 0;
+		}
+		if (((spdIv % 4) == 2) || ((spdIv % 4) == 3)) {
+			spdIv = 1;
+		} else {
+			spdIv = 0;
+		}
+
+		double result = hpIv + 2.0 * atkIv + A * defIv + B * spdIv;
+		result = result + C * spAtkIv + D * spDefIv;
+		result = result * E;
+		result = result / G;
+		result = result + F;
+
+		return (int) result;
+	}
+	
+	
+	
+	
 	public static int Return(Pokemon attacker) {
 		int bp =(int)(attacker.getFriendship()/2.5);
 		if (bp < 1) {
@@ -124,8 +191,24 @@ public class BasePower {
 		}
 	}
 	
-	public static int Fling(Pokemon attacker) {
-		
+	public static int TrumpCard(Move move) {
+		int pp = move.getPP();
+		int bp = -1;
+		if (pp >= 5) {
+			bp = 40;
+		} else if (pp == 4) {
+			bp = 50;
+		} else if (pp == 3) {
+			bp = 60;
+		} else if (pp == 2) {
+			bp = 80;
+		} else if (pp == 1) {
+			bp = 200;
+		}
+		return bp;
+	}
+	
+	public static int Fling(Pokemon attacker,Pokemon target) {
 		switch(attacker.getItem()) {
 			case IRON_BALL:
 				return 130;
@@ -408,6 +491,78 @@ public class BasePower {
 				return 10;
 			default:
 				return 0;
+		}
+	}
+
+	public static int NaturalGift(Pokemon attacker) {
+		switch(attacker.getItem()) {
+			case CHERI_BERRY:
+			case CHESTO_BERRY:
+			case PECHA_BERRY:
+			case RAWST_BERRY:
+			case ASPEAR_BERRY:
+			case LEPPA_BERRY:
+			case ORAN_BERRY:
+			case PERSIM_BERRY:
+			case LUM_BERRY:
+			case SITRUS_BERRY:
+			case FIGY_BERRY:
+			case WIKI_BERRY:
+			case MAGO_BERRY:
+			case AGUAV_BERRY:
+			case IAPAPA_BERRY:
+			case RAZZ_BERRY:
+			case PASSHO_BERRY:
+			case WACAN_BERRY:
+			case RINDO_BERRY:
+			case YACHE_BERRY:
+			case CHOPLE_BERRY:
+			case KEBIA_BERRY:
+			case SHUCA_BERRY:
+			case COBA_BERRY:
+			case PAYAPA_BERRY:
+			case TANGA_BERRY:
+			case CHARTI_BERRY:
+			case KASIB_BERRY:
+			case HABAN_BERRY:
+			case BABIRI_BERRY:
+			case CHILAN_BERRY:
+				return 60;
+			case BLUK_BERRY:
+			case NANAB_BERRY:
+			case WEPEAR_BERRY:
+			case PINAP_BERRY:
+			case POMEG_BERRY:
+			case KELPSY_BERRY:
+			case QUALOT_BERRY:
+			case HONDEW_BERRY:
+			case GREPA_BERRY:
+			case TAMATO_BERRY:
+			case CORNN_BERRY:
+			case MAGOST_BERRY:
+			case RABUTA_BERRY:
+			case NOMEL_BERRY:
+			case SPELON_BERRY:
+			case PAMTRE_BERRY:
+				return 70;
+			case WATMEL_BERRY:
+			case DURNIN_BERRY:
+			case BELUE_BERRY:
+			case LIECHI_BERRY:
+			case GANLON_BERRY:
+			case SALAC_BERRY:
+			case PETAYA_BERRY:
+			case APICOT_BERRY:
+			case LANSAT_BERRY:
+			case STARF_BERRY:
+			case ENIGMA_BERRY:
+			case MICLE_BERRY:
+			case CUSTAP_BERRY:
+			case JABOCA_BERRY:
+			case ROWAP_BERRY:
+				return 80;
+			default:
+				return -1;
 		}
 	}
 }

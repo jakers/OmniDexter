@@ -689,11 +689,26 @@ public enum Move {
 	
 	public int getBasePower(Pokemon attacker, Pokemon target) {
 		switch(this) {
+			case HIDDEN_POWER_BUG:
+			case HIDDEN_POWER_DARK:
+			case HIDDEN_POWER_DRAGON:
+			case HIDDEN_POWER_ELECTRIC:
+			case HIDDEN_POWER_FIGHTING:
+			case HIDDEN_POWER_FIRE:
+			case HIDDEN_POWER_FLYING:
+			case HIDDEN_POWER_GHOST:
+			case HIDDEN_POWER_GRASS:
+			case HIDDEN_POWER_GROUND:
+			case HIDDEN_POWER_ICE:
+			case HIDDEN_POWER_POISON:
+			case HIDDEN_POWER_PSYCHIC:
+			case HIDDEN_POWER_ROCK:
+			case HIDDEN_POWER_STEEL:
+			case HIDDEN_POWER_WATER:
+				return BasePower.HiddenPower(attacker);
 			case LOW_KICK:
 			case GRASS_KNOT:
 				return BasePower.LowKickOrGrassKnot(target);
-//			case PSYWAVE:
-//				return BasePower.Psywave(attacker);
 			case FLAIL:
 				return BasePower.Flail(attacker);
 			case REVERSAL:
@@ -712,14 +727,15 @@ public enum Move {
 				return BasePower.Return(attacker);
 			case FRUSTRATION:
 				return BasePower.Frustration(attacker);
+			case NATURAL_GIFT:
+				return BasePower.NaturalGift(attacker);
+			case TRUMP_CARD:
+				return BasePower.TrumpCard(this);
 			default:
 				return basePower;
 		}
 	}
 
-	
-	
-	
 	public boolean isSetDamageMove(){
 		switch(this) {
 			case DRAGON_RAGE:	
