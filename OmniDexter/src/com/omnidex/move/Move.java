@@ -731,11 +731,21 @@ public enum Move {
 				return BasePower.NaturalGift(attacker);
 			case TRUMP_CARD:
 				return BasePower.TrumpCard(this);
+			case PUNISHMENT:
+				return BasePower.Punishment(target);
+			case HEAT_CRASH:
+			case HEAVY_SLAM:
+				return BasePower.HeatCrashOrHeavySlam(attacker, target);
+			case FACADE:
+				return BasePower.Facade(attacker);
 			default:
 				return basePower;
 		}
 	}
 
+	
+	
+	
 	public boolean isSetDamageMove(){
 		switch(this) {
 			case DRAGON_RAGE:	

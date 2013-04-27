@@ -155,7 +155,6 @@ public class PokemonMath {/*
 		 * 
 		 * A = 4.0 B = 8.0 C = 16.0 D = 32.0 E = 15.0 F = 63.0
 		 */
-
 		final double A = 4.0;
 		final double B = 8.0;
 		final double C = 16.0;

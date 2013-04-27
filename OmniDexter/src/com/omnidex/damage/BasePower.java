@@ -6,6 +6,17 @@ import com.omnidex.move.Move;
 import com.omnidex.pokemon.Pokemon;
 
 public class BasePower {
+	
+	public static int Facade(Pokemon attacker) {
+		if (attacker.isBurnt() || attacker.isParalyzed() ||
+			attacker.isRegPoison() || attacker.isToxPoison()) {
+			return 140;
+		} else {
+			return 70;
+		}
+	}
+	
+	
 	public static int LowKickOrGrassKnot(Pokemon target) {
 		double weight = target.getWeight();
 		if (weight >= 0.1 && weight <= 21.8) {
@@ -141,10 +152,6 @@ public class BasePower {
 			return 150;
 		}
 	}
-	
-	
-	
-	
 	
 	public static int GyroBall(Pokemon attacker, Pokemon target) {
 		return (int)(25 * (target.getCurrSpe()/(double)attacker.getCurrSpe()));
@@ -494,6 +501,46 @@ public class BasePower {
 		}
 	}
 
+	public static int Punishment(Pokemon target) {
+		int positiveStatBoosts = 0;
+		if (target.getAtkStage() > 0) {
+			positiveStatBoosts++;
+		}
+		if (target.getDefStage() > 0) {
+			positiveStatBoosts++;
+		}
+		if (target.getSpAtkStage() > 0) {
+			positiveStatBoosts++;
+		}
+		if (target.getSpDefStage() > 0) {
+			positiveStatBoosts++;
+		}
+		if (target.getSpeStage() > 0) {
+			positiveStatBoosts++;
+		}
+		
+		int bp = 60 + 20 * positiveStatBoosts;
+		if (bp > 200) {
+			bp = 200;
+		}
+		return bp;
+	}
+	
+	public static int HeatCrashOrHeavySlam(Pokemon attacker, Pokemon target) {
+		double n = target.getWeight()/attacker.getWeight();
+		int bp = 40;
+		if (n < 0.2) {
+			bp = 120;
+		} else if (n >= 0.2 && n < 0.25) {
+			bp = 100;
+		} else if (n >= 0.25 && n < 1/(double)3) {
+			bp = 80;
+		} else if (n >= 1/(double)3 && n < 0.5) {
+			bp = 60;
+		}
+		return bp;
+	}
+	
 	public static int NaturalGift(Pokemon attacker) {
 		switch(attacker.getItem()) {
 			case CHERI_BERRY:
