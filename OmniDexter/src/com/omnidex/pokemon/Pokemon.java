@@ -82,7 +82,8 @@ public interface Pokemon extends Status, Stats{
     boolean hasRoots();
     boolean isCursed();
     boolean isSeeded();
-    
+    void setFriendship(int friendship);
+    int getFriendship();
     void setRings(boolean state);
     void setRoots(boolean state);
     void setCursed(boolean state);

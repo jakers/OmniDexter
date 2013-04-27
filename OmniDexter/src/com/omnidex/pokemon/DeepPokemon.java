@@ -45,6 +45,8 @@ public class DeepPokemon implements Pokemon, Status, Stats {
     private Move switch4;
     private Move switch5;
     
+    private int friendship;
+    
     private boolean hasFlashFireBoost;
     private boolean hasDug;
     private boolean hasNightmare;
@@ -1207,5 +1209,15 @@ public class DeepPokemon implements Pokemon, Status, Stats {
 	@Override
 	public double getWeight() {
 		return weight;
+	}
+
+	@Override
+	public void setFriendship(int friendship) {
+		this.friendship = friendship;
+	}
+
+	@Override
+	public int getFriendship() {
+		return friendship;
 	}
 }

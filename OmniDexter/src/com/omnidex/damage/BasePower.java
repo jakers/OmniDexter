@@ -22,6 +22,32 @@ public class BasePower {
 		}
 	}
 
+	public static int Return(Pokemon attacker) {
+		int bp =(int)(attacker.getFriendship()/2.5);
+		if (bp < 1) {
+			bp = 1;
+		}
+		return bp;
+	}
+	
+	public static int Frustration(Pokemon attacker) {
+		int bp =(int)(255-attacker.getFriendship()/2.5);
+		if (bp < 1) {
+			bp = 1;
+		}
+		return bp;
+	}
+	
+	
+	public static int SuperFang(Pokemon target) {
+		int damage = target.getCurrHp()/2;
+		if (damage < 1) {
+			damage = 1;
+		} 
+		return damage; 
+	}
+	
+	
 	public static int Psywave(Pokemon attacker) {
 		Random r = new Random();
 		return (int) ((r.nextInt(11) + 5) * (attacker.getLevel() / 10.0));
@@ -47,6 +73,14 @@ public class BasePower {
 		} else {
 			return 150;
 		}
+	}
+	
+	
+	
+	
+	
+	public static int GyroBall(Pokemon attacker, Pokemon target) {
+		return (int)(25 * (target.getCurrSpe()/(double)attacker.getCurrSpe()));
 	}
 
 	public static int Reversal(Pokemon attacker) {

@@ -708,11 +708,18 @@ public enum Move {
 				return BasePower.CrushGripOrWringOut(target);
 			case ELECTRO_BALL:
 				return BasePower.ElectroBall(attacker,target);
+			case RETURN:
+				return BasePower.Return(attacker);
+			case FRUSTRATION:
+				return BasePower.Frustration(attacker);
 			default:
 				return basePower;
 		}
 	}
 
+	
+	
+	
 	public boolean isSetDamageMove(){
 		switch(this) {
 			case DRAGON_RAGE:	
@@ -720,13 +727,14 @@ public enum Move {
 			case PSYWAVE:
 			case SEISMIC_TOSS:
 			case SONICBOOM:
+			case SUPER_FANG:
 				return true;
 			default:
 				return false;
 		}
 	}
 	
-	public int getSetDamage(Pokemon attacker) {
+	public int getSetDamage(Pokemon attacker,Pokemon target) {
 		switch(this) {
 			case SONICBOOM:
 				return 20;
@@ -737,6 +745,8 @@ public enum Move {
 				return attacker.getLevel();
 			case PSYWAVE:
 				return BasePower.Psywave(attacker);
+			case SUPER_FANG:
+				return BasePower.SuperFang(target);
 			default:
 				return -1;
 		}
