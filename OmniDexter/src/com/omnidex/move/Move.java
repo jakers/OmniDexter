@@ -686,7 +686,6 @@ public enum Move {
 		}
 	}
 	
-	
 	public int getBasePower(Pokemon attacker, Pokemon target) {
 		switch(this) {
 			case HIDDEN_POWER_BUG:
@@ -743,9 +742,6 @@ public enum Move {
 		}
 	}
 
-	
-	
-	
 	public boolean isSetDamageMove(){
 		switch(this) {
 			case DRAGON_RAGE:	
@@ -789,6 +785,17 @@ public enum Move {
 	public int getPP() {
 		return pp;
 	}
+	
+	public void decrementPP(Pokemon target) {
+		switch(target.getAbility()) {
+			case PRESSURE:
+				pp -= 2;
+				break;
+			default:
+				pp--;
+		}
+	}
+	
 	
 	public int getPriority() {
 		return priority;

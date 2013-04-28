@@ -289,6 +289,7 @@ public class Game {
 
 		// Trick Room
 		bf.decrementTrickRoom();
+		
 		// TODO verify these happen here
 		bf.decrementMagicRoom();
 		bf.decrementWonderRoom();
@@ -305,23 +306,8 @@ public class Game {
 						BattleAI.MAX_DEPTH);
 			} else {
 				printSwitchOption(OPPONENT);
-				
-//				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-				
 				System.out.println("Please choice a new pokemon");
-//				String string_choice;
 				choice = -1;
-//				try {
-//					string_choice = br.readLine();
-//					choice = Integer.valueOf(string_choice);
-//					br.close();
-//				} catch (IOException e) {
-					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//					System.exit(1);
-//				}
-//				scan.close();
-				
 			}
 			AiWriter.setSearchMode(true);
 			first.switchActivePokemon(choice);

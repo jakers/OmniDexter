@@ -1031,7 +1031,6 @@ public class PokeStats implements Stats {
 
 	@Override
 	public String getStatAt(int position) {
-		// TODO Auto-generated method stub
 		String stat = "Spe";
 		if (position == 0) {
 			stat = "HP";
@@ -1044,7 +1043,6 @@ public class PokeStats implements Stats {
 		}  else if (position == 4) {
 			stat = "Atk";
 		}
-		
 		return stat;
 	}
 }

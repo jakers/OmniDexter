@@ -3,6 +3,8 @@ package com.omnidex.pokemon;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.commons.io.filefilter.MagicNumberFileFilter;
+
 import com.omnidex.ability.Ability;
 import com.omnidex.item.Item;
 import com.omnidex.move.Move;
@@ -48,11 +50,15 @@ public class DeepPokemon implements Pokemon, Status, Stats {
     private int friendship;
     
     private boolean hasFlashFireBoost;
+    private boolean isCursed;
     private boolean hasDug;
     private boolean hasNightmare;
     private boolean hasDove;
     private boolean isSeeded;
     private boolean hasRoots;
+    
+    
+    
     
     public DeepPokemon() {
         forme = Species.MISSINGNO;
@@ -81,6 +87,7 @@ public class DeepPokemon implements Pokemon, Status, Stats {
         hasDove = false;
         isSeeded = false;
         hasRoots = false;
+        isCursed = false;
     }
 
     public DeepPokemon(ResultSet rs) {
@@ -109,12 +116,12 @@ public class DeepPokemon implements Pokemon, Status, Stats {
 		    move2 = Move.findMoveByName(rs.getString("move_2"));
 		    move3 = Move.findMoveByName(rs.getString("move_3"));
 		    move4 = Move.findMoveByName(rs.getString("move_4"));
+		    
 			
 		} catch (SQLException e) {
 			System.out.println("Failed to load in a pokemon by usage stats");
 			e.printStackTrace();
 		}
-    	
     	
     	isShiny = false;
         hasFlashFireBoost = false;
@@ -122,9 +129,8 @@ public class DeepPokemon implements Pokemon, Status, Stats {
         hasDove = false;
         isSeeded = false;
         hasRoots = false;
-    	
+        isCursed = false;
     }
-    
     
     @Override
     public void setAbility(Ability ability) {
@@ -183,6 +189,7 @@ public class DeepPokemon implements Pokemon, Status, Stats {
         hasDove = false;
         isSeeded = false;
         hasRoots = false;
+        isCursed = false;
     }
     
     public DeepPokemon(Species forme, int level, Nature nature, int[] ivs,
@@ -1181,8 +1188,7 @@ public class DeepPokemon implements Pokemon, Status, Stats {
 
 	@Override
 	public void setCursed(boolean state) {
-		// TODO Auto-generated method stub
-		
+		isCursed = state;
 	}
 
 	@Override
