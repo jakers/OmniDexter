@@ -786,15 +786,7 @@ public enum Move {
 		return pp;
 	}
 	
-	public void decrementPP(Pokemon target) {
-		switch(target.getAbility()) {
-			case PRESSURE:
-				pp -= 2;
-				break;
-			default:
-				pp--;
-		}
-	}
+
 	
 	
 	public int getPriority() {

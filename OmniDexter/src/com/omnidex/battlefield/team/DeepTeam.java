@@ -5,6 +5,8 @@ import java.util.*;
 
 import com.omnidex.damage.EntryHazardDamage;
 import com.omnidex.game.Game;
+import com.omnidex.move.Move;
+import com.omnidex.move.MoveWithPP;
 import com.omnidex.pokemon.DeepPokemon;
 import com.omnidex.pokemon.Pokemon;
 import com.omnidexter.ai.AiWriter;
@@ -13,7 +15,7 @@ public class DeepTeam extends FieldScreen implements Team {
 	private int teamId;
 	private int choice;
 	private Pokemon activePokemon;
-	private Deque<Pokemon> party;
+	private List<Pokemon> party;
 	private boolean hasStealthRocks;
 	private boolean hasSpikes;
 	private boolean hasToxicSpikes;
@@ -40,7 +42,7 @@ public class DeepTeam extends FieldScreen implements Team {
 
 	public DeepTeam() {
 		super();
-		party = new ArrayDeque<Pokemon>();
+		party = new ArrayList<Pokemon>();
 		hasStealthRocks = false;
 		hasSpikes = false;
 		hasToxicSpikes = false;
@@ -60,7 +62,7 @@ public class DeepTeam extends FieldScreen implements Team {
 
 	public DeepTeam(Team team) {
 		super(team);
-		party = new ArrayDeque<Pokemon>();
+		party = new ArrayList<Pokemon>();
 		activePokemon = new DeepPokemon(team.getActivePokemon());
 		List<Pokemon> temp = team.getParty();
 		for (int i = 0; i < temp.size(); i++) {
@@ -101,25 +103,36 @@ public class DeepTeam extends FieldScreen implements Team {
 	}
 
 	@Override
-	public void switchActivePokemon(int position) {
-		if (position < 0) {
-			position = -position;
-			position--;
-		}
+	public void switchActivePokemon(MoveWithPP switchOption) {
 		
-		for (int i = 0; i < position; i++) {
-			party.add(party.pop());
-		}
+		Move switchTo = switchOption.getMove();
 
-		// add poke back only if it still has
-		// HP
-		if (!activePokemon.hasFainted()) {
-			party.add(activePokemon);
-		}
-		activePokemon = party.pop();
-		
 		AiWriter.writeSwitch(activePokemon, teamId);
 		activePokemon.setSleep(activePokemon.getInitialSleepDuration());
+		
+		switch(switchTo) {
+			case SWITCH_1:
+				activePokemon = party.get(0);
+				break;
+			case SWITCH_2:
+				activePokemon = party.get(1);
+				break;
+			case SWITCH_3:
+				activePokemon = party.get(2);
+				break;
+			case SWITCH_4:
+				activePokemon = party.get(3);
+				break;
+			case SWITCH_5:
+				activePokemon = party.get(4);
+				break;
+			case SWITCH_6:
+				activePokemon = party.get(5);
+				break;
+			default:
+				break;
+		}
+		
 		EntryHazardDamage.applyToxicSpikes(this);
 		EntryHazardDamage.applySpikeDamage(this);
 		EntryHazardDamage.applyStealthRocks(this);
@@ -127,12 +140,7 @@ public class DeepTeam extends FieldScreen implements Team {
 
 	@Override
 	public List<Pokemon> getParty() {
-		List<Pokemon> result = new ArrayList<Pokemon>();
-		for (int i = 0; i < party.size(); i++) {
-			result.add(new DeepPokemon(party.peek()));
-			party.add(party.pop());
-		}
-		return result;
+		return party;
 	}
 
 	@Override
@@ -394,6 +402,47 @@ public class DeepTeam extends FieldScreen implements Team {
 	@Override
 	public void setWaterSport(boolean state) {
 		hasWaterSport = state;
+	}
+
+	@Override
+	public boolean canSwitch(MoveWithPP switchOption, Team opponent) {
+		
+		if (opponent.getActivePokemon().getAbility().preventsSwitching(activePokemon)) {
+			return false;
+		}
+		
+		Move switchTo = switchOption.getMove();
+		Pokemon pokeToSwitchIn = null;
+		switch(switchTo) {
+			case SWITCH_1:
+				pokeToSwitchIn = party.get(0);
+				break;
+			case SWITCH_2:
+				pokeToSwitchIn = party.get(1);
+				break;
+			case SWITCH_3:
+				pokeToSwitchIn= party.get(2);
+				break;
+			case SWITCH_4:
+				pokeToSwitchIn = party.get(3);
+				break;
+			case SWITCH_5:
+				pokeToSwitchIn= party.get(4);
+				break;
+			case SWITCH_6:
+				pokeToSwitchIn= party.get(5);
+				break;
+			default:
+				break;
+		}
+		if (!pokeToSwitchIn.hasFainted()) {
+			return true;
+		} else {
+		
+		
+		
+		return false;
+		}
 	}
 
 	

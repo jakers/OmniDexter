@@ -1,6 +1,9 @@
 package com.omnidex.battlefield.team;
 
 import java.util.List;
+
+import com.omnidex.move.Move;
+import com.omnidex.move.MoveWithPP;
 import com.omnidex.pokemon.Pokemon;
 
 /**
@@ -127,7 +130,10 @@ public interface Team extends Screen {
 	 * @param position
 	 *            the position of the Pokemon
 	 */
-	void switchActivePokemon(int position);
+	void switchActivePokemon(MoveWithPP switchOption);
+	
+	boolean canSwitch(MoveWithPP switchOption, Team opponent);
+	
 
 	/**
 	 * @return a list of the Pokemon that are in the party

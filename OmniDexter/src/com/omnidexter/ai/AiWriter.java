@@ -31,7 +31,7 @@ public class AiWriter {
 				statement = String.format(statement, "Opponent");
 			}
 			statement = statement.concat(" %s uses %s.");
-			String moveName = poke.getMove(moveChoice).getName();
+			String moveName = poke.getMove(moveChoice).getMove().getName();
 			statement = String.format(statement, poke, moveName);
 			System.out.println(statement);
 		}
@@ -47,7 +47,7 @@ public class AiWriter {
 				statement = String.format(statement, "Opponent");
 			}
 			statement = statement.concat(" %s uses %s, dealing %d damage!");
-			String moveName = poke.getMove(moveChoice).getName();
+			String moveName = poke.getMove(moveChoice).getMove().getName();
 			statement = String.format(statement, poke, moveName, damage);
 			System.out.println(statement);
 		}

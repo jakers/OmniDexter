@@ -80,7 +80,7 @@ public class Game {
 
 	private void printMoves(Pokemon poke) {
 		for (int i = 0; i < 4; i++) {
-			System.out.println(i + ") " + poke.getMove(i).getName());
+			System.out.println(i + ") " + poke.getMove(i).getMove().getName());
 		}
 	}
 
@@ -153,11 +153,11 @@ public class Game {
 		Team second = speedOrder[1];
 
 		if (first.getChoice() < 0) {
-			first.switchActivePokemon(first.getChoice());
+			first.switchActivePokemon(first.getActivePokemon().getMove(first.getChoice()));
 		}
 
 		if (second.getChoice() < 0) {
-			second.switchActivePokemon(second.getChoice());
+			second.switchActivePokemon(second.getActivePokemon().getMove(second.getChoice()));
 		}
 
 		if (first.getChoice() >= 0) {
@@ -207,15 +207,14 @@ public class Game {
 		omnidexter.decrementWishCount();
 		opponent.decrementWishCount();
 
-		// Check if Damaging/Healing Weather is applied
-		if (!bf.isClear()) {
-			WeatherDamage.applyDamagingWeather(bf, first.getActivePokemon());
-			WeatherDamage.applyDamagingWeather(bf, second.getActivePokemon());
+		// check if Damaging/Healing Weather is applied
+		WeatherDamage.applyDamagingWeather(bf, first.getActivePokemon());
+		WeatherDamage.applyDamagingWeather(bf, second.getActivePokemon());
 
-			// Check if Weather abilities activate
-			WeatherDamage.applyHealingWeather(bf, first.getActivePokemon());
-			WeatherDamage.applyHealingWeather(bf, second.getActivePokemon());
-		}
+		// Check if Weather abilities activate
+		WeatherDamage.applyHealingWeather(bf, first.getActivePokemon());
+		WeatherDamage.applyHealingWeather(bf, second.getActivePokemon());
+		
 
 		// Check if Gravity wears off
 		bf.decrementGravity();
@@ -289,8 +288,6 @@ public class Game {
 
 		// Trick Room
 		bf.decrementTrickRoom();
-		
-		// TODO verify these happen here
 		bf.decrementMagicRoom();
 		bf.decrementWonderRoom();
 
@@ -310,7 +307,7 @@ public class Game {
 				choice = -1;
 			}
 			AiWriter.setSearchMode(true);
-			first.switchActivePokemon(choice);
+			first.switchActivePokemon(first.getActivePokemon().getMove(choice));
 		}
 
 		// handle slower team end turn switch
@@ -329,16 +326,15 @@ public class Game {
 				printSwitchOption(OPPONENT);
 //				Scanner scan = new Scanner(System.in);
 				System.out.println("Please choice a new pokemon");
-//				String string_choice = scan.nextLine();
-//				scan.close();
 				choice = -1;
 			}
-			second.switchActivePokemon(choice);
+			second.switchActivePokemon(second.getActivePokemon().getMove(choice));
 		}
 
 		// TODO Slow Start
 	}
 
+	
 	public void attack(int player, int moveSlot) {
 		int damage[];
 
@@ -354,7 +350,7 @@ public class Game {
 		}
 
 		damage = MainDamageFormula.damage(attack, defend, bf,
-				attack.getActivePokemon().getMove(moveSlot));
+				attack.getActivePokemon().getMove(moveSlot).getMove());
 
 		defend.getActivePokemon().setCurrHp(defend.getActivePokemon().getCurrHp() - damage[1]);
 

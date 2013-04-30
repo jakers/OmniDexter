@@ -3,6 +3,7 @@ package com.omnidex.pokemon;
 import com.omnidex.ability.Ability;
 import com.omnidex.item.Item;
 import com.omnidex.move.Move;
+import com.omnidex.move.MoveWithPP;
 import com.omnidex.type.Type;
 
 /**
@@ -65,7 +66,7 @@ public interface Pokemon extends Status, Stats{
 
     void setItem(Item item);
     Item getItem();
-    Move getMove(int moveSlot);
+    MoveWithPP getMove(int moveSlot);
     void setMove(Move name, int moveSlot);
     boolean isShiny();
     void setShiny(boolean state);
@@ -82,12 +83,14 @@ public interface Pokemon extends Status, Stats{
     boolean hasRoots();
     boolean isCursed();
     boolean isSeeded();
+    boolean hasMagnetRise();
     void setFriendship(int friendship);
     int getFriendship();
     void setRings(boolean state);
     void setRoots(boolean state);
     void setCursed(boolean state);
     void setSeeded(boolean state);
+    void setMagnetRise(int duration);
     void decrementMagnetRise();
     
     void setWeight(double weight);

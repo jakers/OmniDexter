@@ -3,11 +3,10 @@ package com.omnidex.pokemon;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.apache.commons.io.filefilter.MagicNumberFileFilter;
-
 import com.omnidex.ability.Ability;
 import com.omnidex.item.Item;
 import com.omnidex.move.Move;
+import com.omnidex.move.MoveWithPP;
 import com.omnidex.pokemon.Species;
 import com.omnidex.type.Type;
 
@@ -37,28 +36,27 @@ public class DeepPokemon implements Pokemon, Status, Stats {
     private Item item;
     private double weight;
     
-    private Move move1;
-    private Move move2;
-    private Move move3;
-    private Move move4;
-    private Move switch1;
-    private Move switch2;
-    private Move switch3;
-    private Move switch4;
-    private Move switch5;
+    private MoveWithPP move1;
+    private MoveWithPP move2;
+    private MoveWithPP move3;
+    private MoveWithPP move4;
+    private MoveWithPP switch1;
+    private MoveWithPP switch2;
+    private MoveWithPP switch3;
+    private MoveWithPP switch4;
+    private MoveWithPP switch5;
     
     private int friendship;
+    private int magnetRiseCount;
     
     private boolean hasFlashFireBoost;
+    private boolean hasMagnetRise;
     private boolean isCursed;
     private boolean hasDug;
     private boolean hasNightmare;
     private boolean hasDove;
     private boolean isSeeded;
-    private boolean hasRoots;
-    
-    
-    
+    private boolean hasRoots;  
     
     public DeepPokemon() {
         forme = Species.MISSINGNO;
@@ -74,7 +72,7 @@ public class DeepPokemon implements Pokemon, Status, Stats {
         stats = new PokeStats(nature, forme.getAllBases(), iv, ev);
         		
         status = new PokeStatus();
-        Move m = Move.NONE;
+        MoveWithPP m = new MoveWithPP(Move.NONE);
 
         move1 = m;
         move2 = m;
@@ -112,10 +110,10 @@ public class DeepPokemon implements Pokemon, Status, Stats {
 		    stats = new PokeStats(nature, forme.getAllBases(), iv, evs);
     		
 	        status = new PokeStatus();
-		    move1 = Move.findMoveByName(rs.getString("move_1"));
-		    move2 = Move.findMoveByName(rs.getString("move_2"));
-		    move3 = Move.findMoveByName(rs.getString("move_3"));
-		    move4 = Move.findMoveByName(rs.getString("move_4"));
+		    move1 = new MoveWithPP(Move.findMoveByName(rs.getString("move_1")));
+		    move2 = new MoveWithPP(Move.findMoveByName(rs.getString("move_2")));
+		    move3 = new MoveWithPP(Move.findMoveByName(rs.getString("move_3")));
+		    move4 = new MoveWithPP(Move.findMoveByName(rs.getString("move_4")));
 		    
 			
 		} catch (SQLException e) {
@@ -193,7 +191,7 @@ public class DeepPokemon implements Pokemon, Status, Stats {
     }
     
     public DeepPokemon(Species forme, int level, Nature nature, int[] ivs,
-            int[] evs, Move[] moveSet) {
+            int[] evs, MoveWithPP[] moveSet) {
         move1 = moveSet[MOVE_ONE];
         move2 = moveSet[MOVE_TWO];
         move3 = moveSet[MOVE_THREE];
@@ -214,23 +212,23 @@ public class DeepPokemon implements Pokemon, Status, Stats {
     @Override
     public void setMove(Move move, int slot) {
         if (slot == MOVE_ONE) {
-            move1 = move;
+            move1 = new MoveWithPP(move);
         } else if (slot == MOVE_TWO) {
-            move2 = move;
+            move2 = new MoveWithPP(move);
         } else if (slot == MOVE_THREE) {
-            move3 = move;
+            move3 = new MoveWithPP(move);
         } else if (slot == MOVE_FOUR) {
-            move4 = move;
+            move4 = new MoveWithPP(move);
         } else if (slot == SWITCH_ONE) {
-        	switch1 = move;
+        	switch1 = new MoveWithPP(move);
         } else if (slot == SWITCH_TWO) {
-        	switch2 = move;
+        	switch2 = new MoveWithPP(move);
         } else if (slot == SWITCH_THREE) {
-        	switch3 = move;
+        	switch3 = new MoveWithPP(move);
         } else if (slot == SWITCH_FOUR) {
-        	switch4 = move;
+        	switch4 = new MoveWithPP(move);
         } else if (slot == SWITCH_FIVE) {
-        	switch5 = move;
+        	switch5 = new MoveWithPP(move);
         }
     }
 
@@ -292,25 +290,25 @@ public class DeepPokemon implements Pokemon, Status, Stats {
         return gen;
     }
 
-    public Move getMove1() {
+    public MoveWithPP getMove1() {
         return move1;
     }
 
-    public Move getMove2() {
+    public MoveWithPP getMove2() {
         return move2;
     }
 
-    public Move getMove3() {
+    public MoveWithPP getMove3() {
         return move3;
     }
 
-    public Move getMove4() {
+    public MoveWithPP getMove4() {
         return move4;
     }
 
     @Override
-    public Move getMove(int slot) {
-        Move result = null;
+    public MoveWithPP getMove(int slot) {
+        MoveWithPP result = null;
         if (slot == MOVE_ONE) {
             result = move1;
         } else if (slot == MOVE_TWO) {
@@ -1166,8 +1164,7 @@ public class DeepPokemon implements Pokemon, Status, Stats {
 
 	@Override
 	public boolean isCursed() {
-		// TODO Auto-generated method stub
-		return false;
+		return isCursed;
 	}
 
 	@Override
@@ -1198,8 +1195,13 @@ public class DeepPokemon implements Pokemon, Status, Stats {
 
 	@Override
 	public void decrementMagnetRise() {
-		// TODO Auto-generated method stub
-		
+		if(magnetRiseCount > 0) {
+			magnetRiseCount--;
+			if (magnetRiseCount == 0) {
+				magnetRiseCount = 0;
+				hasMagnetRise = false;
+			}
+		}
 	}
 
 	@Override
@@ -1225,5 +1227,16 @@ public class DeepPokemon implements Pokemon, Status, Stats {
 	@Override
 	public int getFriendship() {
 		return friendship;
+	}
+
+	@Override
+	public void setMagnetRise(int duration) {
+		magnetRiseCount = duration;
+		hasMagnetRise = true;
+	}
+
+	@Override
+	public boolean hasMagnetRise() {
+		return hasMagnetRise;
 	}
 }
