@@ -37,5 +37,4 @@ public class AbilityDAO extends DAO {
 				+ ")";
 		insertDB(insert);
 	}
-
 }

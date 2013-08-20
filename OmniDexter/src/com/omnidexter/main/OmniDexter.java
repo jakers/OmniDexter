@@ -2,6 +2,7 @@ package com.omnidexter.main;
 
 import com.omnidex.db.DAO;
 import com.omnidex.move.Move;
+import com.omnidex.move.MoveWithPP;
 import com.omnidex.pokemon.DeepPokemon;
 
 /**
@@ -35,7 +36,7 @@ public class OmniDexter {
 		//
 		// DAO.setValues(i,j,k);
 
-		Move m1 = Move.TRUMP_CARD;
+		MoveWithPP m1 = new MoveWithPP(Move.TRUMP_CARD);
 		Move m2 = Move.TRUMP_CARD;
 
 		System.out.println(m1.getPP());

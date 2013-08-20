@@ -8,8 +8,12 @@ import com.omnidex.pokemon.Pokemon;
 public class BasePower {
 	
 	public static int Facade(Pokemon attacker) {
-		if (attacker.isBurnt() || attacker.isParalyzed() ||
-			attacker.isRegPoison() || attacker.isToxPoison()) {
+		
+		boolean boostsFacade = attacker.isBurnt()
+				|| attacker.isParalyzed() || attacker.isRegPoison()
+				|| attacker.isToxPoison();
+				
+		if (boostsFacade) {
 			return 140;
 		} else {
 			return 70;
@@ -97,31 +101,33 @@ public class BasePower {
 		return (int) result;
 	}
 	
-	
-	
-	
 	public static int Return(Pokemon attacker) {
-		int bp =(int)(attacker.getFriendship()/2.5);
+		int bp = (int) (attacker.getFriendship() / 2.5);
+		
 		if (bp < 1) {
 			bp = 1;
 		}
+		
 		return bp;
 	}
 	
 	public static int Frustration(Pokemon attacker) {
-		int bp =(int)(255-attacker.getFriendship()/2.5);
+		int bp = (int) (255 - attacker.getFriendship() / 2.5);
+		
 		if (bp < 1) {
 			bp = 1;
 		}
+		
 		return bp;
 	}
 	
-	
 	public static int SuperFang(Pokemon target) {
-		int damage = target.getCurrHp()/2;
+		int damage = target.getCurrHp() / 2;
+		
 		if (damage < 1) {
 			damage = 1;
 		} 
+		
 		return damage; 
 	}
 	
@@ -136,8 +142,8 @@ public class BasePower {
 	}
 	
 	public static int Flail(Pokemon attacker) {
-
 		int p = (int) (48.0 * attacker.getCurrHp()) / attacker.getMaxHp();
+		
 		if (p > 32) {
 			return 20;
 		} else if (p <= 32 && p >= 17) {
@@ -154,7 +160,7 @@ public class BasePower {
 	}
 	
 	public static int GyroBall(Pokemon attacker, Pokemon target) {
-		return (int)(25 * (target.getCurrSpe()/(double)attacker.getCurrSpe()));
+		return (int) (25 * (target.getCurrSpe() / (double) attacker.getCurrSpe()));
 	}
 
 	public static int Reversal(Pokemon attacker) {
@@ -176,22 +182,22 @@ public class BasePower {
 	}
 
 	public static int BeatUp(Pokemon attacker) {
-		return attacker.getAtkBase()/10 +5;
+		return attacker.getAtkBase() / 10 + 5;
 	}
 	
 	public static int CrushGripOrWringOut(Pokemon target) {
-		return 120 * (target.getCurrHp()/target.getMaxHp()); 
+		return 120 * (target.getCurrHp() / target.getMaxHp()); 
 	}
 	
 	public static int ElectroBall(Pokemon attacker, Pokemon target) {
 		
-		double n = (int)(target.getCurrSpe()/ attacker.getCurrSpe())*100;
+		double n = (int) (target.getCurrSpe() / attacker.getCurrSpe()) * 100;
 
 		if (n <= 0.25) {
 			return 150;
-		} else if (n > 0.25 && n < 1/(double)3) {
+		} else if (n > 0.25 && n < 1 / (double) 3) {
 			return 120;
-		} else if (n > 1/(double)3 && n < 0.5) {
+		} else if (n > 1 / (double) 3 && n < 0.5) {
 			return 80;
 		} else {
 			return 60;
@@ -527,15 +533,15 @@ public class BasePower {
 	}
 	
 	public static int HeatCrashOrHeavySlam(Pokemon attacker, Pokemon target) {
-		double n = target.getWeight()/attacker.getWeight();
+		double n = target.getWeight() / attacker.getWeight();
 		int bp = 40;
 		if (n < 0.2) {
 			bp = 120;
 		} else if (n >= 0.2 && n < 0.25) {
 			bp = 100;
-		} else if (n >= 0.25 && n < 1/(double)3) {
+		} else if (n >= 0.25 && n < 1 / (double) 3) {
 			bp = 80;
-		} else if (n >= 1/(double)3 && n < 0.5) {
+		} else if (n >= 1 / (double) 3 && n < 0.5) {
 			bp = 60;
 		}
 		return bp;

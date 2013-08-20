@@ -48,15 +48,15 @@ public class DeepPokemon implements Pokemon, Status, Stats {
     
     private int friendship;
     private int magnetRiseCount;
-    
-    private boolean hasFlashFireBoost;
-    private boolean hasMagnetRise;
-    private boolean isCursed;
-    private boolean hasDug;
-    private boolean hasNightmare;
-    private boolean hasDove;
-    private boolean isSeeded;
-    private boolean hasRoots;  
+//    
+//    private boolean hasFlashFireBoost;
+//    private boolean hasMagnetRise;
+//    private boolean isCursed;
+//    private boolean hasDug;
+//    private boolean hasNightmare;
+//    private boolean hasDove;
+//    private boolean isSeeded;
+//    private boolean hasRoots;  
     
     public DeepPokemon() {
         forme = Species.MISSINGNO;
@@ -80,12 +80,12 @@ public class DeepPokemon implements Pokemon, Status, Stats {
         move4 = m;
 
         isShiny = false;
-        hasFlashFireBoost = false;
-        hasDug = false;
-        hasDove = false;
-        isSeeded = false;
-        hasRoots = false;
-        isCursed = false;
+//        hasFlashFireBoost = false;
+//        hasDug = false;
+//        hasDove = false;
+//        isSeeded = false;
+//        hasRoots = false;
+//        isCursed = false;
     }
 
     public DeepPokemon(ResultSet rs) {
@@ -122,12 +122,6 @@ public class DeepPokemon implements Pokemon, Status, Stats {
 		}
     	
     	isShiny = false;
-        hasFlashFireBoost = false;
-        hasDug = false;
-        hasDove = false;
-        isSeeded = false;
-        hasRoots = false;
-        isCursed = false;
     }
     
     @Override
@@ -181,13 +175,6 @@ public class DeepPokemon implements Pokemon, Status, Stats {
         stats = new PokeStats(MAX_LEVEL, nature, forme.getAllBases(), iv, ev);
         status = new PokeStatus();
         isShiny = false;
-        hasFlashFireBoost = false;
-        hasFlashFireBoost = false;
-        hasDug = false;
-        hasDove = false;
-        isSeeded = false;
-        hasRoots = false;
-        isCursed = false;
     }
     
     public DeepPokemon(Species forme, int level, Nature nature, int[] ivs,
@@ -203,10 +190,6 @@ public class DeepPokemon implements Pokemon, Status, Stats {
         this.nature = nature;
         ability = Ability.NO_ABILITY;
         isShiny = false;
-        hasFlashFireBoost = false;
-        hasDug = false;
-        hasDove = false;
-        isSeeded = false;
     }
 
     @Override
@@ -1099,15 +1082,15 @@ public class DeepPokemon implements Pokemon, Status, Stats {
 		return type.equals(getFirstType()) || type.equals(getSecondType());
 	}
 
-	@Override
-	public boolean hasFlashFireBoost() {
-		return hasFlashFireBoost;
-	}
-
-	@Override
-	public void setFlashFireBoost(boolean state) {
-		hasFlashFireBoost = state;
-	}
+//	@Override
+//	public boolean hasFlashFireBoost() {
+//		return hasFlashFireBoost;
+//	}
+//
+//	@Override
+//	public void setFlashFireBoost(boolean state) {
+//		hasFlashFireBoost = state;
+//	}
 
 	@Override
 	public String toString() {
@@ -1121,88 +1104,88 @@ public class DeepPokemon implements Pokemon, Status, Stats {
 		return s;
 	}
 
-	@Override
-	public boolean hasDug() {
-		return hasDug;
-	}
+//	@Override
+//	public boolean hasDug() {
+//		return hasDug;
+//	}
+//
+//	@Override
+//	public boolean hasDove() {
+//		return hasDove;
+//	}
+//
+//	@Override
+//	public void setDove(boolean state) {
+//		hasDove = state;
+//	}
+//
+//	@Override
+//	public void setDug(boolean state) {
+//		hasDug = state;
+//	}
+//
+//	@Override
+//	public boolean hasNightmare() {
+//		return hasNightmare;
+//	}
+//
+//	@Override
+//	public void setNightmare(boolean state) {
+//		hasNightmare = state;
+//	}
+//
+//	@Override
+//	public boolean hasRings() {
+//		// TODO Auto-generated method stub
+//		return false;
+//	}
+//
+//	@Override
+//	public boolean hasRoots() {
+//		return hasRoots;
+//	}
+//
+//	@Override
+//	public boolean isCursed() {
+//		return isCursed;
+//	}
+//
+//	@Override
+//	public boolean isSeeded() {
+//		return isSeeded;
+//	}
 
-	@Override
-	public boolean hasDove() {
-		return hasDove;
-	}
-
-	@Override
-	public void setDove(boolean state) {
-		hasDove = state;
-	}
-
-	@Override
-	public void setDug(boolean state) {
-		hasDug = state;
-	}
-
-	@Override
-	public boolean hasNightmare() {
-		return hasNightmare;
-	}
-
-	@Override
-	public void setNightmare(boolean state) {
-		hasNightmare = state;
-	}
-
-	@Override
-	public boolean hasRings() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean hasRoots() {
-		return hasRoots;
-	}
-
-	@Override
-	public boolean isCursed() {
-		return isCursed;
-	}
-
-	@Override
-	public boolean isSeeded() {
-		return isSeeded;
-	}
-
-	@Override
-	public void setRings(boolean state) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setRoots(boolean state) {
-		hasRoots = state;
-	}
-
-	@Override
-	public void setCursed(boolean state) {
-		isCursed = state;
-	}
-
-	@Override
-	public void setSeeded(boolean state) {
-		isSeeded = state;
-	}
-
-	@Override
-	public void decrementMagnetRise() {
-		if(magnetRiseCount > 0) {
-			magnetRiseCount--;
-			if (magnetRiseCount == 0) {
-				magnetRiseCount = 0;
-				hasMagnetRise = false;
-			}
-		}
-	}
+//	@Override
+//	public void setRings(boolean state) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+//
+//	@Override
+//	public void setRoots(boolean state) {
+//		hasRoots = state;
+//	}
+//
+//	@Override
+//	public void setCursed(boolean state) {
+//		isCursed = state;
+//	}
+//
+//	@Override
+//	public void setSeeded(boolean state) {
+//		isSeeded = state;
+//	}
+//
+//	@Override
+//	public void decrementMagnetRise() {
+//		if(magnetRiseCount > 0) {
+//			magnetRiseCount--;
+//			if (magnetRiseCount == 0) {
+//				magnetRiseCount = 0;
+//				hasMagnetRise = false;
+//			}
+//		}
+//	}
 
 	@Override
 	public String getStatAt(int position) {
@@ -1229,14 +1212,14 @@ public class DeepPokemon implements Pokemon, Status, Stats {
 		return friendship;
 	}
 
-	@Override
-	public void setMagnetRise(int duration) {
-		magnetRiseCount = duration;
-		hasMagnetRise = true;
-	}
+//	@Override
+//	public void setMagnetRise(int duration) {
+//		magnetRiseCount = duration;
+//		hasMagnetRise = true;
+//	}
 
-	@Override
-	public boolean hasMagnetRise() {
-		return hasMagnetRise;
-	}
+//	@Override
+//	public boolean hasMagnetRise() {
+//		return hasMagnetRise;
+//	}
 }

@@ -297,7 +297,7 @@ public enum Ability {
 		return this == LIMBER;
 	}
 
-	public boolean preventsSleep(Pokemon target) {
+	public boolean preventsSleep() {
 		switch(this) {
 			case INSOMNIA:
 			case VITAL_SPIRT:
@@ -307,7 +307,6 @@ public enum Ability {
 		} 
 	}
 	
-	// TODO prevents freeze
 	public boolean preventsFreezing(Pokemon target) {
 		return this == FLAME_BODY;
 	}
@@ -461,6 +460,10 @@ public enum Ability {
 		}
 	}
 
+	public boolean preventsFlinching() {
+		return this == INNER_FOCUS;
+	}
+	
 	public String toString() {
 		return name;
 	}

@@ -13,6 +13,9 @@ public class BattleAI {
 
 	public static int MAX_DEPTH = 1;
 	
+	
+	// TODO Redesign getNextPokemon logic
+	
     public static int getNextPoke(Game game, int player, int depth) {
     	AiWriter.setSearchMode(true);
         double maxFitness = -3.0;
@@ -28,17 +31,17 @@ public class BattleAI {
         	team = game.getOpponent();
         }
         
-        for (int i = 0; i < team.getParty().size(); i++) {
-            Game temp = new Game(game);
-
-            team.switchActivePokemon(i);
-            
-            double tmpFitness = minUtility(temp, depth - 1, alpha, beta);
-            if (tmpFitness > maxFitness) {
-                maxFitness = tmpFitness;
-                maxPoke = i;
-            }
-        }
+//        for (int i = 0; i < team.getParty().size(); i++) {
+//            Game temp = new Game(game);
+//            if (team.canSwitch(switchOption, opponent))
+//            team.switchActivePokemon(i);
+//            
+//            double tmpFitness = minUtility(temp, depth - 1, alpha, beta);
+//            if (tmpFitness > maxFitness) {
+//                maxFitness = tmpFitness;
+//                maxPoke = i;
+//            }
+//        }
         return maxPoke;
     }
 

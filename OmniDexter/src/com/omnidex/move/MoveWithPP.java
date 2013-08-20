@@ -28,7 +28,6 @@ public class MoveWithPP {
 		return currPP > 0 && !isDisabled;
 	}
 	
-	
 	public boolean isDisabled() {
 		return isDisabled;
 	}
@@ -49,5 +48,8 @@ public class MoveWithPP {
 				currPP--;
 		}
 	}
-
+	
+	public void decrementPP() {
+		currPP--;
+	}
 }

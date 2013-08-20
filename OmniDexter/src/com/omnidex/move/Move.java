@@ -2,6 +2,7 @@ package com.omnidex.move;
 
 import com.omnidex.damage.BasePower;
 import com.omnidex.move.Category;
+import com.omnidex.pokemon.DeepPokemon;
 import com.omnidex.pokemon.Pokemon;
 import com.omnidex.type.Type;
 
@@ -935,4 +936,6 @@ public enum Move {
 				return false;
 		}
 	}
+
+	
 }
