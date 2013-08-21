@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import com.omnidex.ability.Ability;
 import com.omnidex.item.Item;
+import com.omnidex.move.Move;
 import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.pokemon.Species;
 
@@ -515,4 +516,213 @@ public class ActivePokemonTest {
 		assertFalse(ap.hasFireSpin());
 		assertFalse(ap.isPartiallyTrapped());
 	}
+	
+	@Test
+	public void TestTelekineticLevitation() {
+		ap.activateTelekineticLevitation();
+		assertTrue(ap.isTelekineticlyLevitated());
+	}
+	
+	@Test
+	public void TestTelekineticLevitationOnIngrained() {
+		ap.activateIngrain();
+		ap.activateTelekineticLevitation();
+		assertFalse(ap.isTelekineticlyLevitated());
+	}
+	
+	@Test
+	public void TestTelekineticLeviationThenIngrain() {
+		ap.activateTelekineticLevitation();
+		ap.activateIngrain();
+		assertFalse(ap.isTelekineticlyLevitated());
+	}
+	
+	@Test
+	public void TestTelekineticLeviationOnIronBall() {
+		ap.setItem(Item.IRON_BALL);
+		ap.activateTelekineticLevitation();
+		assertFalse(ap.isTelekineticlyLevitated());
+	}
+	
+	@Test
+	public void testTelekineticLeviationAfterGivenIronBall() {
+		ap.activateTelekineticLevitation();
+		ap.setItem(Item.IRON_BALL);
+		assertFalse(ap.isTelekineticlyLevitated());
+	}
+	
+	@Test
+	public void TestTelekineticLeviationWithGravity() {
+		ap.activateTelekineticLevitation();
+		ap.activateGravity();
+		assertFalse(ap.isTelekineticlyLevitated());
+	}
+	
+	@Test
+	public void TestTelekineticLeviationAfterGravity() {
+		ap.activateGravity();
+		ap.activateTelekineticLevitation();
+		assertFalse(ap.isTelekineticlyLevitated());
+	}
+	
+	@Test
+	public void TestLastMove() {
+		ap.setLastMove(Move.ABSORB);
+		assertEquals(Move.ABSORB, ap.getLastMove());
+	}
+	
+	@Test
+	public void TestTorment() {
+		ap.activateTorment();
+		assertTrue(ap.isTormented());
+	}
+	
+	@Test
+	public void TestCannotUseLastMoveWhenTormented() {
+		ap.setLastMove(Move.ABSORB);
+		ap.activateTorment();
+		assertFalse(ap.canUseMove(Move.ABSORB));
+	}
+	
+	@Test
+	public void TestUseLastMoveWhenNotTormented() {
+		ap.setLastMove(Move.ABSORB);
+		assertTrue(ap.canUseMove(Move.ABSORB));
+	}
+	
+	@Test
+	public void TestCanSwith() {
+		assertTrue(ap.canSwith());
+	}
+	
+	@Test
+	public void TestCanSwitchWhenTrapped() {
+		ap.activateTrapped();
+		assertFalse(ap.canSwith());
+	}
+	
+	@Test
+	public void TestCanSwitchWhenShedShellEquipped() {
+		ap.setItem(Item.SHED_SHELL);
+		ap.activateTrapped();
+		assertTrue(ap.canSwith());
+	}
+	
+	@Test
+	public void TestCanSwitchWhenTrappedThenGivenShedShell() {
+		ap.activateTrapped();
+		ap.setItem(Item.SHED_SHELL);
+		assertTrue(ap.canSwith());
+	}
+	
+	@Test
+	public void TestBracing() {
+		ap.activateBracing();
+		assertTrue(ap.isBracing());
+	}
+	
+	@Test
+	public void TestBoostingRolloutAndIceBall() {
+		ap.activateBoostRolloutAndIceBall();
+		assertTrue(ap.hasBoostedRolloutAndIceBall());
+	}
+
+	@Test
+	public void TestFocusEnergy() {
+		ap.activateFocusEnergy();
+		assertTrue(ap.hasFocusEnergy());
+		assertEquals(3, ap.getCriticalHitStage());
+	}
+	
+	@Test
+	public void TestElectricMagniticLevitation() {
+		ap.activateElectricMagniticLevitation();
+		assertTrue(ap.hasElectricMagnitcLevitation());
+		assertEquals(5, ap.getElectricMagnitcLevitationCount());
+	}
+
+	@Test
+	public void TestElectricMagniticLevitationWithIronBall() {
+		ap.setItem(Item.IRON_BALL);
+		ap.activateElectricMagniticLevitation();
+		assertFalse(ap.hasElectricMagnitcLevitation());
+		assertEquals(0, ap.getElectricMagnitcLevitationCount());
+	}
+
+	@Test
+	public void TestElectricMagnitcLevitationThenGiveIronBall() {
+		ap.activateElectricMagniticLevitation();
+		ap.setItem(Item.IRON_BALL);
+		assertFalse(ap.hasElectricMagnitcLevitation());
+		assertEquals(0, ap.getElectricMagnitcLevitationCount());
+	}
+	
+	
+	@Test
+	public void TestDecrementElectricMagniticLevitiation() {
+		ap.activateElectricMagniticLevitation();
+		for ( int i = 5; i > 0; i--) {
+			ap.decrementElectricMagniticLeviation();
+			assertEquals(i - 1, ap.getElectricMagnitcLevitationCount());
+		}
+		
+		assertFalse(ap.hasElectricMagnitcLevitation());
+	}
+	
+	@Test
+	public void TestMinimize() {
+		ap.activateMinimize();
+		assertTrue(ap.isMinimized());
+		assertEquals(2, ap.getEvasionStage());
+	}
+	
+	@Test
+	public void TestRecharing() {
+		ap.activateRecharge();
+		assertTrue(ap.hasToRecharge());
+	}
+	
+	@Test
+	public void TestEscapingRecharging() {
+		useRechargeMoveAndWaitATurn();
+		assertFalse(ap.hasToRecharge());
+	}
+
+	private void useRechargeMoveAndWaitATurn() {
+		ap.activateRecharge();
+		ap.endTurnCleanup();
+		ap.endTurnCleanup();
+	}
+	
+	@Test
+	public void TestCharging() {
+		ap.activateChargingMove();
+		assertTrue(ap.hasToChargeMove());
+	}
+	
+	@Test
+	public void TestBeingFreedFromCharging() {
+		ap.activateChargingMove();
+		assertFalse(ap.canUseMove(Move.SOLARBEAM));
+		ap.endTurnCleanup();
+		assertFalse(ap.hasToChargeMove());
+	}
+	
+	@Test
+	public void TestSkullBashCharging() {
+		ap.activateSkullBashBoost();
+	}
+	
+	@Test
+	public void TestTakingAim() {
+		ap.setLastMove(Move.LOCK_ON);
+		ap.activateTakingAim();
+		assertTrue(ap.hasTakenAim());
+		ap.endTurnCleanup();
+		ap.setLastMove(Move.GUILLOTINE);
+		ap.endTurnCleanup();
+		assertFalse(ap.hasTakenAim());
+		
+	}
+	
 }

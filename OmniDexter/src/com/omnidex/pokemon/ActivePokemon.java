@@ -3,6 +3,7 @@ package com.omnidex.pokemon;
 import java.util.Random;
 
 import com.omnidex.item.Item;
+import com.omnidex.move.Move;
 import com.omnidex.type.Type;
 
 public class ActivePokemon extends DeepPokemon {
@@ -12,6 +13,14 @@ public class ActivePokemon extends DeepPokemon {
 	private static final int INITIAL_ENCORE_COUNT = 3;
 	private static final int INITIAL_HEAL_BLOCK_COUNT = 5;
 	private static final int MAX_PARTIAL_TRAPPING_COUNT = 5;
+	private static final int INITIAL_ELECTIC_MAGNETIC_LEVIATION_COUNT = 5;
+	private Stageable criticalHit;
+	private Stageable evasion;
+	private Stageable attackStage;
+	private Stageable defenseStage;
+	private Stageable spAtkStage;
+	private Stageable spDefStage;
+	private Stageable speedStage;
 	private boolean isAttracted;
 	private boolean isProtected;
 	private boolean isIngrained;
@@ -31,7 +40,6 @@ public class ActivePokemon extends DeepPokemon {
 	private int encoreCount;
 	private boolean hasFlinched;
 	private int healBlockCount;
-	private boolean hasBeenIdentified;
 	private boolean isIgnoringFightingAndNormalImmunity;
 	private boolean isIgnoringPsychicImmunity;
 	private boolean hasNightmare;
@@ -42,6 +50,19 @@ public class ActivePokemon extends DeepPokemon {
 	private int bindCount;
 	private int clampCount;
 	private int fireSpinCount;
+	private boolean isTelekineticlyLevitated;
+	private boolean hasGravity;
+	private boolean isTormented;
+	private Move lastMove;
+	private boolean isTrapped;
+	private boolean isBracing;
+	private boolean hasBoostedRolloutAndIceBall;
+	private boolean hasFocusEnergy;
+	private int electricMagniticLeviationCount;
+	private boolean isMinimized;
+	private int rechargeCount;
+	private int chargingMoveCount;
+	private boolean hasTakenAim;
 
 	public ActivePokemon() {
 		isAttracted = false;
@@ -63,6 +84,17 @@ public class ActivePokemon extends DeepPokemon {
 		encoreCount = 0;
 		hasFlinched = false;
 		healBlockCount = 0;
+		lastMove = Move.NONE;
+		criticalHit = new Stage(1, 5, 1);
+		evasion = new Stage(-6, 6, 0);
+		
+		attackStage = new Stage(-6, 6, 0);
+		defenseStage = new Stage(-6, 6, 0);
+		spAtkStage = new Stage(-6, 6, 0);
+		spDefStage = new Stage(-6, 6, 0);
+		speedStage = new Stage(-6, 6, 0);
+		
+
 	}
 
 	public void activateAttract() {
@@ -285,7 +317,7 @@ public class ActivePokemon extends DeepPokemon {
 	public boolean canNotHeal() {
 		return healBlockCount > 0;
 	}
-	
+
 	public int getHealBlockCount() {
 		return healBlockCount;
 	}
@@ -296,9 +328,9 @@ public class ActivePokemon extends DeepPokemon {
 		}
 	}
 
-	public void activateIdentification() {
-		hasBeenIdentified = true;
-	}
+//	public void activateIdentification() {
+//		hasBeenIdentified = true;
+//	}
 
 	public void activateIgnoreNormalAndFightingImmunity() {
 		if (isType(Type.GHOST)) {
@@ -341,7 +373,8 @@ public class ActivePokemon extends DeepPokemon {
 	}
 
 	public boolean isPartiallyTrapped() {
-		return hasMagmaStorm() || hasSandTomb() || hasWhirlpool() || isWrapped() || isBound() || isClamped() || hasFireSpin(); 
+		return hasMagmaStorm() || hasSandTomb() || hasWhirlpool()
+				|| isWrapped() || isBound() || isClamped() || hasFireSpin();
 	}
 
 	public int getMagmaStromCount() {
@@ -425,7 +458,7 @@ public class ActivePokemon extends DeepPokemon {
 	public void activateBind() {
 		bindCount = determinePartialTrapCount();
 	}
-	
+
 	public boolean isBound() {
 		return bindCount > 0;
 	}
@@ -443,7 +476,7 @@ public class ActivePokemon extends DeepPokemon {
 	public void activateClamp() {
 		clampCount = determinePartialTrapCount();
 	}
-	
+
 	public boolean isClamped() {
 		return clampCount > 0;
 	}
@@ -475,6 +508,183 @@ public class ActivePokemon extends DeepPokemon {
 			fireSpinCount--;
 		}
 	}
-	
 
+	public void activateTelekineticLevitation() {
+		if (isIngrained() || getItem().equals(Item.IRON_BALL) || hasGravity) {
+			isTelekineticlyLevitated = false;
+		} else {
+			isTelekineticlyLevitated = true;
+		}
+	}
+
+	public boolean isTelekineticlyLevitated() {
+		return isTelekineticlyLevitated && !hasGravity && !isIngrained()
+				&& !getItem().equals(Item.IRON_BALL);
+	}
+
+	public void activateGravity() {
+		hasGravity = true;
+	}
+
+	public void activateTorment() {
+		isTormented = true;
+	}
+
+	public boolean isTormented() {
+		return isTormented;
+	}
+
+	public void setLastMove(Move move) {
+		lastMove = move;
+	}
+
+	public Move getLastMove() {
+		return lastMove;
+	}
+
+	public boolean canUseMove(Move move) {
+		if (isTormented()) {
+			return !lastMove.equals(move);
+		} else if (chargingMoveCount > 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public boolean canSwith() {
+		return !isTrapped || getItem().equals(Item.SHED_SHELL);
+	}
+
+	public void activateTrapped() {
+		if (getItem().equals(Item.SHED_SHELL)) {
+			isTrapped = false;
+		} else {
+			isTrapped = true;
+		}
+	}
+
+	public void activateBracing() {
+		isBracing = true;
+	}
+
+	public boolean isBracing() {
+		return isBracing;
+	}
+
+	public void activateBoostRolloutAndIceBall() {
+		hasBoostedRolloutAndIceBall = true;
+	}
+
+	public boolean hasBoostedRolloutAndIceBall() {
+		return hasBoostedRolloutAndIceBall;
+	}
+
+	public void activateFocusEnergy() {
+		hasFocusEnergy = true;
+		criticalHit.boostStage(2);
+	}
+
+	public boolean hasFocusEnergy() {
+		return hasFocusEnergy;
+	}
+
+	public int getCriticalHitStage() {
+		return criticalHit.getStage();
+	}
+
+	public void activateElectricMagniticLevitation() {
+		if (getItem().equals(Item.IRON_BALL)) {
+			electricMagniticLeviationCount = 0;
+		} else {
+			electricMagniticLeviationCount = INITIAL_ELECTIC_MAGNETIC_LEVIATION_COUNT;
+		}
+	}
+
+	public boolean hasElectricMagnitcLevitation() {
+		if (getItem().equals(Item.IRON_BALL)) {
+			electricMagniticLeviationCount = 0;
+		}
+		return electricMagniticLeviationCount > 0;
+	}
+
+	public void decrementElectricMagniticLeviation() {
+		if (electricMagniticLeviationCount > 0) {
+			electricMagniticLeviationCount--;
+		}
+	}
+
+	public int getElectricMagnitcLevitationCount() {
+		return electricMagniticLeviationCount;
+	}
+
+	public void activateMinimize() {
+		isMinimized = true;
+		evasion.boostStage(2);
+	}
+
+	public boolean isMinimized() {
+		return isMinimized;
+	}
+
+	public int getEvasionStage() {
+		return evasion.getStage();
+	}
+
+	public void activateRecharge() {
+		rechargeCount = 2;
+	}
+
+	public boolean hasToRecharge() {
+		return rechargeCount > 0;
+	}
+
+	public void decrementRecharge() {
+		if (rechargeCount > 0) {
+			rechargeCount--;
+		}
+	}
+
+	public void endTurnCleanup() {
+		decrementRecharge();
+		decrementCharge();
+		clearTakenAim();
+	}
+
+	private void clearTakenAim() {
+		if (!lastMove.isStatus()) {
+			hasTakenAim = false;
+		}
+	}
+
+	private void decrementCharge() {
+		if (chargingMoveCount > 0) {
+			chargingMoveCount--;
+		}
+	}
+
+	public void activateChargingMove() {
+		chargingMoveCount = 1;
+
+	}
+
+	public boolean hasToChargeMove() {
+		return chargingMoveCount > 0;
+	}
+
+	public void activateSkullBashBoost() {
+		chargingMoveCount = 1;
+		defenseStage.boostStage(1);
+	}
+
+	public void activateTakingAim() {
+		hasTakenAim = true;
+	}
+
+	public boolean hasTakenAim() {
+		return hasTakenAim;
+	}
+
+	
+	
 }
