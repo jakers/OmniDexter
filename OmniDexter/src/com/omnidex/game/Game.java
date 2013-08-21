@@ -275,9 +275,9 @@ public class Game {
 		// TODO Check for Encore ending
 		// TODO Check for Taunt
 
-		// Check for Magnet Rise
-		first.getActivePokemon().decrementMagnetRise();
-		second.getActivePokemon().decrementMagnetRise();
+		// TODO Check for Magnet Rise
+		first.getActivePokemon();
+		second.getActivePokemon();
 
 		// TODO Check Heal Block
 		// TODO Check Embargo

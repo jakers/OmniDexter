@@ -2,11 +2,11 @@ package com.omnidex.battlefield.team;
 
 import java.util.*;
 
-
 import com.omnidex.damage.EntryHazardDamage;
 import com.omnidex.game.Game;
 import com.omnidex.move.Move;
 import com.omnidex.move.MoveWithPP;
+import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.pokemon.DeepPokemon;
 import com.omnidex.pokemon.Pokemon;
 import com.omnidexter.ai.AiWriter;
@@ -14,7 +14,7 @@ import com.omnidexter.ai.AiWriter;
 public class DeepTeam extends FieldScreen implements Team {
 	private int teamId;
 	private int choice;
-	private Pokemon activePokemon;
+	private ActivePokemon activePokemon;
 	private List<Pokemon> party;
 	private boolean hasStealthRocks;
 	private boolean hasSpikes;
@@ -63,7 +63,7 @@ public class DeepTeam extends FieldScreen implements Team {
 	public DeepTeam(Team team) {
 		super(team);
 		party = new ArrayList<Pokemon>();
-		activePokemon = new DeepPokemon(team.getActivePokemon());
+		activePokemon = team.getActivePokemon();
 		List<Pokemon> temp = team.getParty();
 		for (int i = 0; i < temp.size(); i++) {
 			party.add(temp.get(i));
@@ -81,7 +81,7 @@ public class DeepTeam extends FieldScreen implements Team {
 	@Override
 	public void addTeamMate(Pokemon p) {
 		if (activePokemon == null) {
-			activePokemon = new DeepPokemon(p);
+			activePokemon = new ActivePokemon(p);
 		} else {
 			party.add(new DeepPokemon(p));
 		}
@@ -98,7 +98,7 @@ public class DeepTeam extends FieldScreen implements Team {
 	}
 
 	@Override
-	public Pokemon getActivePokemon() {
+	public ActivePokemon getActivePokemon() {
 		return activePokemon;
 	}
 
@@ -112,22 +112,22 @@ public class DeepTeam extends FieldScreen implements Team {
 		
 		switch(switchTo) {
 			case SWITCH_1:
-				activePokemon = party.get(0);
+				activePokemon = new ActivePokemon(party.get(0));
 				break;
 			case SWITCH_2:
-				activePokemon = party.get(1);
+				activePokemon = new ActivePokemon(party.get(1));
 				break;
 			case SWITCH_3:
-				activePokemon = party.get(2);
+				activePokemon = new ActivePokemon(party.get(2));
 				break;
 			case SWITCH_4:
-				activePokemon = party.get(3);
+				activePokemon = new ActivePokemon(party.get(3));
 				break;
 			case SWITCH_5:
-				activePokemon = party.get(4);
+				activePokemon = new ActivePokemon(party.get(4));
 				break;
 			case SWITCH_6:
-				activePokemon = party.get(5);
+				activePokemon = new ActivePokemon(party.get(5));
 				break;
 			default:
 				break;

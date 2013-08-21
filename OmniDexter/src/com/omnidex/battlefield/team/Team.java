@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.omnidex.move.Move;
 import com.omnidex.move.MoveWithPP;
+import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.pokemon.Pokemon;
 
 /**
@@ -122,7 +123,7 @@ public interface Team extends Screen {
 	/**
 	 * @return the pokemon that is currently active
 	 */
-	Pokemon getActivePokemon();
+	ActivePokemon getActivePokemon();
 
 	/**
 	 * Switches the Pokemon at the position with the current active Pokemon

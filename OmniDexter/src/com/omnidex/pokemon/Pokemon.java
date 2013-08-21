@@ -57,8 +57,9 @@ public interface Pokemon extends Status, Stats{
      */
     boolean isType(Type type);
     
-    String getGender();
     Ability getAbility();
+    String getGender();
+    boolean hasAbility(Ability ability);
     void setAbility(Ability abillity);
     void setNickName(String nickname);
     String getNickName();

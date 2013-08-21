@@ -56,7 +56,7 @@ public class WeatherDamageTest {
 	public void testApplyDamagingWeather_Hail_with_ice_immunity() {
 		System.out.println("applyDamagingWeather hail on ice type");
 		weather.setHail(5);
-		DeepTeam team = new DeepTeam();
+		Team team = new DeepTeam();
 		team.addTeamMate(new DeepPokemon(Species.JYNX));
 
 		team.getActivePokemon().setHpEv(252);
@@ -76,7 +76,7 @@ public class WeatherDamageTest {
 	public void testApplyDamagingWeather_Hail_with_MagicGuard() {
 		System.out.println("applyDamagingWeather hail on ice type");
 		weather.setHail(5);
-		DeepTeam team = new DeepTeam();
+		Team team = new DeepTeam();
 		team.addTeamMate(new DeepPokemon(Species.CLEFABLE));
 
 		team.getActivePokemon().setHpEv(252);
@@ -97,7 +97,7 @@ public class WeatherDamageTest {
 	public void testApplyDamagingWeather_Hail_with_Overcoat() {
 		System.out.println("applyDamagingWeather hail on OVERCOAT");
 		weather.setHail(5);
-		DeepTeam team = new DeepTeam();
+		Team team = new DeepTeam();
 		team.addTeamMate(new DeepPokemon(Species.PINECO));
 
 		team.getActivePokemon().setHpEv(252);
@@ -118,7 +118,7 @@ public class WeatherDamageTest {
 	public void testApplyDamagingWeather_Hail_with_Ice_Body() {
 		System.out.println("applyDamagingWeather hail on ICEBODY");
 		weather.setHail(5);
-		DeepTeam team = new DeepTeam();
+		Team team = new DeepTeam();
 		team.addTeamMate(new DeepPokemon(Species.SPHEAL));
 
 		team.getActivePokemon().setHpEv(252);
@@ -139,7 +139,7 @@ public class WeatherDamageTest {
 	public void testApplyDamagingWeather_Hail_with_Snow_Cloak() {
 		System.out.println("applyDamagingWeather hail on Snow Cloak");
 		weather.setHail(5);
-		DeepTeam team = new DeepTeam();
+		Team team = new DeepTeam();
 		team.addTeamMate(new DeepPokemon(Species.FROSLASS));
 
 		team.getActivePokemon().setHpEv(252);
@@ -160,7 +160,7 @@ public class WeatherDamageTest {
 	public void testApplyDamagingWeather_Sand_with_Rock_Typing() {
 		System.out.println("applyDamagingWeather sand w/ rock type");
 		weather.setSand(5);
-		DeepTeam team = new DeepTeam();
+		Team team = new DeepTeam();
 		team.addTeamMate(new DeepPokemon(Species.NOSEPASS));
 
 		team.getActivePokemon().setHpEv(252);
@@ -181,7 +181,7 @@ public class WeatherDamageTest {
 	public void testApplyDamagingWeather_Sand_with_Steel_Typing() {
 		System.out.println("applyDamagingWeather sand w/ steel type");
 		weather.setSand(5);
-		DeepTeam team = new DeepTeam();
+		Team team = new DeepTeam();
 		team.addTeamMate(new DeepPokemon(Species.MAWILE));
 
 		team.getActivePokemon().setHpEv(252);
@@ -202,7 +202,7 @@ public class WeatherDamageTest {
 	public void testApplyDamagingWeather_Sun_SolarPower() {
 		System.out.println("applyDamagingWeather solar power");
 		weather.setSun(5);
-		DeepTeam team = new DeepTeam();
+		Team team = new DeepTeam();
 		team.addTeamMate(new DeepPokemon(Species.CHARIZARD));
 
 		team.getActivePokemon().setHpEv(252);
@@ -223,7 +223,7 @@ public class WeatherDamageTest {
 	public void testApplyDamagingWeather_Sun_DrySkin() {
 		System.out.println("applyDamagingWeather dry Skin");
 		weather.setSun(5);
-		DeepTeam team = new DeepTeam();
+		Team team = new DeepTeam();
 		team.addTeamMate(new DeepPokemon(Species.TOXICROAK));
 
 		team.getActivePokemon().setHpEv(252);
@@ -244,7 +244,7 @@ public class WeatherDamageTest {
 	public void testApplyDamagingWeather_Sand_with_Ground_Typing() {
 		System.out.println("applyDamagingWeather sand w/ ground type");
 		weather.setSand(5);
-		DeepTeam team = new DeepTeam();
+		Team team = new DeepTeam();
 		team.addTeamMate(new DeepPokemon(Species.SANDSHREW));
 
 		team.getActivePokemon().setHpEv(252);
@@ -265,7 +265,7 @@ public class WeatherDamageTest {
 	public void testApplyHealingWeather_Rain_DrySkin() {
 		System.out.println("applyHealingWeather Rain dry skin");
 		weather.setRain(5);
-		DeepTeam team = new DeepTeam();
+		Team team = new DeepTeam();
 		team.addTeamMate(new DeepPokemon(Species.TOXICROAK));
 		team.getActivePokemon().setAbility(Ability.DRY_SKIN);
 		team.getActivePokemon().setHpEv(252);
@@ -278,7 +278,7 @@ public class WeatherDamageTest {
 	public void testApplyHealingWeather_Rain_Hydration_Cure() {
 		System.out.println("applyHealingWeather Rain dry skin");
 		weather.setRain(5);
-		DeepTeam team = new DeepTeam();
+		Team team = new DeepTeam();
 		team.addTeamMate(new DeepPokemon(Species.SEEL));
 		team.getActivePokemon().setAbility(Ability.HYDRATION);
 		team.getActivePokemon().setHpEv(252);
@@ -295,7 +295,7 @@ public class WeatherDamageTest {
 	public void testApplyHealingWeather_Ice_body() {
 		System.out.println("applyHealingWeather ice body");
 		weather.setHail(5);
-		DeepTeam team = new DeepTeam();
+		Team team = new DeepTeam();
 		team.addTeamMate(new DeepPokemon(Species.SPHEAL));
 		team.getActivePokemon().setAbility(Ability.ICE_BODY);
 		team.getActivePokemon().setHpEv(252);

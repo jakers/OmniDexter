@@ -63,7 +63,74 @@ public class ActivePokemon extends DeepPokemon {
 	private int rechargeCount;
 	private int chargingMoveCount;
 	private boolean hasTakenAim;
+	private boolean hasFlashFireBoost;
 
+	public ActivePokemon(Species species) {
+		super(species);
+		isAttracted = false;
+		isProtected = false;
+		isIngrained = false;
+		hasAquaRing = false;
+		isConfused = false;
+		hasBeenHitByYawn = false;
+		isBehindSub = false;
+		isSeeded = false;
+		isCursed = false;
+		isHidden = false;
+		isFlying = false;
+		isDigging = false;
+		isDiving = false;
+		isUsingShadowForce = false;
+		perishCount = 0;
+		embargoCount = 0;
+		encoreCount = 0;
+		hasFlinched = false;
+		healBlockCount = 0;
+		lastMove = Move.NONE;
+		criticalHit = new Stage(1, 5, 1);
+		evasion = new Stage(-6, 6, 0);
+		
+		attackStage = new Stage(-6, 6, 0);
+		defenseStage = new Stage(-6, 6, 0);
+		spAtkStage = new Stage(-6, 6, 0);
+		spDefStage = new Stage(-6, 6, 0);
+		speedStage = new Stage(-6, 6, 0);
+	}
+	
+	public ActivePokemon(Pokemon poke) {
+		super(poke);
+		isAttracted = false;
+		isProtected = false;
+		isIngrained = false;
+		hasAquaRing = false;
+		isConfused = false;
+		hasBeenHitByYawn = false;
+		isBehindSub = false;
+		isSeeded = false;
+		isCursed = false;
+		isHidden = false;
+		isFlying = false;
+		isDigging = false;
+		isDiving = false;
+		isUsingShadowForce = false;
+		perishCount = 0;
+		embargoCount = 0;
+		encoreCount = 0;
+		hasFlinched = false;
+		healBlockCount = 0;
+		lastMove = Move.NONE;
+		criticalHit = new Stage(1, 5, 1);
+		evasion = new Stage(-6, 6, 0);
+		
+		attackStage = new Stage(-6, 6, 0);
+		defenseStage = new Stage(-6, 6, 0);
+		spAtkStage = new Stage(-6, 6, 0);
+		spDefStage = new Stage(-6, 6, 0);
+		speedStage = new Stage(-6, 6, 0);
+	}
+	
+	
+	
 	public ActivePokemon() {
 		isAttracted = false;
 		isProtected = false;
@@ -93,8 +160,6 @@ public class ActivePokemon extends DeepPokemon {
 		spAtkStage = new Stage(-6, 6, 0);
 		spDefStage = new Stage(-6, 6, 0);
 		speedStage = new Stage(-6, 6, 0);
-		
-
 	}
 
 	public void activateAttract() {
@@ -683,6 +748,14 @@ public class ActivePokemon extends DeepPokemon {
 
 	public boolean hasTakenAim() {
 		return hasTakenAim;
+	}
+
+	public void activateFlashFireBoost() {
+		hasFlashFireBoost = true;
+	}
+
+	public boolean hasFlashFireBoost() {
+		return hasFlashFireBoost;
 	}
 
 	

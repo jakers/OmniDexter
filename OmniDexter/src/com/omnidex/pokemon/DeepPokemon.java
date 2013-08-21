@@ -1212,6 +1212,11 @@ public class DeepPokemon implements Pokemon, Status, Stats {
 		return friendship;
 	}
 
+	@Override
+	public boolean hasAbility(Ability ability) {
+		return this.ability.equals(ability);
+	}
+
 //	@Override
 //	public void setMagnetRise(int duration) {
 //		magnetRiseCount = duration;

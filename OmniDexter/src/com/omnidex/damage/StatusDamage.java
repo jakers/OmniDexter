@@ -1,6 +1,7 @@
 package com.omnidex.damage;
 
 import com.omnidex.ability.Ability;
+import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.pokemon.Pokemon;
 
 /**
@@ -14,20 +15,19 @@ public class StatusDamage {
      * poison
      * @param poke a DeepPokemon that is the active DeepPokemon on the battle field.
      */
-	public static void applyStatusDamage(Pokemon poke) {
-		Ability ability = poke.getAbility();
-		if (!ability.equals(Ability.MAGIC_GUARD)) {
+	public static void applyStatusDamage(ActivePokemon poke) {
+		if (!poke.hasAbility(Ability.MAGIC_GUARD)) {
 			if (poke.isBurnt()) {
-				if (ability.equals(Ability.HEATPROOF)) {
+				if (poke.hasAbility(Ability.HEATPROOF)) {
 					PokemonMath.applyFractionalDamage(poke, PokemonMath.ONE_SIXTEENTH);
 				} else {
 					PokemonMath.applyFractionalDamage(poke, PokemonMath.ONE_EIGHTH);
 				}
 			} else if (poke.isRegPoison()
-					&& !ability.healsWhenPoisoned()) {
+					&& !poke.getAbility().healsWhenPoisoned()) {
 				PokemonMath.applyFractionalDamage(poke, PokemonMath.ONE_EIGHTH);
 			} else if (poke.isToxPoison()
-					&& !ability.healsWhenPoisoned()) {
+					&& !poke.getAbility().healsWhenPoisoned()) {
 				PokemonMath.toxicDamage(poke);
 			}
 		} else if (poke.isAsleep() && poke.hasNightmare()) {
@@ -52,7 +52,7 @@ public class StatusDamage {
      * This deals the Ghost version of the Curse secondary affect.
      * @param poke the Pokemon that this curse damage is to be applied to.
      */
-	public static  void applyCurseDamage(Pokemon poke) {
+	public static  void applyCurseDamage(ActivePokemon poke) {
 		if (!poke.hasFainted() && poke.isCursed()) {
 			PokemonMath.applyFractionalDamage(poke, PokemonMath.ONE_QUARTER);
 		}
@@ -64,7 +64,7 @@ public class StatusDamage {
      * @param seeded a Pokemon that has been seeded.
      * @param healer a Pokemon that has seeded the seeded Pokemmon.
      */
-	public static void applyLeechSeed(Pokemon seeded, Pokemon healer) {
+	public static void applyLeechSeed(ActivePokemon seeded, ActivePokemon healer) {
 		if (seeded.isSeeded() && !seeded.hasFainted() && !healer.hasFainted()) {
 			PokemonMath.applyFractionalLeeching(seeded, healer, PokemonMath.ONE_EIGHTH);	
 		}
@@ -78,7 +78,7 @@ public class StatusDamage {
      */
 	public static void applyBadDreams(Pokemon dreamer, Pokemon badDream) {
 		if (!badDream.hasFainted() && dreamer.isAsleep()
-				&& badDream.getAbility().equals(Ability.BAD_DREAMS)) {
+				&& badDream.hasAbility(Ability.BAD_DREAMS)) {
 			PokemonMath.applyFractionalDamage(dreamer, PokemonMath.ONE_EIGHTH);
 		}
 	}
@@ -87,8 +87,8 @@ public class StatusDamage {
      * The Pokemon with Ingrain roots is healed by 1/16th of its max hp.
      * @param poke 
      */
-	public static void applyIngrainHealing(Pokemon poke) {
-		if (!poke.hasFainted() && poke.hasRoots()) {
+	public static void applyIngrainHealing(ActivePokemon poke) {
+		if (!poke.hasFainted() && poke.isIngrained()) {
 			PokemonMath.applyFractionalHealing(poke, PokemonMath.ONE_SIXTEENTH);
 		}
 	}
@@ -97,8 +97,8 @@ public class StatusDamage {
      * The Pokemon with AquaRing is healed by 1/16th of its max hp.
      * @param poke a Pokemon with the Aqua Ring affect.
      */
-	public static void applyAquaRingHealing(Pokemon poke) {
-		if (!poke.hasFainted() && poke.hasRings()) {
+	public static void applyAquaRingHealing(ActivePokemon poke) {
+		if (!poke.hasFainted() && poke.hasAquaRing()) {
 			PokemonMath.applyFractionalHealing(poke, PokemonMath.ONE_SIXTEENTH);
 		}
 	}

@@ -4,6 +4,7 @@ import com.omnidex.ability.Ability;
 import com.omnidex.battlefield.team.Team;
 import com.omnidex.move.Category;
 import com.omnidex.move.Move;
+import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.pokemon.Pokemon;
 import com.omnidex.pokemon.Species;
 import com.omnidex.item.Item;
@@ -33,8 +34,8 @@ public class MainDamageFormula {
         final int A = 5;
         final double B = 50;
 
-        Pokemon attacker = attack.getActivePokemon();
-        Pokemon defender = defend.getActivePokemon();
+        ActivePokemon attacker = attack.getActivePokemon();
+        ActivePokemon defender = defend.getActivePokemon();
         
         
         damage = attacker.getLevel() * 2 / A + 2;
@@ -310,7 +311,6 @@ public class MainDamageFormula {
                         Type.FIGHTING);
             }
         }
-        
         
         double minDamage = 85 * damage;
         minDamage/= 100.0;

@@ -1,7 +1,7 @@
 package com.omnidex.damage;
 
 
-import com.omnidex.pokemon.Pokemon;
+import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.pokemon.Terms;
 import com.omnidex.type.Type;
 import com.omnidex.ability.Ability;
@@ -15,7 +15,7 @@ import com.omnidexter.battlefield.BattleField;
  */
 public class AbilityDamageMod {
 
-    public static double doDefAbilityBasePowerMod(Pokemon defender, Move move,
+    public static double doDefAbilityBasePowerMod(ActivePokemon defender, Move move,
             double damage) {
         if (defender.getAbility().equals(Ability.THICK_FAT)
                 && (move.getType().equals(Type.ICE)
@@ -32,7 +32,7 @@ public class AbilityDamageMod {
         return damage;
     }
 
-    public static double doFlashFireMod(Pokemon attacker, Move move,
+    public static double doFlashFireMod(ActivePokemon attacker, Move move,
                                         double damage) {
         if (attacker.hasFlashFireBoost() && move.getType().equals(Type.FIRE)) {
             damage *= 1.5;
@@ -41,18 +41,18 @@ public class AbilityDamageMod {
         return damage;
     }
 
-    public static double doSolarPowerDamageMod(Pokemon attacker, Move move,
+    public static double doSolarPowerDamageMod(ActivePokemon attacker, Move move,
             BattleField field, double damage) {
-        if (attacker.getAbility().equals(Ability.SOLAR_POWER)
+        if (attacker.hasAbility(Ability.SOLAR_POWER)
                 && field.isSun()) {
             damage *= 1.5;
         }
         return damage;
     }
 
-    public static double doAtkAbilityBasePowerMod(Pokemon attacker,
-            Pokemon defender, Move move, double damage) {
-        if (attacker.getAbility().equals(Ability.RIVALRY)) {
+    public static double doAtkAbilityBasePowerMod(ActivePokemon attacker,
+            ActivePokemon defender, Move move, double damage) {
+        if (attacker.hasAbility(Ability.RIVALRY)) {
             if ((attacker.getGender().equals(Terms.MALE)
                     && defender.getGender().equals(Terms.MALE))
                     || (attacker.getGender().equals(Terms.FEMALE)
@@ -66,29 +66,29 @@ public class AbilityDamageMod {
                 damage *= 0.75;
                 damage = (int) damage;
             }
-        } else if (attacker.getAbility().equals(Ability.RECKLESS) &&
+        } else if (attacker.hasAbility(Ability.RECKLESS) &&
                    move.hasRecoil()) {
             damage *= 1.2;
             damage = (int) damage;
-        } else if (attacker.getAbility().equals(Ability.IRON_FIST) &&
+        } else if (attacker.hasAbility(Ability.IRON_FIST) &&
                    move.isPunch()) {
             damage *= 1.2;
             damage = (int) damage;
-        } else if (attacker.getAbility().equals(Ability.TECHNICIAN)
+        } else if (attacker.hasAbility(Ability.TECHNICIAN)
                 && move.getBasePower(attacker,defender) <= 60) {
             damage *= 1.5;
             damage = (int) damage;
         } else if (attacker.getCurrHp() / (double) attacker.getMaxHp()
                 <= 1 / (double) 3) {
-            if (attacker.getAbility().equals(Ability.BLAZE)
+            if (attacker.hasAbility(Ability.BLAZE)
                     && move.getType().equals(Type.FIRE)) {
                 damage *= 1.5;
                 damage = (int) damage;
-            } else if (attacker.getAbility().equals(Ability.OVERGROW)
+            } else if (attacker.hasAbility(Ability.OVERGROW)
                     && move.getType().equals(Type.GRASS)) {
                 damage *= 1.5;
                 damage = (int) damage;
-            } else if (attacker.getAbility().equals(Ability.TORRENT)
+            } else if (attacker.hasAbility(Ability.TORRENT)
                     && move.getType().equals(Type.WATER)) {
                 damage *= 1.5;
                 damage = (int) damage;

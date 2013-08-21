@@ -1,16 +1,11 @@
 package com.omnidex.damage;
 
 import com.omnidex.ability.Ability;
-//import com.omnidex.battlefield.SingleBattleField;
-import com.omnidex.pokemon.Pokemon;
+import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.type.Type;
 import com.omnidex.weather.Weather;
 
-/**
- * @author 3/10/2012
- */
 public class WeatherDamage {
-
 	
 	/**
      * Applies the damage if any from the Current Weather
@@ -31,16 +26,16 @@ public class WeatherDamage {
      *    1/8 Max Hp for Solar Power and Dry Skin
      *
      */
-	public static void applyDamagingWeather(Weather field, Pokemon poke) {
+	public static void applyDamagingWeather(Weather field, ActivePokemon poke) {
 
 		Ability ability = poke.getAbility();
 
-		if (!ability.equals(Ability.OVERCOAT)
-				&& !ability.equals(Ability.MAGIC_GUARD)) {
+		if (!poke.hasAbility(Ability.OVERCOAT)
+				&& !poke.hasAbility(Ability.MAGIC_GUARD)) {
 			if (field.isSand()) {
 				if (!(poke.isType(Type.GROUND) || poke.isType(Type.STEEL)
-						|| poke.isType(Type.ROCK) || poke.hasDove()
-						|| poke.hasDug() || ability.equals(Ability.SAND_VEIL)
+						|| poke.isType(Type.ROCK) || poke.isDiving()
+						|| poke.isDigging() || ability.equals(Ability.SAND_VEIL)
 						|| poke.getAbility().equals(Ability.SAND_FORCE) || ability
 							.equals(Ability.SAND_RUSH))) {
 					PokemonMath.applyFractionalDamage(poke, PokemonMath.ONE_SIXTEENTH);
@@ -49,13 +44,13 @@ public class WeatherDamage {
 				if (!(poke.isType(Type.ICE)
 						|| ability.equals(Ability.SNOW_CLOAK) || ability
 							.equals(Ability.ICE_BODY))
-						|| poke.hasDove()
-						|| poke.hasDug()) {
+						|| poke.isDigging()
+						|| poke.isDiving()) {
 					PokemonMath.applyFractionalDamage(poke, PokemonMath.ONE_SIXTEENTH);
 				}
 			} else if (field.isSun()) {
-				if (poke.getAbility().equals(Ability.SOLAR_POWER)
-						|| poke.getAbility().equals(Ability.DRY_SKIN)) {
+				if (poke.hasAbility(Ability.SOLAR_POWER)
+						|| poke.hasAbility(Ability.DRY_SKIN)) {
 					PokemonMath.applyFractionalDamage(poke, PokemonMath.ONE_EIGHTH);
 				}
 			}
@@ -73,18 +68,17 @@ public class WeatherDamage {
      * If Hail:
      *    Ice Body 1/16 of Max Hp
      */
-	public static void applyHealingWeather(Weather weather, Pokemon poke) {
-		Ability ability = poke.getAbility();
+	public static void applyHealingWeather(Weather weather, ActivePokemon poke) {
 		if (weather.isRain()) {
-			if (ability.equals(Ability.RAIN_DISH)) {
+			if (poke.hasAbility(Ability.RAIN_DISH)) {
 				PokemonMath.applyFractionalHealing(poke, PokemonMath.ONE_SIXTEENTH);
-			} else if (ability.equals(Ability.DRY_SKIN)) {
+			} else if (poke.hasAbility(Ability.DRY_SKIN)) {
 				PokemonMath.applyFractionalHealing(poke, PokemonMath.ONE_EIGHTH);
-			} else if (ability.equals(Ability.HYDRATION)) {
+			} else if (poke.hasAbility(Ability.HYDRATION)) {
 				poke.cureStatus();
 			}
 		} else if (weather.isHail()) {
-			if (ability.equals(Ability.ICE_BODY)) {
+			if (poke.hasAbility(Ability.ICE_BODY)) {
 				PokemonMath.applyFractionalHealing(poke, PokemonMath.ONE_SIXTEENTH);
 			}
 		}
