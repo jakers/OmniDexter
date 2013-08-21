@@ -6,7 +6,7 @@ import org.junit.Test;
 import com.omnidex.ability.Ability;
 import com.omnidex.item.Item;
 import com.omnidex.item.ItemActivation;
-import com.omnidex.pokemon.DeepPokemon;
+import com.omnidex.pokemon.InactivePokemon;
 import com.omnidex.pokemon.Pokemon;
 import com.omnidex.pokemon.Species;
 import static org.junit.Assert.*;
@@ -15,7 +15,7 @@ public class ItemActivationTest {
 
 	@Test
 	public void applyHealingItems_leftovers() {
-		Pokemon poke = new DeepPokemon(Species.MEW);
+		Pokemon poke = new InactivePokemon(Species.MEW);
 		poke.setHpEv(252);
 		poke.setItem(Item.LEFTOVERS);
 		poke.setCurrHp(200);
@@ -26,7 +26,7 @@ public class ItemActivationTest {
 	
 	@Test
 	public void applyHealingItems_blackSludge_PoisonType() {
-		Pokemon poke = new DeepPokemon(Species.ARBOK);
+		Pokemon poke = new InactivePokemon(Species.ARBOK);
 		poke.setHpEv(252);
 		poke.setItem(Item.BLACK_SLUDGE);
 		poke.setCurrHp(200);
@@ -37,7 +37,7 @@ public class ItemActivationTest {
 	
 	@Test
 	public void applyHealingItems_blackSludge_not_PoisonType() {
-		Pokemon poke = new DeepPokemon(Species.AERODACTYL);
+		Pokemon poke = new InactivePokemon(Species.AERODACTYL);
 		poke.setHpEv(252);
 		poke.setItem(Item.BLACK_SLUDGE);
 		poke.setCurrHp(200);
@@ -48,7 +48,7 @@ public class ItemActivationTest {
 	
 	@Test
 	public void applyHealingItems_No_heal() {
-		Pokemon poke = new DeepPokemon(Species.AERODACTYL);
+		Pokemon poke = new InactivePokemon(Species.AERODACTYL);
 		poke.setHpEv(252);
 		poke.setItem(Item.CHOICE_BAND);
 		poke.setCurrHp(200);
@@ -59,7 +59,7 @@ public class ItemActivationTest {
 	
 	@Test
 	public void burnOrbActivation_normalConditions() {
-		Pokemon poke = new DeepPokemon(Species.ARBOK);
+		Pokemon poke = new InactivePokemon(Species.ARBOK);
 		poke.setHpEv(252);
 		poke.setItem(Item.FLAME_ORB);
 		assertTrue(poke.isOk());
@@ -69,7 +69,7 @@ public class ItemActivationTest {
 	
 	@Test
 	public void burnOrbActivation_on_fireType() {
-		Pokemon poke = new DeepPokemon(Species.ARCANINE);
+		Pokemon poke = new InactivePokemon(Species.ARCANINE);
 		poke.setHpEv(252);
 		poke.setItem(Item.FLAME_ORB);
 		assertTrue(poke.isOk());
@@ -79,7 +79,7 @@ public class ItemActivationTest {
 	
 	@Test
 	public void burnOrbActivation_on_waterviel() {
-		Pokemon poke = new DeepPokemon(Species.BUIZEL);
+		Pokemon poke = new InactivePokemon(Species.BUIZEL);
 		poke.setHpEv(252);
 		poke.setItem(Item.FLAME_ORB);
 		poke.setAbility(Ability.WATER_VEIL);
@@ -90,7 +90,7 @@ public class ItemActivationTest {
 	
 	@Test
 	public void burnOrbActivation_on_klutz() {
-		Pokemon poke = new DeepPokemon(Species.LOPUNNY);
+		Pokemon poke = new InactivePokemon(Species.LOPUNNY);
 		poke.setHpEv(252);
 		poke.setItem(Item.FLAME_ORB);
 		poke.setAbility(Ability.KLUTZ);
@@ -101,7 +101,7 @@ public class ItemActivationTest {
 	
 	@Test
 	public void toxicOrbActivation_normalConditions() {
-		Pokemon poke = new DeepPokemon(Species.AMBIPOM);
+		Pokemon poke = new InactivePokemon(Species.AMBIPOM);
 		poke.setItem(Item.TOXIC_ORB);
 		assertTrue(poke.isOk());
 		ItemActivation.toxicOrbActivation(poke);
@@ -110,7 +110,7 @@ public class ItemActivationTest {
 	
 	@Test
 	public void toxicOrbActivation_on_burntPoke() {
-		Pokemon poke = new DeepPokemon(Species.AMBIPOM);
+		Pokemon poke = new InactivePokemon(Species.AMBIPOM);
 		poke.setItem(Item.TOXIC_ORB);
 		poke.setBurnt();
 		assertTrue(poke.isBurnt());
@@ -120,7 +120,7 @@ public class ItemActivationTest {
 	
 	@Test
 	public void toxicOrbActivation_on_SteelType() {
-		Pokemon poke = new DeepPokemon(Species.STEELIX);
+		Pokemon poke = new InactivePokemon(Species.STEELIX);
 		poke.setItem(Item.TOXIC_ORB);
 		assertTrue(poke.isOk());
 		ItemActivation.toxicOrbActivation(poke);
@@ -129,7 +129,7 @@ public class ItemActivationTest {
 	
 	@Test
 	public void toxicOrbActivation_on_PoisonType() {
-		Pokemon poke = new DeepPokemon(Species.ARBOK);
+		Pokemon poke = new InactivePokemon(Species.ARBOK);
 		poke.setHpEv(252);
 		poke.setItem(Item.TOXIC_ORB);
 		assertTrue(poke.isOk());
@@ -139,7 +139,7 @@ public class ItemActivationTest {
 	
 	@Test
 	public void toxicOrbActivation_on_klutz() {
-		Pokemon poke = new DeepPokemon(Species.LOPUNNY);
+		Pokemon poke = new InactivePokemon(Species.LOPUNNY);
 		poke.setItem(Item.TOXIC_ORB);
 		poke.setAbility(Ability.KLUTZ);
 		assertTrue(poke.isOk());

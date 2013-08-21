@@ -304,33 +304,6 @@ public class PokeStats implements Stats {
     }
 
     @Override
-    public int getCurrAtk() {
-
-        return (int) (atkRatio * atk);
-    }
-
-    @Override
-    public int getCurrDef() {
-        return (int) (defRatio * def);
-    }
-
-    @Override
-    public int getCurrSpAtk() {
-
-        return (int) (spAtkRatio * spAtk);
-    }
-
-    @Override
-    public int getCurrSpDef() {
-        return (int) (spDefRatio * spDef);
-    }
-
-    @Override
-    public int getCurrSpe() {
-        return (int) (speRatio * spe);
-    }
-
-    @Override
     public double getAccuracy() {
         return accuracy;
     }

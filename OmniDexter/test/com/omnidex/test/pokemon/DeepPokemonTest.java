@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.omnidex.pokemon.DeepPokemon;
+import com.omnidex.pokemon.InactivePokemon;
 import com.omnidex.pokemon.Species;
 
 public class DeepPokemonTest {
@@ -12,7 +12,7 @@ public class DeepPokemonTest {
 	
 	@Test
 	public void pokemon_do_faint_at_zero_hp() {
-		DeepPokemon poke = new DeepPokemon(Species.SLOWPOKE);
+		InactivePokemon poke = new InactivePokemon(Species.SLOWPOKE);
 		assertFalse(poke.hasFainted());
 		assertTrue(poke.isOk());
 		poke.setCurrHp(0);
@@ -22,7 +22,7 @@ public class DeepPokemonTest {
 	
 	@Test
 	public void pokemon_do_faint_at_less_than_zero_hp() {
-		DeepPokemon poke = new DeepPokemon(Species.SLOWPOKE);
+		InactivePokemon poke = new InactivePokemon(Species.SLOWPOKE);
 		assertFalse(poke.hasFainted());
 		assertTrue(poke.isOk());
 		poke.setCurrHp(-10);

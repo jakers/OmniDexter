@@ -17,48 +17,38 @@ import com.omnidex.type.Type;
  * OmniDex.mdb file.
  * @author jakers
  */
-public class DeepPokemon implements Pokemon, Status, Stats {
+public class InactivePokemon implements Pokemon, Status, Stats {
 
     private static final int NUM_OF_STATS = 6;
     private static final int HP = 0;
     private static final int SP_ATK = 3;
     private static final int SP_DEF = 4;
 
-    private Stats stats;
-    private Species forme;
-    private String nickName;
-    private int gen;
-    private Nature nature;
-    private String gender;
-    private boolean isShiny;
-    private Status status;
-    private Ability ability;
-    private Item item;
-    private double weight;
+    protected Stats stats;
+    protected Species forme;
+    protected String nickName;
+    protected int gen;
+    protected Nature nature;
+    protected String gender;
+    protected boolean isShiny;
+    protected Status status;
+    protected Ability ability;
+    protected Item item;
+    protected double weight;
     
-    private MoveWithPP move1;
-    private MoveWithPP move2;
-    private MoveWithPP move3;
-    private MoveWithPP move4;
-    private MoveWithPP switch1;
-    private MoveWithPP switch2;
-    private MoveWithPP switch3;
-    private MoveWithPP switch4;
-    private MoveWithPP switch5;
+    protected MoveWithPP move1;
+    protected MoveWithPP move2;
+    protected MoveWithPP move3;
+    protected MoveWithPP move4;
+    protected MoveWithPP switch1;
+    protected MoveWithPP switch2;
+    protected MoveWithPP switch3;
+    protected MoveWithPP switch4;
+    protected MoveWithPP switch5;
     
-    private int friendship;
-    private int magnetRiseCount;
-//    
-//    private boolean hasFlashFireBoost;
-//    private boolean hasMagnetRise;
-//    private boolean isCursed;
-//    private boolean hasDug;
-//    private boolean hasNightmare;
-//    private boolean hasDove;
-//    private boolean isSeeded;
-//    private boolean hasRoots;  
+    protected int friendship;
     
-    public DeepPokemon() {
+    public InactivePokemon() {
         forme = Species.MISSINGNO;
         nickName = forme.toString();
         item = Item.NO_ITEM;
@@ -80,15 +70,10 @@ public class DeepPokemon implements Pokemon, Status, Stats {
         move4 = m;
 
         isShiny = false;
-//        hasFlashFireBoost = false;
-//        hasDug = false;
-//        hasDove = false;
-//        isSeeded = false;
-//        hasRoots = false;
-//        isCursed = false;
+
     }
 
-    public DeepPokemon(ResultSet rs) {
+    public InactivePokemon(ResultSet rs) {
     	try {
     		rs.next();
 			forme = Species.findSpeciesByName(rs.getString("form"));
@@ -159,7 +144,7 @@ public class DeepPokemon implements Pokemon, Status, Stats {
         return this.item;
     }
 
-    public DeepPokemon(Species pokemon) {
+    public InactivePokemon(Species pokemon) {
         
         int[] iv = {31, 31, 31, 31, 31, 31};
         int[] ev = {0, 0, 0, 0, 0, 0};
@@ -177,7 +162,7 @@ public class DeepPokemon implements Pokemon, Status, Stats {
         isShiny = false;
     }
     
-    public DeepPokemon(Species forme, int level, Nature nature, int[] ivs,
+    public InactivePokemon(Species forme, int level, Nature nature, int[] ivs,
             int[] evs, MoveWithPP[] moveSet) {
         move1 = moveSet[MOVE_ONE];
         move2 = moveSet[MOVE_TWO];
@@ -230,7 +215,7 @@ public class DeepPokemon implements Pokemon, Status, Stats {
         return stats.getBaseStats();
     }
 
-    public DeepPokemon(Pokemon p) {
+    public InactivePokemon(Pokemon p) {
         stats = new PokeStats(p.getStats());
         forme = p.getSpecies();
         nickName = p.getNickName();
@@ -396,51 +381,7 @@ public class DeepPokemon implements Pokemon, Status, Stats {
         stats.setBaseStats(baseStats);
     }
 
-    @Override
-    public int getCurrDef() {
-        int result = stats.getCurrDef();
-        if (!status.isOk() && !status.hasFainted()
-                && ability.equals(Ability.MARVEL_SCALE)) {
-            result = (int) (MARVEL_SCALE_DEF_MOD * result);
-        }
-        return result;
-    }
-
-    @Override
-    public int getCurrAtk() {
-        int result = stats.getCurrAtk();
-        if (!status.isOk() && !status.hasFainted()) {
-            if (ability.equals(Ability.GUTS)) {
-                result = (int) (Status.GUTS_ATK_MOD * result);
-            } else {
-                result = (int) (status.getAtkMod() * result);
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public int getCurrSpAtk() {
-        return stats.getCurrSpAtk();
-    }
-
-    @Override
-    public int getCurrSpDef() {
-        return stats.getCurrSpDef();
-    }
-
-    @Override
-    public int getCurrSpe() {
-        int result = 1;
-        if (ability.equals(Ability.QUCIK_FEET)
-                && !status.isOk() && !status.hasFainted()) {
-            result = (int) (QUICK_FEET_SPE_MOD * stats.getCurrSpe());
-        } else {
-            result = (int) (status.getSpeMod() * stats.getCurrSpe());
-        }
-
-        return result;
-    }
+   
 
     @Override
     public boolean hasFainted() {
@@ -567,14 +508,19 @@ public class DeepPokemon implements Pokemon, Status, Stats {
     public int[] getCalcStats() {
         int[] result = new int[NUM_OF_STATS];
         result[HP] = stats.getCurrHp();
-        result[ATK] = stats.getCurrAtk();
-        result[DEF] = stats.getCurrDef();
-        result[SP_ATK] = stats.getCurrSpAtk();
-        result[SP_DEF] = stats.getCurrSpDef();
-        result[SPE] = stats.getCurrSpe();
+        result[ATK] = stats.getAtk();
+        result[DEF] = stats.getDef();
+        result[SP_ATK] = stats.getSpAtk();
+        result[SP_DEF] = stats.getSpDef();
+        result[SPE] = stats.getSpe();
         return result;
     }
 
+    @Override
+    public int getCurrHp() {
+    	return stats.getCurrHp();
+    }
+    
     @Override
     public Stats getStats() {
         return stats;
@@ -831,11 +777,6 @@ public class DeepPokemon implements Pokemon, Status, Stats {
     }
 
     @Override
-    public int getCurrHp() {
-        return stats.getCurrHp();
-    }
-
-    @Override
     public int getHiddenPowerBasePower() {
         return stats.getHiddenPowerBasePower();
     }
@@ -1061,7 +1002,6 @@ public class DeepPokemon implements Pokemon, Status, Stats {
         return forme;
     }
 
-
     @Override
     public Type getFirstType() {
         return forme.getFirstType();
@@ -1082,16 +1022,6 @@ public class DeepPokemon implements Pokemon, Status, Stats {
 		return type.equals(getFirstType()) || type.equals(getSecondType());
 	}
 
-//	@Override
-//	public boolean hasFlashFireBoost() {
-//		return hasFlashFireBoost;
-//	}
-//
-//	@Override
-//	public void setFlashFireBoost(boolean state) {
-//		hasFlashFireBoost = state;
-//	}
-
 	@Override
 	public String toString() {
 		
@@ -1103,89 +1033,6 @@ public class DeepPokemon implements Pokemon, Status, Stats {
 				+ "\n-"+ move3 + "\n-" + move4;
 		return s;
 	}
-
-//	@Override
-//	public boolean hasDug() {
-//		return hasDug;
-//	}
-//
-//	@Override
-//	public boolean hasDove() {
-//		return hasDove;
-//	}
-//
-//	@Override
-//	public void setDove(boolean state) {
-//		hasDove = state;
-//	}
-//
-//	@Override
-//	public void setDug(boolean state) {
-//		hasDug = state;
-//	}
-//
-//	@Override
-//	public boolean hasNightmare() {
-//		return hasNightmare;
-//	}
-//
-//	@Override
-//	public void setNightmare(boolean state) {
-//		hasNightmare = state;
-//	}
-//
-//	@Override
-//	public boolean hasRings() {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
-//
-//	@Override
-//	public boolean hasRoots() {
-//		return hasRoots;
-//	}
-//
-//	@Override
-//	public boolean isCursed() {
-//		return isCursed;
-//	}
-//
-//	@Override
-//	public boolean isSeeded() {
-//		return isSeeded;
-//	}
-
-//	@Override
-//	public void setRings(boolean state) {
-//		// TODO Auto-generated method stub
-//		
-//	}
-//
-//	@Override
-//	public void setRoots(boolean state) {
-//		hasRoots = state;
-//	}
-//
-//	@Override
-//	public void setCursed(boolean state) {
-//		isCursed = state;
-//	}
-//
-//	@Override
-//	public void setSeeded(boolean state) {
-//		isSeeded = state;
-//	}
-//
-//	@Override
-//	public void decrementMagnetRise() {
-//		if(magnetRiseCount > 0) {
-//			magnetRiseCount--;
-//			if (magnetRiseCount == 0) {
-//				magnetRiseCount = 0;
-//				hasMagnetRise = false;
-//			}
-//		}
-//	}
 
 	@Override
 	public String getStatAt(int position) {
@@ -1216,15 +1063,4 @@ public class DeepPokemon implements Pokemon, Status, Stats {
 	public boolean hasAbility(Ability ability) {
 		return this.ability.equals(ability);
 	}
-
-//	@Override
-//	public void setMagnetRise(int duration) {
-//		magnetRiseCount = duration;
-//		hasMagnetRise = true;
-//	}
-
-//	@Override
-//	public boolean hasMagnetRise() {
-//		return hasMagnetRise;
-//	}
 }

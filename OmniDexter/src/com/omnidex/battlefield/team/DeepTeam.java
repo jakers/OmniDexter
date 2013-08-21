@@ -7,7 +7,7 @@ import com.omnidex.game.Game;
 import com.omnidex.move.Move;
 import com.omnidex.move.MoveWithPP;
 import com.omnidex.pokemon.ActivePokemon;
-import com.omnidex.pokemon.DeepPokemon;
+import com.omnidex.pokemon.InactivePokemon;
 import com.omnidex.pokemon.Pokemon;
 import com.omnidexter.ai.AiWriter;
 
@@ -83,7 +83,7 @@ public class DeepTeam extends FieldScreen implements Team {
 		if (activePokemon == null) {
 			activePokemon = new ActivePokemon(p);
 		} else {
-			party.add(new DeepPokemon(p));
+			party.add(new InactivePokemon(p));
 		}
 		teamSize++;
 	}

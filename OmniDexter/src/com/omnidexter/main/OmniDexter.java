@@ -3,7 +3,7 @@ package com.omnidexter.main;
 import com.omnidex.db.DAO;
 import com.omnidex.move.Move;
 import com.omnidex.move.MoveWithPP;
-import com.omnidex.pokemon.DeepPokemon;
+import com.omnidex.pokemon.InactivePokemon;
 
 /**
  * @author jakers
@@ -39,11 +39,11 @@ public class OmniDexter {
 		MoveWithPP m1 = new MoveWithPP(Move.TRUMP_CARD);
 		Move m2 = Move.TRUMP_CARD;
 
-		System.out.println(m1.getPP());
+//		System.out.println(m1.getPP());
 		System.out.println(m2.getPP());
 		System.out.println("=================");
-		m1.decrementPP(new DeepPokemon());
-		System.out.println(m1.getPP());
+		m1.decrementPP(new InactivePokemon());
+//		System.out.println(m1.getPP());
 		System.out.println(m2.getPP());
 		// TODO fix pp alias problem
 

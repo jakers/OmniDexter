@@ -1,6 +1,6 @@
 package com.omnidex.db;
 
-import com.omnidex.pokemon.DeepPokemon;
+import com.omnidex.pokemon.InactivePokemon;
 import com.omnidex.pokemon.Pokemon;
 
 public class MovesetDAO extends DAO {
@@ -9,7 +9,7 @@ public class MovesetDAO extends DAO {
 		String query = "SELECT sm.* from statistical_movesets sm INNER JOIN "
 				+"form f on sm.form=f.form where tier='"+tier+"' and f.form='" 
 				+form+"'";
-		return new DeepPokemon(queryDB(query));
+		return new InactivePokemon(queryDB(query));
 	}
 	
 	

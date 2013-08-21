@@ -301,36 +301,11 @@ public interface Stats
      * speed by.
      */
     void decrementSpe(int decrease);
-    
-   /**
-     * @return an int representing the attack with stage modifier
-     */
-    int getCurrAtk();
-    
-    /**
-     * @return an int representing the defense with stage modifier
-     */
-    int getCurrDef();
-    
+       
     /**
      * @return an int representing the current hit points.
      */
     int getCurrHp();
-
-    /**
-     * @return an int representing the special attack with stage modifier
-     */
-    int getCurrSpAtk();
-
-    /**
-     * @return an int representing the special defense with stage modifier
-     */
-    int getCurrSpDef();
-
-    /**
-     * @return an int representing the speed with stage modifier
-     */
-    int getCurrSpe();
     
     /**
      * @return an int representing the base power of the hidden power. 

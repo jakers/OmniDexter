@@ -9,7 +9,7 @@ import com.omnidex.battlefield.team.Team;
 import com.omnidex.db.MovesetDAO;
 import com.omnidex.game.Game;
 import com.omnidex.move.Move;
-import com.omnidex.pokemon.DeepPokemon;
+import com.omnidex.pokemon.InactivePokemon;
 import com.omnidex.pokemon.Pokemon;
 import com.omnidex.pokemon.Species;
 import com.omnidexter.ai.BattleAI;
@@ -116,7 +116,7 @@ public class BattleRC {
 
 		boolean isActive = true;
 		for (int i = 0; i < teamList.size(); i++) {
-			Pokemon poke = new DeepPokemon(Species.findSpeciesByName(teamList
+			Pokemon poke = new InactivePokemon(Species.findSpeciesByName(teamList
 					.get(i)));
 
 			loadPokemonMoves(poke, isActive, i);

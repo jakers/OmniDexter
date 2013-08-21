@@ -2,11 +2,12 @@ package com.omnidex.pokemon;
 
 import java.util.Random;
 
+import com.omnidex.ability.Ability;
 import com.omnidex.item.Item;
 import com.omnidex.move.Move;
 import com.omnidex.type.Type;
 
-public class ActivePokemon extends DeepPokemon {
+public class ActivePokemon extends InactivePokemon {
 
 	private static final int INITIAL_PERISH_COUNT = 3;
 	private static final int INITIAL_EMBARGO_COUNT = 5;
@@ -757,7 +758,4 @@ public class ActivePokemon extends DeepPokemon {
 	public boolean hasFlashFireBoost() {
 		return hasFlashFireBoost;
 	}
-
-	
-	
 }

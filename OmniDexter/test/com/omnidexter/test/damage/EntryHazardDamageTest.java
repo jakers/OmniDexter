@@ -6,7 +6,7 @@ import com.omnidex.battlefield.team.DeepTeam;
 import com.omnidex.battlefield.team.Team;
 import com.omnidex.damage.EntryHazardDamage;
 import com.omnidex.pokemon.Pokemon;
-import com.omnidex.pokemon.DeepPokemon;
+import com.omnidex.pokemon.InactivePokemon;
 import com.omnidex.pokemon.Species;
 
 import static org.junit.Assert.*;
@@ -14,7 +14,7 @@ public class EntryHazardDamageTest {
 	
 	private Pokemon accelgor;
 	public EntryHazardDamageTest(){
-		accelgor = new DeepPokemon(Species.ACCELGOR);
+		accelgor = new InactivePokemon(Species.ACCELGOR);
 		accelgor.setHpEv(252);
 	}
 	
@@ -71,7 +71,7 @@ public class EntryHazardDamageTest {
 	
 	@Test
 	public void toxic_layers_with_poisonType() {
-		Pokemon arbok = new DeepPokemon(Species.ARBOK);
+		Pokemon arbok = new InactivePokemon(Species.ARBOK);
 		Team team = new DeepTeam();
 		team.addTeamMate(arbok);
 		team.addToxicSpikes();
@@ -84,7 +84,7 @@ public class EntryHazardDamageTest {
 	
 	@Test
 	public void toxic_layers_with_lev_poisonType() {
-		Pokemon gengar = new DeepPokemon(Species.GENGAR);
+		Pokemon gengar = new InactivePokemon(Species.GENGAR);
 		gengar.setAbility(Ability.LEVITATE);
 		Team team = new DeepTeam();
 		team.addTeamMate(gengar);
@@ -98,7 +98,7 @@ public class EntryHazardDamageTest {
 	
 	@Test
 	public void toxic_layers_with_flying_poisonType() {
-		Pokemon crobat = new DeepPokemon(Species.CROBAT);
+		Pokemon crobat = new InactivePokemon(Species.CROBAT);
 		crobat.setAbility(Ability.INNER_FOCUS);
 		Team team = new DeepTeam();
 		team.addTeamMate(crobat);
@@ -112,7 +112,7 @@ public class EntryHazardDamageTest {
 	
 	@Test
 	public void toxic_layers_with_flyingType() {
-		Pokemon pidgeot = new DeepPokemon(Species.PIDGEOT);
+		Pokemon pidgeot = new InactivePokemon(Species.PIDGEOT);
 		pidgeot.setAbility(Ability.KEEN_EYE);
 		Team team = new DeepTeam();
 		team.addTeamMate(pidgeot);
@@ -126,7 +126,7 @@ public class EntryHazardDamageTest {
 	
 	@Test
 	public void four_times_weak_to_stealthRocks() {
-		Pokemon charizard = new DeepPokemon(Species.CHARIZARD);
+		Pokemon charizard = new InactivePokemon(Species.CHARIZARD);
 		charizard.setHpEv(252);
 		Team team = new DeepTeam();
 		team.addTeamMate(charizard);

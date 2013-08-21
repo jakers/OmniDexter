@@ -72,27 +72,8 @@ public interface Pokemon extends Status, Stats{
     boolean isShiny();
     void setShiny(boolean state);
     void setSpecies(Species forme);
-//    boolean hasFlashFireBoost();
-//    void setFlashFireBoost(boolean state);
-//    boolean hasDug();
-//    boolean hasDove();
-//    void setDove(boolean state);
-//    void setDug(boolean state);
-//    boolean hasNightmare();
-//    void setNightmare(boolean state);
-//    boolean hasRings();
-//    boolean hasRoots();
-//    boolean isCursed();
-//    boolean isSeeded();
-//    boolean hasMagnetRise();
     void setFriendship(int friendship);
     int getFriendship();
-//    void setRings(boolean state);
-//    void setRoots(boolean state);
-//    void setCursed(boolean state);
-//    void setSeeded(boolean state);
-//    void setMagnetRise(int duration);
-//    void decrementMagnetRise();
     
     void setWeight(double weight);
     double getWeight();
