@@ -3,6 +3,7 @@ package com.omnidex.damage;
 import java.util.Random;
 
 import com.omnidex.move.Move;
+import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.pokemon.Pokemon;
 
 public class BasePower {
@@ -159,11 +160,11 @@ public class BasePower {
 		}
 	}
 	
-	public static int GyroBall(Pokemon attacker, Pokemon target) {
+	public static int GyroBall(ActivePokemon attacker, ActivePokemon target) {
 		return (int) (25 * (target.getCurrSpe() / (double) attacker.getCurrSpe()));
 	}
 
-	public static int Reversal(Pokemon attacker) {
+	public static int Reversal(ActivePokemon attacker) {
 		double percentage = attacker.getCurrAtk()
 				/ (double) attacker.getMaxHp();
 		if (percentage <= 0.04) {
@@ -185,11 +186,11 @@ public class BasePower {
 		return attacker.getAtkBase() / 10 + 5;
 	}
 	
-	public static int CrushGripOrWringOut(Pokemon target) {
+	public static int CrushGripOrWringOut(ActivePokemon target) {
 		return 120 * (target.getCurrHp() / target.getMaxHp()); 
 	}
 	
-	public static int ElectroBall(Pokemon attacker, Pokemon target) {
+	public static int ElectroBall(ActivePokemon attacker, ActivePokemon target) {
 		
 		double n = (int) (target.getCurrSpe() / attacker.getCurrSpe()) * 100;
 
@@ -221,7 +222,7 @@ public class BasePower {
 		return bp;
 	}
 	
-	public static int Fling(Pokemon attacker,Pokemon target) {
+	public static int Fling(ActivePokemon attacker,ActivePokemon target) {
 		switch(attacker.getItem()) {
 			case IRON_BALL:
 				return 130;
@@ -507,7 +508,7 @@ public class BasePower {
 		}
 	}
 
-	public static int Punishment(Pokemon target) {
+	public static int Punishment(ActivePokemon target) {
 		int positiveStatBoosts = 0;
 		if (target.getAtkStage() > 0) {
 			positiveStatBoosts++;
@@ -532,7 +533,7 @@ public class BasePower {
 		return bp;
 	}
 	
-	public static int HeatCrashOrHeavySlam(Pokemon attacker, Pokemon target) {
+	public static int HeatCrashOrHeavySlam(ActivePokemon attacker, ActivePokemon target) {
 		double n = target.getWeight() / attacker.getWeight();
 		int bp = 40;
 		if (n < 0.2) {
@@ -547,7 +548,7 @@ public class BasePower {
 		return bp;
 	}
 	
-	public static int NaturalGift(Pokemon attacker) {
+	public static int NaturalGift(ActivePokemon attacker) {
 		switch(attacker.getItem()) {
 			case CHERI_BERRY:
 			case CHESTO_BERRY:

@@ -5,16 +5,12 @@ import com.omnidex.battlefield.team.Team;
 import com.omnidex.move.Category;
 import com.omnidex.move.Move;
 import com.omnidex.pokemon.ActivePokemon;
-import com.omnidex.pokemon.Pokemon;
 import com.omnidex.pokemon.Species;
 import com.omnidex.item.Item;
 import com.omnidex.type.Type;
 import com.omnidex.type.TypeChart;
 import com.omnidexter.battlefield.BattleField;
 
-/**
- * @author jakers
- */
 public class MainDamageFormula {
 
     /*

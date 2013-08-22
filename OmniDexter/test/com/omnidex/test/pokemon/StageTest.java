@@ -62,4 +62,11 @@ public class StageTest {
 		assertEquals(1, ch.getStage());
 	}
 	
+	@Test
+	public void TestResetToInitialStage() {
+		ch.boostToMaxStage();
+		ch.resetToInitialStage();
+		assertEquals(1, ch.getStage());
+	}
+	
 }

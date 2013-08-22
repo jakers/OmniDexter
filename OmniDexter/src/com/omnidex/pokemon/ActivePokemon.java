@@ -2,7 +2,6 @@ package com.omnidex.pokemon;
 
 import java.util.Random;
 
-import com.omnidex.ability.Ability;
 import com.omnidex.item.Item;
 import com.omnidex.move.Move;
 import com.omnidex.type.Type;
@@ -17,6 +16,7 @@ public class ActivePokemon extends InactivePokemon {
 	private static final int INITIAL_ELECTIC_MAGNETIC_LEVIATION_COUNT = 5;
 	private Stageable criticalHit;
 	private Stageable evasion;
+	private Stageable accuracy;
 	private Stageable attackStage;
 	private Stageable defenseStage;
 	private Stageable spAtkStage;
@@ -88,14 +88,14 @@ public class ActivePokemon extends InactivePokemon {
 		hasFlinched = false;
 		healBlockCount = 0;
 		lastMove = Move.NONE;
-		criticalHit = new Stage(1, 5, 1);
-		evasion = new Stage(-6, 6, 0);
-		
-		attackStage = new Stage(-6, 6, 0);
-		defenseStage = new Stage(-6, 6, 0);
-		spAtkStage = new Stage(-6, 6, 0);
-		spDefStage = new Stage(-6, 6, 0);
-		speedStage = new Stage(-6, 6, 0);
+		criticalHit = new CriticalHitStages();
+		evasion = new HitStages();
+		accuracy = new HitStages();
+		attackStage = new StatStages();
+		defenseStage = new StatStages();
+		spAtkStage = new StatStages();
+		spDefStage = new StatStages();
+		speedStage = new StatStages();
 	}
 	
 	public ActivePokemon(Pokemon poke) {
@@ -120,17 +120,15 @@ public class ActivePokemon extends InactivePokemon {
 		hasFlinched = false;
 		healBlockCount = 0;
 		lastMove = Move.NONE;
-		criticalHit = new Stage(1, 5, 1);
-		evasion = new Stage(-6, 6, 0);
-		
-		attackStage = new Stage(-6, 6, 0);
-		defenseStage = new Stage(-6, 6, 0);
-		spAtkStage = new Stage(-6, 6, 0);
-		spDefStage = new Stage(-6, 6, 0);
-		speedStage = new Stage(-6, 6, 0);
+		criticalHit = new CriticalHitStages();
+		evasion = new HitStages();
+		accuracy = new HitStages();
+		attackStage = new StatStages();
+		defenseStage = new StatStages();
+		spAtkStage = new StatStages();
+		spDefStage = new StatStages();
+		speedStage = new StatStages();
 	}
-	
-	
 	
 	public ActivePokemon() {
 		isAttracted = false;
@@ -153,10 +151,10 @@ public class ActivePokemon extends InactivePokemon {
 		hasFlinched = false;
 		healBlockCount = 0;
 		lastMove = Move.NONE;
-		criticalHit = new Stage(1, 5, 1);
+		criticalHit = new CriticalHitStages();
 		evasion = new Stage(-6, 6, 0);
 		
-		attackStage = new Stage(-6, 6, 0);
+		attackStage = new StatStages();
 		defenseStage = new Stage(-6, 6, 0);
 		spAtkStage = new Stage(-6, 6, 0);
 		spDefStage = new Stage(-6, 6, 0);
@@ -659,6 +657,10 @@ public class ActivePokemon extends InactivePokemon {
 		return criticalHit.getStage();
 	}
 
+	public double getCriticalHitModifier() {
+		return criticalHit.getStageModifier();
+	}
+	
 	public void activateElectricMagniticLevitation() {
 		if (getItem().equals(Item.IRON_BALL)) {
 			electricMagniticLeviationCount = 0;
@@ -696,6 +698,29 @@ public class ActivePokemon extends InactivePokemon {
 	public int getEvasionStage() {
 		return evasion.getStage();
 	}
+	
+	public void boostEvasionStage(int boost) {
+		evasion.boostStage(boost);
+	}
+	
+	public void decreaseEvasionStage(int decrease) {
+		evasion.decreaseStage(decrease);
+	}
+	
+	
+	public int getAccuracyStage() {
+		return accuracy.getStage();
+	}
+	
+	public void boostAccuracyStage(int boost) {
+		accuracy.boostStage(boost);
+	}
+	
+	public void decreaseAccuracyStage(int decrease) {
+		accuracy.decreaseStage(decrease);
+	}
+	
+	
 
 	public void activateRecharge() {
 		rechargeCount = 2;
@@ -758,4 +783,85 @@ public class ActivePokemon extends InactivePokemon {
 	public boolean hasFlashFireBoost() {
 		return hasFlashFireBoost;
 	}
+
+	public void boostAttackStage(int boost) {
+		attackStage.boostStage(boost);
+	}
+	
+	public void decreaseAttackStage(int decrease) {
+		attackStage.decreaseStage(decrease);
+	}
+	
+	public void boostDefenseStage(int boost) {
+		defenseStage.boostStage(boost);
+	}
+	
+	public void decreaseDefenseStage(int decrease) {
+		defenseStage.decreaseStage(decrease);
+	}
+	
+	public void boostSpAtkStage(int boost) {
+		spAtkStage.boostStage(boost);
+	}
+	
+	public void decreaseSpAtkStage(int decrease) {
+		spAtkStage.decreaseStage(decrease);
+	}
+	
+	public void boostSpDefStage(int boost) {
+		spDefStage.boostStage(boost);
+	}
+	
+	public void decreaseSpDefStage(int decrease) {
+		spDefStage.decreaseStage(decrease);
+	}
+	
+	public void boostSpeStage(int boost) {
+		speedStage.boostStage(boost);
+	}
+	
+	public void decreaseSpeStage(int decrease) {
+		speedStage.decreaseStage(decrease);
+	}
+	
+	public int getCurrAtk() {
+		return (int) (attackStage.getStageModifier() * stats.getAtk());
+	}
+	
+	public int getCurrDef() {
+		return (int) (defenseStage.getStageModifier() * stats.getDef());
+	}
+	
+	public int getCurrSpAtk() {
+		return (int) (spAtkStage.getStageModifier() * stats.getSpAtk());
+	}
+	
+	public int getCurrSpDef() {
+		return (int) (spDefStage.getStageModifier() * stats.getSpDef());
+	}
+	
+	public int getCurrSpe() {
+		return (int) (speedStage.getStageModifier() * stats.getSpe());
+	}
+	
+	public int getAtkStage() {
+		return attackStage.getStage();
+	}
+	
+	public int getDefStage() {
+		return defenseStage.getStage();
+	}
+	
+	public int getSpAtkStage() {
+		return spAtkStage.getStage();
+	}
+	
+	public int getSpDefStage() {
+		return spDefStage.getStage();
+	}
+	
+	public int getSpeStage() {
+		return speedStage.getStage();
+	}
+	
 }

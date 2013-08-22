@@ -64,7 +64,7 @@ public interface Pokemon extends Status, Stats{
     void setNickName(String nickname);
     String getNickName();
     Species getSpecies();
-
+    boolean isGender(Gender gender);
     void setItem(Item item);
     Item getItem();
     MoveWithPP getMove(int moveSlot);

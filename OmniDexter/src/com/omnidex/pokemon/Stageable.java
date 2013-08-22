@@ -6,4 +6,6 @@ public interface Stageable {
 	void decreaseStage(int decrease);
 	void boostToMaxStage();
 	void decreaseToMinStage();
+	void resetToInitialStage();
+	double getStageModifier();
 }

@@ -2,8 +2,7 @@ package com.omnidex.move;
 
 import com.omnidex.damage.BasePower;
 import com.omnidex.move.Category;
-import com.omnidex.pokemon.InactivePokemon;
-import com.omnidex.pokemon.Pokemon;
+import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.type.Type;
 
 public enum Move {
@@ -687,7 +686,7 @@ public enum Move {
 		}
 	}
 	
-	public int getBasePower(Pokemon attacker, Pokemon target) {
+	public int getBasePower(ActivePokemon attacker, ActivePokemon target) {
 		switch(this) {
 			case HIDDEN_POWER_BUG:
 			case HIDDEN_POWER_DARK:
@@ -757,7 +756,7 @@ public enum Move {
 		}
 	}
 	
-	public int getSetDamage(Pokemon attacker,Pokemon target) {
+	public int getSetDamage(ActivePokemon attacker, ActivePokemon target) {
 		switch(this) {
 			case SONICBOOM:
 				return 20;
@@ -786,9 +785,6 @@ public enum Move {
 	public int getPP() {
 		return pp;
 	}
-	
-
-	
 	
 	public int getPriority() {
 		return priority;
@@ -936,6 +932,4 @@ public enum Move {
 				return false;
 		}
 	}
-
-	
 }

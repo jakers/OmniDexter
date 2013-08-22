@@ -2,14 +2,16 @@ package com.omnidex.pokemon;
 
 public class Stage implements Stageable {
 
-	private int stage;
-	private int max;
-	private int min;
+	protected int stage;
+	private int maxStage;
+	private int minStage;
+	private int initialStage;
 
-	public Stage(int minStage, int maxStage, int startingStage) {
-		stage = startingStage;
-		max = maxStage;
-		min = minStage;
+	public Stage(int minStage, int maxStage, int initialStage) {
+		stage = initialStage;
+		this.initialStage = initialStage;
+		this.maxStage = maxStage;
+		this.minStage = minStage;
 	}
 
 	@Override
@@ -21,7 +23,7 @@ public class Stage implements Stageable {
 	public void boostStage(int boost) {
 		stage += boost;
 
-		if (stage > max) {
+		if (stage > maxStage) {
 			boostToMaxStage();
 		}
 	}
@@ -30,19 +32,29 @@ public class Stage implements Stageable {
 	public void decreaseStage(int decrease) {
 		stage -= decrease;
 
-		if (stage < min) {
+		if (stage < minStage) {
 			decreaseToMinStage();
 		}
 	}
 
 	@Override
 	public void boostToMaxStage() {
-		stage = max;
+		stage = maxStage;
 	}
 
 	@Override
 	public void decreaseToMinStage() {
-		stage = min;
+		stage = minStage;
+	}
+
+	@Override
+	public void resetToInitialStage() {
+		stage = initialStage;
+	}
+	
+	@Override
+	public double getStageModifier() {
+		return 1.0;
 	}
 
 }

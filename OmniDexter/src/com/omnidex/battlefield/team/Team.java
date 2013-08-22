@@ -2,7 +2,6 @@ package com.omnidex.battlefield.team;
 
 import java.util.List;
 
-import com.omnidex.move.Move;
 import com.omnidex.move.MoveWithPP;
 import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.pokemon.Pokemon;

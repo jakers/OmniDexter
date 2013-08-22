@@ -11,6 +11,7 @@ import com.omnidex.ability.Ability;
 import com.omnidex.item.Item;
 import com.omnidex.move.Move;
 import com.omnidex.pokemon.ActivePokemon;
+import com.omnidex.pokemon.Nature;
 import com.omnidex.pokemon.Species;
 
 public class ActivePokemonTest {
@@ -727,6 +728,18 @@ public class ActivePokemonTest {
 	public void TestActivateFlashFire() {
 		ap.activateFlashFireBoost();
 		assertTrue(ap.hasFlashFireBoost());
+	}
+	
+	@Test
+	public void TestBoostAttackStats() {
+		ap.setSpecies(Species.AGGRON);
+		ap.setLevel(100);
+		ap.setNature(Nature.ADAMANT);
+		ap.setAtkEv(252);
+		ap.setAtkIv(31);
+		
+		ap.boostAttackStage(2);
+		assertEquals(700, ap.getCurrAtk());
 	}
 
 }
