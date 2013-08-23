@@ -1,6 +1,7 @@
 package com.omnidex.battlefield.team;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.omnidex.damage.EntryHazardDamage;
 import com.omnidex.game.Game;
@@ -17,12 +18,7 @@ public class DeepTeam extends FieldScreen implements Team {
 	private ActivePokemon activePokemon;
 	private List<Pokemon> party;
 	private boolean hasStealthRocks;
-	private boolean hasSpikes;
-	private boolean hasToxicSpikes;
-	private boolean hasMist;
-	private boolean hasLuckyChant;
-	private boolean hasSafeguard;
-	private boolean hasWish;
+
 	private int wishCount;
 	private int wishHealAmount;
 	private int mistCount;
@@ -31,7 +27,6 @@ public class DeepTeam extends FieldScreen implements Team {
 	private int spikesCount;
 	private int toxicSpikesCount;
 	private int tailwindCount;
-	private boolean hasTailwind;
 	private boolean hasWaterSport;
 	private boolean hasMudSport;
 
@@ -44,12 +39,6 @@ public class DeepTeam extends FieldScreen implements Team {
 		super();
 		party = new ArrayList<Pokemon>();
 		hasStealthRocks = false;
-		hasSpikes = false;
-		hasToxicSpikes = false;
-		hasLuckyChant = false;
-		hasSafeguard = false;
-		hasMist = false;
-		hasTailwind = false;
 		tailwindCount = 0;
 		luckyChantCount = 0;
 		safeguardCount = 0;
@@ -69,8 +58,6 @@ public class DeepTeam extends FieldScreen implements Team {
 			party.add(temp.get(i));
 		}
 		hasStealthRocks = team.hasStealthRocks();
-		hasSpikes = team.hasSpikes();
-		hasToxicSpikes = team.hasToxicSpikes();
 		spikesCount = team.getSpikesCount();
 		toxicSpikesCount = team.getToxicSpikesCount();
 		teamSize = team.teamSize();
@@ -104,35 +91,35 @@ public class DeepTeam extends FieldScreen implements Team {
 
 	@Override
 	public void switchActivePokemon(MoveWithPP switchOption) {
-		
+
 		Move switchTo = switchOption.getMove();
 
 		AiWriter.writeSwitch(activePokemon, teamId);
 		activePokemon.setSleep(activePokemon.getInitialSleepDuration());
-		
-		switch(switchTo) {
-			case SWITCH_1:
-				activePokemon = new ActivePokemon(party.get(0));
-				break;
-			case SWITCH_2:
-				activePokemon = new ActivePokemon(party.get(1));
-				break;
-			case SWITCH_3:
-				activePokemon = new ActivePokemon(party.get(2));
-				break;
-			case SWITCH_4:
-				activePokemon = new ActivePokemon(party.get(3));
-				break;
-			case SWITCH_5:
-				activePokemon = new ActivePokemon(party.get(4));
-				break;
-			case SWITCH_6:
-				activePokemon = new ActivePokemon(party.get(5));
-				break;
-			default:
-				break;
+
+		switch (switchTo) {
+		case SWITCH_1:
+			activePokemon = new ActivePokemon(party.get(0));
+			break;
+		case SWITCH_2:
+			activePokemon = new ActivePokemon(party.get(1));
+			break;
+		case SWITCH_3:
+			activePokemon = new ActivePokemon(party.get(2));
+			break;
+		case SWITCH_4:
+			activePokemon = new ActivePokemon(party.get(3));
+			break;
+		case SWITCH_5:
+			activePokemon = new ActivePokemon(party.get(4));
+			break;
+		case SWITCH_6:
+			activePokemon = new ActivePokemon(party.get(5));
+			break;
+		default:
+			break;
 		}
-		
+
 		EntryHazardDamage.applyToxicSpikes(this);
 		EntryHazardDamage.applySpikeDamage(this);
 		EntryHazardDamage.applyStealthRocks(this);
@@ -150,18 +137,17 @@ public class DeepTeam extends FieldScreen implements Team {
 
 	@Override
 	public boolean hasSpikes() {
-		return hasSpikes;
+		return spikesCount > 0;
 	}
 
 	@Override
 	public boolean hasToxicSpikes() {
-		return hasToxicSpikes;
+		return toxicSpikesCount > 0;
 	}
 
 	@Override
 	public void addSpikes() {
 		if (spikesCount < MAX_NUM_SPIKE_LAYERS) {
-			hasSpikes = true;
 			spikesCount++;
 		}
 	}
@@ -169,7 +155,6 @@ public class DeepTeam extends FieldScreen implements Team {
 	@Override
 	public void addToxicSpikes() {
 		if (toxicSpikesCount < MAX_NUM_T_SPIKE_LAYERS) {
-			hasToxicSpikes = true;
 			toxicSpikesCount++;
 		}
 	}
@@ -191,13 +176,11 @@ public class DeepTeam extends FieldScreen implements Team {
 
 	@Override
 	public void removeSpikes() {
-		hasSpikes = false;
 		spikesCount = 0;
 	}
 
 	@Override
 	public void removeToxicSpikes() {
-		hasToxicSpikes = false;
 		toxicSpikesCount = 0;
 	}
 
@@ -208,7 +191,7 @@ public class DeepTeam extends FieldScreen implements Team {
 
 	@Override
 	public boolean hasMist() {
-		return hasMist;
+		return mistCount > 0;
 	}
 
 	@Override
@@ -218,7 +201,7 @@ public class DeepTeam extends FieldScreen implements Team {
 
 	@Override
 	public boolean hasSafeguard() {
-		return hasSafeguard;
+		return safeguardCount > 0;
 	}
 
 	@Override
@@ -228,7 +211,7 @@ public class DeepTeam extends FieldScreen implements Team {
 
 	@Override
 	public boolean hasLuckyChant() {
-		return hasLuckyChant;
+		return luckyChantCount > 0;
 	}
 
 	@Override
@@ -237,16 +220,7 @@ public class DeepTeam extends FieldScreen implements Team {
 	}
 
 	@Override
-	public void setMist(boolean state) {
-		hasMist = state;
-		if (!hasMist) {
-			mistCount = 0;
-		}
-	}
-
-	@Override
 	public void addMist(int duration) {
-		hasMist = true;
 		mistCount = duration;
 	}
 
@@ -254,23 +228,11 @@ public class DeepTeam extends FieldScreen implements Team {
 	public void decrementMist() {
 		if (mistCount > 0) {
 			mistCount--;
-			if (mistCount == 0) {
-				hasMist = false;
-			}
-		}
-	}
-
-	@Override
-	public void setLuckyChant(boolean state) {
-		hasLuckyChant = state;
-		if (!hasLuckyChant) {
-			luckyChantCount = 0;
 		}
 	}
 
 	@Override
 	public void addLuckyChant(int duration) {
-		hasLuckyChant = true;
 		luckyChantCount = duration;
 	}
 
@@ -278,23 +240,11 @@ public class DeepTeam extends FieldScreen implements Team {
 	public void decrementLuckyChant() {
 		if (luckyChantCount > 0) {
 			luckyChantCount--;
-			if (luckyChantCount == 0) {
-				hasLuckyChant = false;
-			}
-		}
-	}
-
-	@Override
-	public void setSafeguard(boolean state) {
-		hasSafeguard = state;
-		if (!hasSafeguard) {
-			safeguardCount = 0;
 		}
 	}
 
 	@Override
 	public void addSafeguard(int duration) {
-		hasSafeguard = true;
 		safeguardCount = duration;
 	}
 
@@ -302,20 +252,16 @@ public class DeepTeam extends FieldScreen implements Team {
 	public void decrementSafeguard() {
 		if (safeguardCount > 0) {
 			safeguardCount--;
-			if (safeguardCount == 0) {
-				hasSafeguard = false;
-			}
 		}
 	}
 
 	@Override
 	public boolean hasWish() {
-		return hasWish;
+		return wishCount > 0;
 	}
 
 	@Override
 	public void addWish(int duration, int wishHealAmount) {
-		hasWish = true;
 		wishCount = duration;
 		this.wishHealAmount = wishHealAmount;
 	}
@@ -325,8 +271,8 @@ public class DeepTeam extends FieldScreen implements Team {
 		if (wishCount > 0) {
 			wishCount--;
 			if (wishCount == 0) {
-				hasWish = false;
-				activePokemon.setCurrHp(activePokemon.getCurrHp()+wishHealAmount);
+				activePokemon.setCurrHp(activePokemon.getCurrHp()
+						+ wishHealAmount);
 				wishHealAmount = 0;
 			}
 		}
@@ -339,7 +285,6 @@ public class DeepTeam extends FieldScreen implements Team {
 
 	@Override
 	public void addTailWind() {
-		hasTailwind = true;
 		tailwindCount = 3;
 	}
 
@@ -352,16 +297,12 @@ public class DeepTeam extends FieldScreen implements Team {
 	public void decrementTailWind() {
 		if (tailwindCount > 0) {
 			tailwindCount--;
-			if (tailwindCount == 0) {
-				// TODO find correct statement
-				System.out.println("The tailwind pettered out!");
-			}
 		}
 	}
 
 	@Override
 	public boolean hasTailWind() {
-		return hasTailwind;
+		return tailwindCount > 0;
 	}
 
 	@Override
@@ -406,44 +347,40 @@ public class DeepTeam extends FieldScreen implements Team {
 
 	@Override
 	public boolean canSwitch(MoveWithPP switchOption, Team opponent) {
-		
-		if (opponent.getActivePokemon().getAbility().preventsSwitching(activePokemon)) {
+
+		if (opponent.getActivePokemon().getAbility()
+				.preventsSwitching(activePokemon)) {
 			return false;
 		}
-		
+
 		Move switchTo = switchOption.getMove();
 		Pokemon pokeToSwitchIn = null;
-		switch(switchTo) {
-			case SWITCH_1:
-				pokeToSwitchIn = party.get(0);
-				break;
-			case SWITCH_2:
-				pokeToSwitchIn = party.get(1);
-				break;
-			case SWITCH_3:
-				pokeToSwitchIn= party.get(2);
-				break;
-			case SWITCH_4:
-				pokeToSwitchIn = party.get(3);
-				break;
-			case SWITCH_5:
-				pokeToSwitchIn= party.get(4);
-				break;
-			case SWITCH_6:
-				pokeToSwitchIn= party.get(5);
-				break;
-			default:
-				break;
+		switch (switchTo) {
+		case SWITCH_1:
+			pokeToSwitchIn = party.get(0);
+			break;
+		case SWITCH_2:
+			pokeToSwitchIn = party.get(1);
+			break;
+		case SWITCH_3:
+			pokeToSwitchIn = party.get(2);
+			break;
+		case SWITCH_4:
+			pokeToSwitchIn = party.get(3);
+			break;
+		case SWITCH_5:
+			pokeToSwitchIn = party.get(4);
+			break;
+		case SWITCH_6:
+			pokeToSwitchIn = party.get(5);
+			break;
+		default:
+			break;
 		}
 		if (!pokeToSwitchIn.hasFainted()) {
 			return true;
 		} else {
-		
-		
-		
-		return false;
+			return false;
 		}
 	}
-
-	
 }

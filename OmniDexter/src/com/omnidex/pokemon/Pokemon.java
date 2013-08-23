@@ -74,7 +74,8 @@ public interface Pokemon extends Status, Stats{
     void setSpecies(Species forme);
     void setFriendship(int friendship);
     int getFriendship();
-    
+    boolean hasItem(Item item);
+    boolean isSpecies(Species species);
     void setWeight(double weight);
     double getWeight();
 }

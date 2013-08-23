@@ -840,4 +840,14 @@ public class InactivePokemon implements Pokemon, Status, Stats {
 	public boolean isGender(Gender gender) {
 		return this.gender.equals(gender);
 	}
+
+	@Override
+	public boolean hasItem(Item item) {
+		return this.item.equals(item);
+	}
+
+	@Override
+	public boolean isSpecies(Species species) {
+		return this.forme.equals(species);
+	}
 }

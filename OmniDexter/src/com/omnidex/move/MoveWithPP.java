@@ -4,7 +4,6 @@ import com.omnidex.pokemon.Pokemon;
 
 public class MoveWithPP {
 	
-	private boolean isDisabled;
 	private int disabledCount;
 	private Move move;
 	private int currPP;
@@ -12,7 +11,6 @@ public class MoveWithPP {
 	public MoveWithPP(Move move) {
 		this.move = move;
 		currPP = move.getPP();
-		isDisabled = false;
 		disabledCount = 0;
 	}
 	
@@ -25,18 +23,15 @@ public class MoveWithPP {
 	}
 	
 	public boolean isMoveUsable(){
-		return currPP > 0 && !isDisabled;
+		return currPP > 0 && !isDisabled();
 	}
 	
 	public boolean isDisabled() {
-		return isDisabled;
+		return disabledCount > 0;
 	}
 	
-	public void setDisabled(boolean state) {
-		isDisabled = state;
-		if (isDisabled) {
-			disabledCount = 3;
-		}
+	public void activateDisabled() {
+		disabledCount = 3;
 	}
 	
 	public void decrementPP(Pokemon target) {

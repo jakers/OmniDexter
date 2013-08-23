@@ -932,4 +932,8 @@ public enum Move {
 				return false;
 		}
 	}
+	
+	public boolean isType(Type type) {
+		return this.type.equals(type);
+	}
 }

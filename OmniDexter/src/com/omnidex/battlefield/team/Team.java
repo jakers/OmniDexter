@@ -63,20 +63,14 @@ public interface Team extends Screen {
 	 */
 	int getLuckyChantCount();
 
-	// TODO Comment interface methods
-	void setMist(boolean state);
 
 	void addMist(int duration);
 
 	void decrementMist();
 
-	void setLuckyChant(boolean state);
-
 	void addLuckyChant(int duration);
 
 	void decrementLuckyChant();
-
-	void setSafeguard(boolean state);
 
 	void addSafeguard(int duration);
 

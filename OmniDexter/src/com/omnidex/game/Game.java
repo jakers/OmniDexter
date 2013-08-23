@@ -27,8 +27,9 @@ public class Game {
 	private String opponentName;
 	private Team opponent;
 	private BattleField bf;
-	
-	public Game(BattleField bf, Team omnidexter, Team opponent, String oppentName) {
+
+	public Game(BattleField bf, Team omnidexter, Team opponent,
+			String oppentName) {
 		this.bf = bf;
 		this.omnidexter = omnidexter;
 		omnidexter.setTeamId(OMNIDEXTER);
@@ -55,7 +56,8 @@ public class Game {
 			System.out.print("* ");
 		}
 
-		System.out.println("\n" + opponent.getActivePokemon() + "Lv:"+ opponent.getActivePokemon().getLevel());
+		System.out.println("\n" + opponent.getActivePokemon() + "Lv:"
+				+ opponent.getActivePokemon().getLevel());
 		printHpBar(opponent.getActivePokemon());
 
 		System.out.print("\t\t\t");
@@ -63,7 +65,8 @@ public class Game {
 			System.out.print("* ");
 		}
 		System.out.println();
-		System.out.println("\t\t\t" + omnidexter.getActivePokemon() + " Lv:"+omnidexter.getActivePokemon().getLevel());
+		System.out.println("\t\t\t" + omnidexter.getActivePokemon() + " Lv:"
+				+ omnidexter.getActivePokemon().getLevel());
 		System.out.print("\t\t\t");
 		System.out.println(omnidexter.getActivePokemon().getCurrHp() + "/"
 				+ omnidexter.getActivePokemon().getMaxHp());
@@ -153,11 +156,13 @@ public class Game {
 		Team second = speedOrder[1];
 
 		if (first.getChoice() < 0) {
-			first.switchActivePokemon(first.getActivePokemon().getMove(first.getChoice()));
+			first.switchActivePokemon(first.getActivePokemon().getMove(
+					first.getChoice()));
 		}
 
 		if (second.getChoice() < 0) {
-			second.switchActivePokemon(second.getActivePokemon().getMove(second.getChoice()));
+			second.switchActivePokemon(second.getActivePokemon().getMove(
+					second.getChoice()));
 		}
 
 		if (first.getChoice() >= 0) {
@@ -171,104 +176,88 @@ public class Game {
 
 	// @Override
 	public void applieAfterTurnAffects() {
-		// Calcs the faster of the two Pokemon
 		Team[] temp = PokemonMath.getFasterPoke(omnidexter, opponent);
-		Team first = temp[0];
-		Team second = temp[1];
+		Team fasterTeam = temp[0];
+		Team slowerTeam = temp[1];
 
-		// NOTE: Speed isn't calc'd here because the screens dropping doesn't
-		// affect competitively
-
-		// Check if Reflect wears off
 		omnidexter.decrementRelfect();
 		opponent.decrementRelfect();
 
-		// Check if Light Screen wears off
 		omnidexter.decrementLightScreen();
 		opponent.decrementLightScreen();
 
-		// Check if Mist wears off
 		omnidexter.decrementMist();
 		opponent.decrementMist();
 
-		// Check if Safeguard wears off
 		omnidexter.decrementSafeguard();
 		opponent.decrementSafeguard();
 
-		// Check if Tailwind wears off
 		omnidexter.decrementTailWind();
 		opponent.decrementTailWind();
 
-		// Check if Lucky Chant wears off
 		omnidexter.decrementLuckyChant();
 		opponent.decrementLuckyChant();
 
-		// Check if Wish comes true
 		omnidexter.decrementWishCount();
 		opponent.decrementWishCount();
 
-		// check if Damaging/Healing Weather is applied
-		WeatherDamage.applyDamagingWeather(bf, first.getActivePokemon());
-		WeatherDamage.applyDamagingWeather(bf, second.getActivePokemon());
+		WeatherDamage.applyDamagingWeather(bf, fasterTeam.getActivePokemon());
+		WeatherDamage.applyDamagingWeather(bf, slowerTeam.getActivePokemon());
 
-		// Check if Weather abilities activate
-		WeatherDamage.applyHealingWeather(bf, first.getActivePokemon());
-		WeatherDamage.applyHealingWeather(bf, second.getActivePokemon());
-		
+		WeatherDamage.applyHealingWeather(bf, fasterTeam.getActivePokemon());
+		WeatherDamage.applyHealingWeather(bf, slowerTeam.getActivePokemon());
 
 		// Check if Gravity wears off
 		bf.decrementGravity();
 
 		// applies damage/healing from status
-		StatusDamage.applyIngrainHealing(first.getActivePokemon());
-		StatusDamage.applyIngrainHealing(second.getActivePokemon());
+		StatusDamage.applyIngrainHealing(fasterTeam.getActivePokemon());
+		StatusDamage.applyIngrainHealing(slowerTeam.getActivePokemon());
 
-		StatusDamage.applyAquaRingHealing(first.getActivePokemon());
-		StatusDamage.applyAquaRingHealing(second.getActivePokemon());
+		StatusDamage.applyAquaRingHealing(fasterTeam.getActivePokemon());
+		StatusDamage.applyAquaRingHealing(slowerTeam.getActivePokemon());
 
 		// TODO Check for Speed Boost/Shed Skin activation
 
-		ItemActivation.applyHealingItems(first.getActivePokemon());
-		ItemActivation.applyHealingItems(second.getActivePokemon());
+		ItemActivation.applyHealingItems(fasterTeam.getActivePokemon());
+		ItemActivation.applyHealingItems(slowerTeam.getActivePokemon());
 
-		StatusDamage.applyLeechSeed(second.getActivePokemon(),
-				first.getActivePokemon());
-		StatusDamage.applyLeechSeed(first.getActivePokemon(),
-				second.getActivePokemon());
+		StatusDamage.applyLeechSeed(slowerTeam.getActivePokemon(),
+				fasterTeam.getActivePokemon());
+		StatusDamage.applyLeechSeed(fasterTeam.getActivePokemon(),
+				slowerTeam.getActivePokemon());
 
 		// Check for Status Damage/Nightmare
 		// Checks for fainting inside healing method.
-		if (!first.getActivePokemon().hasFainted()
-				&& !first.getActivePokemon().isOk()) {
-			StatusDamage.applyStatusDamage(first.getActivePokemon());
-			StatusDamage.applyStatusHealing(first.getActivePokemon());
+		if (!fasterTeam.getActivePokemon().hasFainted()
+				&& !fasterTeam.getActivePokemon().isOk()) {
+			StatusDamage.applyStatusDamage(fasterTeam.getActivePokemon());
+			StatusDamage.applyStatusHealing(fasterTeam.getActivePokemon());
 		}
-		if (!second.getActivePokemon().hasFainted()
-				&& !second.getActivePokemon().isOk()) {
-			StatusDamage.applyStatusDamage(second.getActivePokemon());
-			StatusDamage.applyStatusHealing(second.getActivePokemon());
-		}
-
-		// Check for Flame/Toxic Orb activation
-		if (first.getActivePokemon().isOk()) {
-			ItemActivation.burnOrbActivation(first.getActivePokemon());
-			ItemActivation.toxicOrbActivation(first.getActivePokemon());
-		}
-		if (second.getActivePokemon().isOk()) {
-			ItemActivation.burnOrbActivation(second.getActivePokemon());
-			ItemActivation.toxicOrbActivation(second.getActivePokemon());
+		if (!slowerTeam.getActivePokemon().hasFainted()
+				&& !slowerTeam.getActivePokemon().isOk()) {
+			StatusDamage.applyStatusDamage(slowerTeam.getActivePokemon());
+			StatusDamage.applyStatusHealing(slowerTeam.getActivePokemon());
 		}
 
-		StatusDamage.applyCurseDamage(first.getActivePokemon());
-		StatusDamage.applyCurseDamage(second.getActivePokemon());
+		ItemActivation.burnOrbActivation(fasterTeam.getActivePokemon());
+		ItemActivation.toxicOrbActivation(fasterTeam.getActivePokemon());
 
-		// TODO Check for Bind, Clamp, Fire Spin, Magma Storm, Sand Tomb,
-		// Whirlpool, Wrap
-		// Check for Bad Dreams
-		StatusDamage.applyBadDreams(second.getActivePokemon(),
-				first.getActivePokemon());
-		StatusDamage.applyBadDreams(first.getActivePokemon(),
-				second.getActivePokemon());
+		ItemActivation.burnOrbActivation(slowerTeam.getActivePokemon());
+		ItemActivation.toxicOrbActivation(slowerTeam.getActivePokemon());
+
+		StatusDamage.applyCurseDamage(fasterTeam.getActivePokemon());
+		StatusDamage.applyCurseDamage(slowerTeam.getActivePokemon());
+
+		StatusDamage.applyPartialTrappingDamage(fasterTeam.getActivePokemon(),
+				slowerTeam.getActivePokemon());
+		StatusDamage.applyPartialTrappingDamage(slowerTeam.getActivePokemon(),
+				fasterTeam.getActivePokemon());
+
+		StatusDamage.applyBadDreams(slowerTeam.getActivePokemon(),
+				fasterTeam.getActivePokemon());
+		StatusDamage.applyBadDreams(fasterTeam.getActivePokemon(),
+				slowerTeam.getActivePokemon());
 
 		// TODO Check for end of outrage, petal dance, uproar, thrash
 		// TODO Check for end of disable
@@ -276,8 +265,8 @@ public class Game {
 		// TODO Check for Taunt
 
 		// TODO Check for Magnet Rise
-		first.getActivePokemon();
-		second.getActivePokemon();
+		fasterTeam.getActivePokemon();
+		slowerTeam.getActivePokemon();
 
 		// TODO Check Heal Block
 		// TODO Check Embargo
@@ -291,7 +280,14 @@ public class Game {
 		bf.decrementMagicRoom();
 		bf.decrementWonderRoom();
 
-		// handle faster team end turn switch
+		switchIfFainted(fasterTeam);
+
+		switchIfFainted(slowerTeam);
+
+		// TODO Slow Start
+	}
+
+	public void switchIfFainted(Team first) {
 		if (first.getActivePokemon().hasFainted()
 				&& first.getParty().size() > 0) {
 			int choice;
@@ -309,32 +305,8 @@ public class Game {
 			AiWriter.setSearchMode(true);
 			first.switchActivePokemon(first.getActivePokemon().getMove(choice));
 		}
-
-		// handle slower team end turn switch
-		if (second.getActivePokemon().hasFainted()
-				&& second.getParty().size() > 0) {
-			int choice;
-			if (second.getTeamId() == OMNIDEXTER) {
-				choice = BattleAI.getNextPoke(this, OMNIDEXTER,
-						BattleAI.MAX_DEPTH);
-			} else if (AiWriter.isSearchMode) {
-				// auto chooses human player's pokemon
-				choice = BattleAI.getNextPoke(this, OPPONENT,
-						BattleAI.MAX_DEPTH);
-			} else {
-				// human manual switch
-				printSwitchOption(OPPONENT);
-//				Scanner scan = new Scanner(System.in);
-				System.out.println("Please choice a new pokemon");
-				choice = -1;
-			}
-			second.switchActivePokemon(second.getActivePokemon().getMove(choice));
-		}
-
-		// TODO Slow Start
 	}
 
-	
 	public void attack(int player, int moveSlot) {
 		int damage[];
 
@@ -349,12 +321,14 @@ public class Game {
 			defend = omnidexter;
 		}
 
-		damage = MainDamageFormula.damage(attack, defend, bf,
-				attack.getActivePokemon().getMove(moveSlot).getMove());
+		damage = MainDamageFormula.damage(attack, defend, bf, attack
+				.getActivePokemon().getMove(moveSlot).getMove());
 
-		defend.getActivePokemon().setCurrHp(defend.getActivePokemon().getCurrHp() - damage[1]);
+		defend.getActivePokemon().setCurrHp(
+				defend.getActivePokemon().getCurrHp() - damage[1]);
 
-		AiWriter.writeAttack(attack.getActivePokemon(), moveSlot, damage[1], player);
+		AiWriter.writeAttack(attack.getActivePokemon(), moveSlot, damage[1],
+				player);
 	}
 
 	public Team getOmnidexter() {

@@ -2,7 +2,6 @@ package com.omnidexter.ai;
 
 import java.util.List;
 
-
 import com.omnidex.battlefield.team.Team;
 import com.omnidex.game.Game;
 

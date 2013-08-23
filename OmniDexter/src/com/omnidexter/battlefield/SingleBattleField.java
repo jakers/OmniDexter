@@ -2,74 +2,60 @@ package com.omnidexter.battlefield;
 
 import com.omnidex.weather.FieldWeather;
 import com.omnidex.weather.Weather;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class SingleBattleField extends FieldWeather implements BattleField {
 
-	private boolean hasGravity;
-	private boolean hasTrickRoom;
-	private boolean hasWonderRoom;
-	private boolean hasMagicRoom;
-	private AtomicInteger gravityCount;
-	private AtomicInteger trickRoomCount;
-	private AtomicInteger wonderRoomCount;
-	private AtomicInteger magicRoomCount;
+	private int gravityCount;
+	private int trickRoomCount;
+	private int wonderRoomCount;
+	private int magicRoomCount;
 
 	public SingleBattleField() {
 		super();
-		hasGravity = false;
-		hasTrickRoom = false;
-		hasWonderRoom = false;
-		hasMagicRoom = false;
-		
-		gravityCount = new AtomicInteger(0);
-		trickRoomCount = new AtomicInteger(0);
-		wonderRoomCount = new AtomicInteger(0);
-		magicRoomCount = new AtomicInteger(0);
+		gravityCount = 0;
+		trickRoomCount = 0;
+		wonderRoomCount = 0;
+		magicRoomCount = 0;
 	}
 
 	public SingleBattleField(BattleField field) {
 		super(field);
-		this.hasGravity = field.hasGravity();
-		this.hasTrickRoom = field.hasTrickRoom();
-		this.hasWonderRoom = field.hasWonderRoom();
-		this.hasMagicRoom = field.hasMagicRoom();
-		this.gravityCount = new AtomicInteger(field.getGravityCount());
-		this.trickRoomCount = new AtomicInteger(field.getTrickRoomCount());
-		this.wonderRoomCount = new AtomicInteger(field.getWonderRoomCount());
-		this.magicRoomCount = new AtomicInteger(field.getMagicRoomCount());
+		this.gravityCount = field.getGravityCount();
+		this.trickRoomCount = field.getTrickRoomCount();
+		this.wonderRoomCount = field.getWonderRoomCount();
+		this.magicRoomCount = field.getMagicRoomCount();
 	}
 
 	public boolean hasGravity() {
-		return hasGravity;
+		return gravityCount > 0;
 	}
 
 	public boolean hasWonderRoom() {
-		return hasWonderRoom;
+		return wonderRoomCount > 0;
 	}
 
 	public boolean hasTrickRoom() {
-		return hasTrickRoom;
+		return trickRoomCount > 0;
 	}
 
 	public boolean hasMagicRoom() {
-		return hasMagicRoom;
+		return magicRoomCount > 0;
 	}
 
 	public int getWonderRoomCount() {
-		return wonderRoomCount.get();
+		return wonderRoomCount;
 	}
 
 	public int getTrickRoomCount() {
-		return trickRoomCount.get();
+		return trickRoomCount;
 	}
 
 	public int getMagicRoomCount() {
-		return magicRoomCount.get();
+		return magicRoomCount;
 	}
 
 	public int getGravityCount() {
-		return gravityCount.get();
+		return gravityCount;
 	}
 
 	public void printBattleField() {
@@ -91,55 +77,49 @@ public class SingleBattleField extends FieldWeather implements BattleField {
 
 	@Override
 	public void setGravity(int duration) {
-		hasGravity = true;
-		gravityCount.set(duration);
+		gravityCount = duration;
 	}
 
 	@Override
 	public void setWonderRoom(int duration) {
-		hasWonderRoom = true;
-		wonderRoomCount.set(duration);
+		wonderRoomCount = duration;
 	}
 
 	@Override
 	public void setTrickRoom(int duration) {
-		hasTrickRoom = true;
-		trickRoomCount.set(duration);
+		trickRoomCount = duration;
 	}
 
 	@Override
 	public void setMagicRoom(int duration) {
-		hasMagicRoom = true;
-		magicRoomCount.set(duration);
+		magicRoomCount = duration;
 	}
 	
-	private boolean resetAfterDecrement(boolean flag, AtomicInteger count) {
-		if (count.get() > 0) {
-			count.set(count.get()-1);
-			if (count.get() == 0) {
-				flag = false;
-			}
-		}
-		return flag;
-	}
-
 	@Override
 	public void decrementGravity() {
-		hasGravity = resetAfterDecrement(hasGravity, gravityCount);
+		if (gravityCount > 0) {
+			gravityCount--;
+		}
 	}
 
 	@Override
 	public void decrementTrickRoom() {
-		hasTrickRoom = resetAfterDecrement(hasTrickRoom, trickRoomCount);
+		if (trickRoomCount > 0) {
+			trickRoomCount--;
+		}
 	}
 
 	@Override
 	public void decrementWonderRoom() {
-		hasWonderRoom = resetAfterDecrement(hasWonderRoom, wonderRoomCount);
+		if (wonderRoomCount > 0) {
+			wonderRoomCount--;
+		}
 	}
 
 	@Override
 	public void decrementMagicRoom() {
-		hasMagicRoom = resetAfterDecrement(hasMagicRoom, magicRoomCount);
+		if (magicRoomCount > 0) {
+			magicRoomCount--;
+		}
 	}
 }
