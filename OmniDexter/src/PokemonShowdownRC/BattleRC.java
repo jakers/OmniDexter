@@ -68,7 +68,7 @@ public class BattleRC {
 		String oppName = driver.findElement(By.className("rightbar"))
 				.findElement(By.className("trainer")).getText();
 		game = new Game(new SingleBattleField(), omnidexter, opponent, oppName);
-		game.printBattleField();
+//		game.printBattleField();
 	}
 
 	public void sendGoodGameMessage() {

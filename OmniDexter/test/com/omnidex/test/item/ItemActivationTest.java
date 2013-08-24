@@ -6,6 +6,7 @@ import org.junit.Test;
 import com.omnidex.ability.Ability;
 import com.omnidex.item.Item;
 import com.omnidex.item.ItemActivation;
+import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.pokemon.InactivePokemon;
 import com.omnidex.pokemon.Pokemon;
 import com.omnidex.pokemon.Species;
@@ -23,6 +24,19 @@ public class ItemActivationTest {
 		ItemActivation.applyHealingItems(poke);
 		assertEquals(225, poke.getCurrHp());
 	}
+	
+	@Test
+	public void applyHealingItemsLeftoversWithFaintedPoke() {
+		ActivePokemon poke = new ActivePokemon(Species.MEW);
+		poke.setHpEv(252);
+		poke.setItem(Item.LEFTOVERS);
+		poke.setCurrHp(0);
+		assertTrue(poke.hasFainted());
+		ItemActivation.applyHealingItems(poke);
+		assertTrue(poke.hasFainted());
+		assertEquals(0, poke.getCurrHp());
+	}
+	
 	
 	@Test
 	public void applyHealingItems_blackSludge_PoisonType() {

@@ -27,7 +27,6 @@ public class ActivePokemon extends InactivePokemon {
 	private boolean isIngrained;
 	private boolean hasAquaRing;
 	private boolean isConfused;
-	private boolean hasBeenHitByYawn;
 	private boolean isBehindSub;
 	private boolean isSeeded;
 	private boolean isCursed;
@@ -36,6 +35,7 @@ public class ActivePokemon extends InactivePokemon {
 	private boolean isDigging;
 	private boolean isDiving;
 	private boolean isUsingShadowForce;
+	private int yawnCount;
 	private int perishCount;
 	private int embargoCount;
 	private int encoreCount;
@@ -65,6 +65,7 @@ public class ActivePokemon extends InactivePokemon {
 	private int chargingMoveCount;
 	private boolean hasTakenAim;
 	private boolean hasFlashFireBoost;
+	private int slowStartCount;
 
 	public ActivePokemon(Species species) {
 		super(species);
@@ -73,7 +74,7 @@ public class ActivePokemon extends InactivePokemon {
 		isIngrained = false;
 		hasAquaRing = false;
 		isConfused = false;
-		hasBeenHitByYawn = false;
+		yawnCount = 0;
 		isBehindSub = false;
 		isSeeded = false;
 		isCursed = false;
@@ -96,6 +97,7 @@ public class ActivePokemon extends InactivePokemon {
 		spAtkStage = new StatStages();
 		spDefStage = new StatStages();
 		speedStage = new StatStages();
+		slowStartCount = 0;
 	}
 	
 	public ActivePokemon(Pokemon poke) {
@@ -105,7 +107,7 @@ public class ActivePokemon extends InactivePokemon {
 		isIngrained = false;
 		hasAquaRing = false;
 		isConfused = false;
-		hasBeenHitByYawn = false;
+		yawnCount = 0;
 		isBehindSub = false;
 		isSeeded = false;
 		isCursed = false;
@@ -128,6 +130,7 @@ public class ActivePokemon extends InactivePokemon {
 		spAtkStage = new StatStages();
 		spDefStage = new StatStages();
 		speedStage = new StatStages();
+		slowStartCount = 0;
 	}
 	
 	public ActivePokemon() {
@@ -136,7 +139,7 @@ public class ActivePokemon extends InactivePokemon {
 		isIngrained = false;
 		hasAquaRing = false;
 		isConfused = false;
-		hasBeenHitByYawn = false;
+		yawnCount = 0;
 		isBehindSub = false;
 		isSeeded = false;
 		isCursed = false;
@@ -159,6 +162,7 @@ public class ActivePokemon extends InactivePokemon {
 		spAtkStage = new Stage(-6, 6, 0);
 		spDefStage = new Stage(-6, 6, 0);
 		speedStage = new Stage(-6, 6, 0);
+		slowStartCount = 0;
 	}
 
 	public void activateAttract() {
@@ -210,13 +214,11 @@ public class ActivePokemon extends InactivePokemon {
 	}
 
 	public void activateYawn() {
-		boolean affectedByYawn = getAbility().preventsSleep() || isBehindSub
-				|| !isOk();
+		boolean affectedByYawn = !getAbility().preventsSleep() && !isBehindSub
+				&& isOk() && !hasBeenHitByYawn();
 
-		if (affectedByYawn) {
-			hasBeenHitByYawn = false;
-		} else {
-			hasBeenHitByYawn = true;
+		if (affectedByYawn ) {
+			yawnCount = 2;
 		}
 	}
 
@@ -225,9 +227,18 @@ public class ActivePokemon extends InactivePokemon {
 	}
 
 	public boolean hasBeenHitByYawn() {
-		return hasBeenHitByYawn;
+		return yawnCount > 0;
 	}
 
+	public void decrementYawn() {
+		if (yawnCount > 0) {
+			yawnCount--;
+			if (yawnCount == 0) {
+				setSleep(4);
+			}
+		}
+	}
+	
 	public void activateSubstitute() {
 		isBehindSub = true;
 	}
@@ -359,6 +370,12 @@ public class ActivePokemon extends InactivePokemon {
 	public int getEncoreCount() {
 		return encoreCount;
 	}
+	
+	public void decrementEncore() {
+		if (encoreCount > 0) {
+			encoreCount--;
+		}
+	}
 
 	public void activateFlinch() {
 		if (getAbility().preventsFlinching()) {
@@ -391,10 +408,6 @@ public class ActivePokemon extends InactivePokemon {
 			healBlockCount--;
 		}
 	}
-
-//	public void activateIdentification() {
-//		hasBeenIdentified = true;
-//	}
 
 	public void activateIgnoreNormalAndFightingImmunity() {
 		if (isType(Type.GHOST)) {
@@ -469,7 +482,7 @@ public class ActivePokemon extends InactivePokemon {
 
 	private int determinePartialTrapCount() {
 		int count = 0;
-		if (getItem().equals(Item.GRIP_CLAW)) {
+		if (hasItem(Item.GRIP_CLAW)) {
 			count = MAX_PARTIAL_TRAPPING_COUNT;
 		} else {
 			count = new Random().nextInt(4) + 2;
@@ -574,7 +587,7 @@ public class ActivePokemon extends InactivePokemon {
 	}
 
 	public void activateTelekineticLevitation() {
-		if (isIngrained() || getItem().equals(Item.IRON_BALL) || hasGravity) {
+		if (isIngrained() || hasItem(Item.IRON_BALL) || hasGravity) {
 			isTelekineticlyLevitated = false;
 		} else {
 			isTelekineticlyLevitated = true;
@@ -583,7 +596,7 @@ public class ActivePokemon extends InactivePokemon {
 
 	public boolean isTelekineticlyLevitated() {
 		return isTelekineticlyLevitated && !hasGravity && !isIngrained()
-				&& !getItem().equals(Item.IRON_BALL);
+				&& !hasItem(Item.IRON_BALL);
 	}
 
 	public void activateGravity() {
@@ -617,11 +630,11 @@ public class ActivePokemon extends InactivePokemon {
 	}
 
 	public boolean canSwith() {
-		return !isTrapped || getItem().equals(Item.SHED_SHELL);
+		return !isTrapped || hasItem(Item.SHED_SHELL);
 	}
 
 	public void activateTrapped() {
-		if (getItem().equals(Item.SHED_SHELL)) {
+		if (hasItem(Item.SHED_SHELL)) {
 			isTrapped = false;
 		} else {
 			isTrapped = true;
@@ -662,7 +675,7 @@ public class ActivePokemon extends InactivePokemon {
 	}
 	
 	public void activateElectricMagniticLevitation() {
-		if (getItem().equals(Item.IRON_BALL)) {
+		if (hasItem(Item.IRON_BALL)) {
 			electricMagniticLeviationCount = 0;
 		} else {
 			electricMagniticLeviationCount = INITIAL_ELECTIC_MAGNETIC_LEVIATION_COUNT;
@@ -670,7 +683,7 @@ public class ActivePokemon extends InactivePokemon {
 	}
 
 	public boolean hasElectricMagnitcLevitation() {
-		if (getItem().equals(Item.IRON_BALL)) {
+		if (hasItem(Item.IRON_BALL)) {
 			electricMagniticLeviationCount = 0;
 		}
 		return electricMagniticLeviationCount > 0;
@@ -707,7 +720,6 @@ public class ActivePokemon extends InactivePokemon {
 		evasion.decreaseStage(decrease);
 	}
 	
-	
 	public int getAccuracyStage() {
 		return accuracy.getStage();
 	}
@@ -719,8 +731,6 @@ public class ActivePokemon extends InactivePokemon {
 	public void decreaseAccuracyStage(int decrease) {
 		accuracy.decreaseStage(decrease);
 	}
-	
-	
 
 	public void activateRecharge() {
 		rechargeCount = 2;
@@ -756,7 +766,6 @@ public class ActivePokemon extends InactivePokemon {
 
 	public void activateChargingMove() {
 		chargingMoveCount = 1;
-
 	}
 
 	public boolean hasToChargeMove() {
@@ -816,7 +825,7 @@ public class ActivePokemon extends InactivePokemon {
 		spDefStage.decreaseStage(decrease);
 	}
 	
-	public void boostSpeStage(int boost) {
+	public void boostSpeedStage(int boost) {
 		speedStage.boostStage(boost);
 	}
 	
@@ -864,4 +873,13 @@ public class ActivePokemon extends InactivePokemon {
 		return speedStage.getStage();
 	}
 	
+	public boolean hasSlowStart() {
+		return slowStartCount > 0;
+	}
+	
+	public void decrementSlowStart() {
+		if (slowStartCount > 0) {
+			slowStartCount--;
+		}
+	}
 }

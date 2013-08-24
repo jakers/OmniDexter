@@ -2,7 +2,9 @@ package com.omnidex.game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
+import com.omnidex.ability.AbilityActivation;
 import com.omnidex.battlefield.team.DeepTeam;
 import com.omnidex.battlefield.team.Team;
 import com.omnidex.damage.MainDamageFormula;
@@ -50,41 +52,11 @@ public class Game {
 				|| fitness == Fitness.PLAYER_TWO_WINS;
 	}
 
-	public void printBattleField() {
-		System.out.println(opponentName);
-		for (int i = 0; i < opponent.getParty().size() + 1; i++) {
-			System.out.print("* ");
-		}
-
-		System.out.println("\n" + opponent.getActivePokemon() + "Lv:"
-				+ opponent.getActivePokemon().getLevel());
-		printHpBar(opponent.getActivePokemon());
-
-		System.out.print("\t\t\t");
-		for (int i = 0; i < omnidexter.getParty().size() + 1; i++) {
-			System.out.print("* ");
-		}
-		System.out.println();
-		System.out.println("\t\t\t" + omnidexter.getActivePokemon() + " Lv:"
-				+ omnidexter.getActivePokemon().getLevel());
-		System.out.print("\t\t\t");
-		System.out.println(omnidexter.getActivePokemon().getCurrHp() + "/"
-				+ omnidexter.getActivePokemon().getMaxHp());
-		printMoves(omnidexter.getActivePokemon());
-		System.out.println("---------------------------");
-		printSwitchOption(Game.OMNIDEXTER);
-	}
-
-	private void printHpBar(Pokemon poke) {
-		double hpbar = (poke.getCurrHp() / (double) poke.getMaxHp()) * 100;
-		hpbar = Math.floor(hpbar);
-		System.out.println(hpbar + "%");
-	}
-
-	private void printMoves(Pokemon poke) {
-		for (int i = 0; i < 4; i++) {
-			System.out.println(i + ") " + poke.getMove(i).getMove().getName());
-		}
+	public int getFightOrSwitchInput() {
+		Scanner scan = new Scanner(System.in);
+		int choice = scan.nextInt();
+		scan.close();
+		return choice;
 	}
 
 	public List<Integer> getAllPossibleMoves() {
@@ -127,25 +99,6 @@ public class Game {
 		return allPossibleMoves;
 	}
 
-	public void printSwitchOption(int player) {
-		List<Pokemon> party = new ArrayList<Pokemon>();
-		if (player == OMNIDEXTER) {
-			party = omnidexter.getParty();
-		} else {
-			party = opponent.getParty();
-		}
-
-		if (party.isEmpty()) {
-			System.out.println("No avaliable switches");
-		} else {
-			for (int i = 1; i <= party.size(); i++) {
-				System.out.println(-i + ")" + party.get(i - 1) + " "
-						+ party.get(i - 1).getCurrHp() + "/"
-						+ party.get(i - 1).getMaxHp());
-			}
-		}
-	}
-
 	public void applyTurn(int player1Choice, int player2Choice) {
 
 		omnidexter.setChoice(player1Choice);
@@ -174,7 +127,6 @@ public class Game {
 		}
 	}
 
-	// @Override
 	public void applieAfterTurnAffects() {
 		Team[] temp = PokemonMath.getFasterPoke(omnidexter, opponent);
 		Team fasterTeam = temp[0];
@@ -217,7 +169,11 @@ public class Game {
 		StatusDamage.applyAquaRingHealing(fasterTeam.getActivePokemon());
 		StatusDamage.applyAquaRingHealing(slowerTeam.getActivePokemon());
 
-		// TODO Check for Speed Boost/Shed Skin activation
+		AbilityActivation.activateSpeedBoost(fasterTeam.getActivePokemon());
+		AbilityActivation.activateSpeedBoost(slowerTeam.getActivePokemon());
+
+		AbilityActivation.activateShedSkin(fasterTeam.getActivePokemon());
+		AbilityActivation.activateShedSkin(slowerTeam.getActivePokemon());
 
 		ItemActivation.applyHealingItems(fasterTeam.getActivePokemon());
 		ItemActivation.applyHealingItems(slowerTeam.getActivePokemon());
@@ -261,19 +217,31 @@ public class Game {
 
 		// TODO Check for end of outrage, petal dance, uproar, thrash
 		// TODO Check for end of disable
-		// TODO Check for Encore ending
+
+		fasterTeam.getActivePokemon().decrementEncore();
+		slowerTeam.getActivePokemon().decrementEncore();
+
 		// TODO Check for Taunt
 
-		// TODO Check for Magnet Rise
-		fasterTeam.getActivePokemon();
-		slowerTeam.getActivePokemon();
+		fasterTeam.getActivePokemon().decrementElectricMagniticLeviation();
+		slowerTeam.getActivePokemon().decrementElectricMagniticLeviation();
 
-		// TODO Check Heal Block
-		// TODO Check Embargo
-		// TODO Check Yawn
-		// TODO Sticky Barb
+		fasterTeam.getActivePokemon().decrementHealBlock();
+		slowerTeam.getActivePokemon().decrementHealBlock();
+
+		fasterTeam.getActivePokemon().decrementEmbargo();
+		slowerTeam.getActivePokemon().decrementEmbargo();
+
+		fasterTeam.getActivePokemon().decrementYawn();
+		slowerTeam.getActivePokemon().decrementYawn();
+
+		ItemActivation.activateStickBarb(fasterTeam.getActivePokemon());
+		ItemActivation.activateStickBarb(slowerTeam.getActivePokemon());
+
 		// TODO Doom Desire, Future Sight
-		// TODO Perish Song
+
+		fasterTeam.getActivePokemon().decrementPerishSong();
+		slowerTeam.getActivePokemon().decrementPerishSong();
 
 		// Trick Room
 		bf.decrementTrickRoom();
@@ -284,7 +252,8 @@ public class Game {
 
 		switchIfFainted(slowerTeam);
 
-		// TODO Slow Start
+		fasterTeam.getActivePokemon().decrementSlowStart();
+		slowerTeam.getActivePokemon().decrementSlowStart();
 	}
 
 	public void switchIfFainted(Team first) {
@@ -298,7 +267,7 @@ public class Game {
 				choice = BattleAI.getNextPoke(this, OPPONENT,
 						BattleAI.MAX_DEPTH);
 			} else {
-				printSwitchOption(OPPONENT);
+//				printSwitchOption(OPPONENT);
 				System.out.println("Please choice a new pokemon");
 				choice = -1;
 			}
