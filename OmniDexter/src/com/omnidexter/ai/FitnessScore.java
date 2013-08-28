@@ -29,14 +29,13 @@ public class FitnessScore {
 	public static double calcFitness(Team t1, Team t2) {
 		double result = 0.0;
 		double team1Score = 0.0;
-		team1Score = t1.getActivePokemon().getCurrHp()
-				/ (double) t1.getActivePokemon().getMaxHp();
+//		team1Score = t1.getActivePokemon().getCurrHp()
+//				/ (double) t1.getActivePokemon().getMaxHp();
 
 		List<Pokemon> team1Party = t1.getParty();
 		for (int i = 0; i < team1Party.size(); i++) {
 			double temp = team1Party.get(i).getCurrHp()
 					/ (double) team1Party.get(i).getMaxHp();
-
 			team1Score += temp;
 		}
 		team1Score /= t1.teamSize();
@@ -62,4 +61,17 @@ public class FitnessScore {
 		}
 		return result;
 	}
+	
+	public double calcTeamScore(Team team) {
+		double teamScore = 0.0;
+		List<Pokemon> party = team.getParty();
+		for (int i = 0; i < party.size(); i++) {
+			double temp = party.get(i).getCurrHp()
+					/ (double) party.get(i).getMaxHp();
+			teamScore += temp;
+		}
+		teamScore /= team.teamSize();
+		return teamScore;
+	}
+	
 }

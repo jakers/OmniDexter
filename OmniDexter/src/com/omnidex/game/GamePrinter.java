@@ -1,6 +1,5 @@
 package com.omnidex.game;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.omnidex.battlefield.team.Team;
@@ -41,15 +40,18 @@ public class GamePrinter {
 		printHpBar(team.getActivePokemon());
 	}
 	
-	
 	private static void printPokemon(Team team) {
 		System.out.println(team.getActivePokemon().getSpecies() + " Lv:"
 				+ team.getActivePokemon().getLevel());
 	}
 
 	private static void printTeamPokeballs(Team team) {
-		for (int i = 0; i < team.getParty().size() + 1; i++) {
-			System.out.print("* ");
+		for (Pokemon poke : team.getParty()) {
+			if (poke.hasFainted()) {
+				System.out.print("x ");
+			} else {
+				System.out.print("o ");
+			}
 		}
 	}
 
@@ -72,7 +74,7 @@ public class GamePrinter {
 			System.out.println("No avaliable switches");
 		} else {
 			for (int i = 1; i <= party.size(); i++) {
-				System.out.println(-i + ") " + party.get(i - 1).getSpecies() + " "
+				System.out.println(i-1 + ") " + party.get(i - 1).getSpecies() + " "
 						+ party.get(i - 1).getCurrHp() + "/"
 						+ party.get(i - 1).getMaxHp());
 			}

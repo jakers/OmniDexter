@@ -5,9 +5,6 @@ import java.util.List;
 import com.omnidex.battlefield.team.Team;
 import com.omnidex.game.Game;
 
-/**
- * @author jakers
- */
 public class BattleAI {
 
 	public static int MAX_DEPTH = 1;

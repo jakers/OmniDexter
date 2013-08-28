@@ -28,22 +28,18 @@ public class WeatherDamage {
      */
 	public static void applyDamagingWeather(Weather field, ActivePokemon poke) {
 
-		Ability ability = poke.getAbility();
-
 		if (!poke.hasAbility(Ability.OVERCOAT)
 				&& !poke.hasAbility(Ability.MAGIC_GUARD)) {
 			if (field.isSand()) {
 				if (!(poke.isType(Type.GROUND) || poke.isType(Type.STEEL)
 						|| poke.isType(Type.ROCK) || poke.isDiving()
-						|| poke.isDigging() || ability.equals(Ability.SAND_VEIL)
-						|| poke.getAbility().equals(Ability.SAND_FORCE) || ability
-							.equals(Ability.SAND_RUSH))) {
+						|| poke.isDigging() || poke.hasAbility(Ability.SAND_VEIL)
+						|| poke.hasAbility(Ability.SAND_FORCE) || poke.hasAbility(Ability.SAND_RUSH))) {
 					PokemonMath.applyFractionalDamage(poke, PokemonMath.ONE_SIXTEENTH);
 				}
 			} else if (field.isHail()) {
 				if (!(poke.isType(Type.ICE)
-						|| ability.equals(Ability.SNOW_CLOAK) || ability
-							.equals(Ability.ICE_BODY))
+						|| poke.hasAbility(Ability.SNOW_CLOAK) || poke.hasAbility(Ability.ICE_BODY))
 						|| poke.isDigging()
 						|| poke.isDiving()) {
 					PokemonMath.applyFractionalDamage(poke, PokemonMath.ONE_SIXTEENTH);

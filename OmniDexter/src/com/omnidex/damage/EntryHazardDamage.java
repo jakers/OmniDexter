@@ -6,11 +6,6 @@ import com.omnidex.pokemon.Pokemon;
 import com.omnidex.type.Type;
 import com.omnidex.type.TypeChart;
 
-/**
- * This class houses entry hazard related methods.
- * 
- * @author jakers
- */
 public class EntryHazardDamage {
 
 	private static double FOUR_TIMES_WEAK = 4.0;
@@ -28,9 +23,9 @@ public class EntryHazardDamage {
 		int spikeCount = team.getSpikesCount();
 		Pokemon poke = team.getActivePokemon();
 		
-		if (team.hasSpikes() && !poke.getAbility().equals(Ability.LEVITATE)
+		if (team.hasSpikes() && !poke.hasAbility(Ability.LEVITATE)
 				&& !poke.isType(Type.FLYING)
-				&& !poke.getAbility().equals(Ability.MAGIC_GUARD)) {
+				&& !poke.hasAbility(Ability.MAGIC_GUARD)) {
 			if (spikeCount == 1) {
 				PokemonMath.applyFractionalDamage(poke, PokemonMath.ONE_EIGHTH);
 			} else if (spikeCount == 2) {
@@ -44,7 +39,7 @@ public class EntryHazardDamage {
 
 	public static void applyToxicSpikes(Team team) {
 		Pokemon poke = team.getActivePokemon();
-		if (poke.isType(Type.POISON) && !poke.getAbility().equals(Ability.LEVITATE) 
+		if (poke.isType(Type.POISON) && !poke.hasAbility(Ability.LEVITATE) 
 			&& !poke.isType(Type.FLYING)) {
 			team.removeToxicSpikes();
 		} else if (team.hasToxicSpikes() && !poke.isType(Type.STEEL)

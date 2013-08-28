@@ -48,8 +48,13 @@ public class AiWriter {
 			}
 			statement = statement.concat(" %s uses %s, dealing %d damage!");
 			String moveName = poke.getMove(moveChoice).getMove().getName();
-			statement = String.format(statement, poke, moveName, damage);
+			statement = String.format(statement, poke.getSpecies(), moveName, damage);
 			System.out.println(statement);
+			
+			if (poke.hasFainted()) {
+				System.out.println("DIE");
+			}
+			
 		}
 	}
 
@@ -57,9 +62,9 @@ public class AiWriter {
 		if (!isSearchMode) {
 			String statement = "%s switchs out to %s.";
 			if (teamId == Game.OMNIDEXTER) {
-				statement = String.format(statement, "OmniDexter", poke);
+				statement = String.format(statement, "OmniDexter", poke.getSpecies());
 			} else {
-				statement = String.format(statement, "Opponent", poke);
+				statement = String.format(statement, "Opponent", poke.getSpecies());
 			}
 			System.out.println(statement);
 		}

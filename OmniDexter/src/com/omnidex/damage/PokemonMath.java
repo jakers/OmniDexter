@@ -6,9 +6,6 @@ import com.omnidex.pokemon.Nature;
 import com.omnidex.pokemon.Pokemon;
 import com.omnidex.type.Type;
 
-/**
- * @author jakers
- */
 public class PokemonMath {/*
 						 * private static final double PLUS_SIX = 4.0; private
 						 * static final double PLUS_FIVE = 3.5; private static
@@ -61,17 +58,17 @@ public class PokemonMath {/*
 	}
 	
 	public static void applyFractionalLeeching(Pokemon damaged, Pokemon healed, double fraction) {
-		int amountLost = (int)(damaged.getMaxHp() * fraction);
+		int amountLost = (int) (damaged.getMaxHp() * fraction);
 		int deltaHP = damaged.getCurrHp() - amountLost;
 		if (deltaHP < 0) {
 			amountLost = damaged.getCurrHp();
 		}
 		damaged.setCurrHp(deltaHP);
-		healed.setCurrHp(healed.getCurrHp()+amountLost);
+		healed.setCurrHp(healed.getCurrHp() + amountLost);
 	}
 
 	public static void toxicDamage(Pokemon poke) {
-		PokemonMath.applyFractionalDamage(poke, poke.getToxCount()*PokemonMath.ONE_SIXTEENTH);
+		PokemonMath.applyFractionalDamage(poke, poke.getToxCount() * PokemonMath.ONE_SIXTEENTH);
 		poke.incrementToxCount();
 	}
 
@@ -238,61 +235,61 @@ public class PokemonMath {/*
 		return hiddenPower;
 	}
 
-	public static int calcHiddenPowerBasePower(int hpIv, int atkIv, int defIv,
-			int spAtkIv, int spDefIv, int spdIv) {
-		/*
-		 * | (u + 2*v +A*w+B*x+C*y+D*z)*E + F | HP(power) = floor |
-		 * ------------------------------- | | G | --- --- u = hpIv v = atkIv w
-		 * = defIv x = spdIv y = spAtkIv z = spDefIv
-		 * 
-		 * A = 4.0 B = 8.0 C = 16.0 D = 32.0 E = 40.0 F = 30.0 G = 63.0
-		 */
-
-		final double A = 4.0;
-		final double B = 8.0;
-		final double C = 16.0;
-		final double D = 32.0;
-		final double E = 40.0;
-		final double F = 30.0;
-		final double G = 63.0;
-
-		if (((hpIv % 4) == 2) || ((hpIv % 4) == 3)) {
-			hpIv = 1;
-		} else {
-			hpIv = 0;
-		}
-		if (((atkIv % 4) == 2) || ((atkIv % 4) == 3)) {
-			atkIv = 1;
-		} else {
-			atkIv = 0;
-		}
-		if (((defIv % 4) == 2) || ((defIv % 4) == 3)) {
-			defIv = 1;
-		} else {
-			defIv = 0;
-		}
-		if (((spAtkIv % 4) == 2) || ((spAtkIv % 4) == 3)) {
-			spAtkIv = 1;
-		} else {
-			spAtkIv = 0;
-		}
-		if (((spDefIv % 4) == 2) || ((spDefIv % 4) == 3)) {
-			spDefIv = 1;
-		} else {
-			spDefIv = 0;
-		}
-		if (((spdIv % 4) == 2) || ((spdIv % 4) == 3)) {
-			spdIv = 1;
-		} else {
-			spdIv = 0;
-		}
-
-		double result = hpIv + 2.0 * atkIv + A * defIv + B * spdIv;
-		result = result + C * spAtkIv + D * spDefIv;
-		result = result * E;
-		result = result / G;
-		result = result + F;
-
-		return (int) result;
-	}
+//	public static int calcHiddenPowerBasePower(int hpIv, int atkIv, int defIv,
+//			int spAtkIv, int spDefIv, int spdIv) {
+//		/*
+//		 * | (u + 2*v +A*w+B*x+C*y+D*z)*E + F | HP(power) = floor |
+//		 * ------------------------------- | | G | --- --- u = hpIv v = atkIv w
+//		 * = defIv x = spdIv y = spAtkIv z = spDefIv
+//		 * 
+//		 * A = 4.0 B = 8.0 C = 16.0 D = 32.0 E = 40.0 F = 30.0 G = 63.0
+//		 */
+//
+//		final double A = 4.0;
+//		final double B = 8.0;
+//		final double C = 16.0;
+//		final double D = 32.0;
+//		final double E = 40.0;
+//		final double F = 30.0;
+//		final double G = 63.0;
+//
+//		if (((hpIv % 4) == 2) || ((hpIv % 4) == 3)) {
+//			hpIv = 1;
+//		} else {
+//			hpIv = 0;
+//		}
+//		if (((atkIv % 4) == 2) || ((atkIv % 4) == 3)) {
+//			atkIv = 1;
+//		} else {
+//			atkIv = 0;
+//		}
+//		if (((defIv % 4) == 2) || ((defIv % 4) == 3)) {
+//			defIv = 1;
+//		} else {
+//			defIv = 0;
+//		}
+//		if (((spAtkIv % 4) == 2) || ((spAtkIv % 4) == 3)) {
+//			spAtkIv = 1;
+//		} else {
+//			spAtkIv = 0;
+//		}
+//		if (((spDefIv % 4) == 2) || ((spDefIv % 4) == 3)) {
+//			spDefIv = 1;
+//		} else {
+//			spDefIv = 0;
+//		}
+//		if (((spdIv % 4) == 2) || ((spdIv % 4) == 3)) {
+//			spdIv = 1;
+//		} else {
+//			spdIv = 0;
+//		}
+//
+//		double result = hpIv + 2.0 * atkIv + A * defIv + B * spdIv;
+//		result = result + C * spAtkIv + D * spDefIv;
+//		result = result * E;
+//		result = result / G;
+//		result = result + F;
+//
+//		return (int) result;
+//	}
 }

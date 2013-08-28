@@ -75,7 +75,7 @@ public class AbilityDamageMod {
         } else if (attacker.getCurrHp() / (double) attacker.getMaxHp()
                 <= 1 / (double) 3) {
             if (attacker.hasAbility(Ability.BLAZE)
-                    && move.getType().equals(Type.FIRE)) {
+                    && move.isType(Type.FIRE)) {
                 damage *= 1.5;
                 damage = (int) damage;
             } else if (attacker.hasAbility(Ability.OVERGROW)

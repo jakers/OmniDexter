@@ -3,9 +3,6 @@ package com.omnidex.pokemon;
 import com.omnidex.damage.PokemonMath;
 import com.omnidex.type.Type;
 
-/**
- * @author jakers
- */
 public class PokeStats implements Stats {
 
 	private static final int NUMBER_OF_STATS = 6;
@@ -32,7 +29,7 @@ public class PokeStats implements Stats {
 	private int[] baseStats;
 	private int level;
 
-	private int hiddenPowerBasePower;
+//	private int hiddenPowerBasePower;
 	private Type hiddenPowerType;
 
 	public PokeStats(Nature nature, int[] baseStats, int[] ivs, int[] evs) {
@@ -343,11 +340,6 @@ public class PokeStats implements Stats {
 	}
 
 	@Override
-	public int getHiddenPowerBasePower() {
-		return hiddenPowerBasePower;
-	}
-
-	@Override
 	public Type getHiddenPowerType() {
 		return hiddenPowerType;
 	}
@@ -359,8 +351,6 @@ public class PokeStats implements Stats {
 		int[] stats = PokemonMath.calcPokemon(level, nature, baseStats, ivs,
 				evs);
 
-		hiddenPowerBasePower = PokemonMath.calcHiddenPowerBasePower(hpIv,
-				atkIv, defIv, spAtkIv, spDefIv, speIv);
 		hiddenPowerType = PokemonMath.calcHiddenPower(hpIv, atkIv, defIv,
 				spAtkIv, spDefIv, speIv);
 

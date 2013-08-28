@@ -66,22 +66,23 @@ public class DeepTeam extends FieldScreen implements Team {
 	}
 
 	@Override
-	public void addTeamMate(Pokemon p) {
+	public void addTeamMate(Pokemon poke) {
+		assignSwitchingOptions(poke);
+		
 		if (activePokemon == null) {
-			activePokemon = new ActivePokemon(p);
-		} else {
-			party.add(new InactivePokemon(p));
+			
+			activePokemon = new ActivePokemon(poke);
+		} 
+		
+		if (party.size() < 6) {
+			party.add(new InactivePokemon(poke));
+			teamSize++;
 		}
-		teamSize++;
 	}
 
 	@Override
 	public int size() {
-		if (activePokemon == null) {
-			return 0;
-		} else {
-			return 1 + party.size();
-		}
+		return party.size();
 	}
 
 	@Override
@@ -93,8 +94,7 @@ public class DeepTeam extends FieldScreen implements Team {
 	public void switchActivePokemon(MoveWithPP switchOption) {
 
 		Move switchTo = switchOption.getMove();
-
-		AiWriter.writeSwitch(activePokemon, teamId);
+		
 		activePokemon.setSleep(activePokemon.getInitialSleepDuration());
 
 		switch (switchTo) {
@@ -119,7 +119,7 @@ public class DeepTeam extends FieldScreen implements Team {
 		default:
 			break;
 		}
-
+		AiWriter.writeSwitch(activePokemon, teamId);
 		EntryHazardDamage.applyToxicSpikes(this);
 		EntryHazardDamage.applySpikeDamage(this);
 		EntryHazardDamage.applyStealthRocks(this);
@@ -383,4 +383,46 @@ public class DeepTeam extends FieldScreen implements Team {
 			return false;
 		}
 	}
+	
+	private void assignSwitchingOptions(Pokemon poke) {
+		switch(party.size()) {
+		case 0:
+			poke.setMove(Move.SWITCH_2, Pokemon.SWITCH_ONE);
+			poke.setMove(Move.SWITCH_3, Pokemon.SWITCH_TWO);
+			poke.setMove(Move.SWITCH_4, Pokemon.SWITCH_THREE);
+			poke.setMove(Move.SWITCH_5, Pokemon.SWITCH_FOUR);
+			poke.setMove(Move.SWITCH_6, Pokemon.SWITCH_FIVE);
+			break;
+		case 2:
+			poke.setMove(Move.SWITCH_1, Pokemon.SWITCH_ONE);
+			poke.setMove(Move.SWITCH_3, Pokemon.SWITCH_TWO);
+			poke.setMove(Move.SWITCH_4, Pokemon.SWITCH_THREE);
+			poke.setMove(Move.SWITCH_5, Pokemon.SWITCH_FOUR);
+			poke.setMove(Move.SWITCH_6, Pokemon.SWITCH_FIVE);
+			break;
+		case 3:
+			poke.setMove(Move.SWITCH_1, Pokemon.SWITCH_ONE);
+			poke.setMove(Move.SWITCH_2, Pokemon.SWITCH_TWO);
+			poke.setMove(Move.SWITCH_4, Pokemon.SWITCH_THREE);
+			poke.setMove(Move.SWITCH_5, Pokemon.SWITCH_FOUR);
+			poke.setMove(Move.SWITCH_6, Pokemon.SWITCH_FIVE);
+			break;
+		case 4:
+			poke.setMove(Move.SWITCH_1, Pokemon.SWITCH_ONE);
+			poke.setMove(Move.SWITCH_2, Pokemon.SWITCH_TWO);
+			poke.setMove(Move.SWITCH_3, Pokemon.SWITCH_THREE);
+			poke.setMove(Move.SWITCH_5, Pokemon.SWITCH_FOUR);
+			poke.setMove(Move.SWITCH_6, Pokemon.SWITCH_FIVE);
+			break;
+		case 5:
+			poke.setMove(Move.SWITCH_1, Pokemon.SWITCH_ONE);
+			poke.setMove(Move.SWITCH_2, Pokemon.SWITCH_TWO);
+			poke.setMove(Move.SWITCH_3, Pokemon.SWITCH_THREE);
+			poke.setMove(Move.SWITCH_4, Pokemon.SWITCH_FOUR);
+			poke.setMove(Move.SWITCH_6, Pokemon.SWITCH_FIVE);
+			break;
+			default:
+		}
+	}
+	
 }

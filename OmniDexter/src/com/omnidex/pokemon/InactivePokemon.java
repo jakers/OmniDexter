@@ -170,7 +170,7 @@ public class InactivePokemon implements Pokemon, Status, Stats {
 
 		this.forme = forme;
 		stats = new PokeStats(level, nature, this.forme.getAllBases(), ivs, evs);
-
+		status = new PokeStatus();
 		this.nature = nature;
 		ability = Ability.NO_ABILITY;
 		isShiny = false;
@@ -221,7 +221,7 @@ public class InactivePokemon implements Pokemon, Status, Stats {
 		ability = p.getAbility();
 		stats.setEvs(p.getEvs());
 		stats.setIvs(p.getIvs());
-		status = new PokeStatus(p.getStatus());
+		status = p.getStatus();
 		stats.setBaseStats(p.getBaseStats());
 
 		gender = p.getGender();
@@ -234,7 +234,13 @@ public class InactivePokemon implements Pokemon, Status, Stats {
 		move2 = p.getMove(MOVE_TWO);
 		move3 = p.getMove(MOVE_THREE);
 		move4 = p.getMove(MOVE_FOUR);
-
+		
+		switch1 = p.getMove(SWITCH_ONE);
+		switch2 = p.getMove(SWITCH_TWO);
+		switch3 = p.getMove(SWITCH_THREE);
+		switch4 = p.getMove(SWITCH_FOUR);
+		switch5 = p.getMove(SWITCH_FIVE);
+		
 		isShiny = p.isShiny();
 	}
 
@@ -702,11 +708,6 @@ public class InactivePokemon implements Pokemon, Status, Stats {
 	@Override
 	public void setSpeIv(int speIv) {
 		stats.setSpeIv(speIv);
-	}
-
-	@Override
-	public int getHiddenPowerBasePower() {
-		return stats.getHiddenPowerBasePower();
 	}
 
 	@Override

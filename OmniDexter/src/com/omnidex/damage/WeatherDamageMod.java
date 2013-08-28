@@ -8,15 +8,15 @@ public class WeatherDamageMod {
 
 	public static double doRainOrSunMods(Move move, BattleField bf, double damage) {
 		if (bf.isSun()) {
-            if (move.getType().equals(Type.FIRE)) {
+            if (move.isType(Type.FIRE)) {
                 damage *= 1.5;
-            } else if (move.getType().equals(Type.WATER)) {
+            } else if (move.isType(Type.WATER)) {
                 damage *= 0.5;
             }
         } else if (bf.isRain()) {
-            if (move.getType().equals(Type.FIRE)) {
+            if (move.isType(Type.FIRE)) {
                 damage *= 0.5;
-            } else if (move.getType().equals(Type.WATER)) {
+            } else if (move.isType(Type.WATER)) {
                 damage *= 1.5;
             }
         }

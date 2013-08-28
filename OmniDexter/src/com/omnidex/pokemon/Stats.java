@@ -2,12 +2,6 @@ package com.omnidex.pokemon;
 
 import com.omnidex.type.Type;
 
-/**
- * Stats are HP, ATK, DEF, SPATK, SPDEF, SPE, ACCURACY, EVASION Methods here
- * perform calculations and set and retrieve stats.
- * 
- * @author jakers
- */
 public interface Stats {
 	// constants for elements of arrays
 	static final int CURR_HP = 1;
@@ -181,11 +175,6 @@ public interface Stats {
 	 * @return an int representing the current hit points.
 	 */
 	int getCurrHp();
-
-	/**
-	 * @return an int representing the base power of the hidden power.
-	 */
-	int getHiddenPowerBasePower();
 
 	/**
 	 * @return a Type representing the type of the hidden power's type.

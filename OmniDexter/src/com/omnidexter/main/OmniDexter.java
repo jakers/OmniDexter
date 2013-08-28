@@ -1,11 +1,14 @@
 package com.omnidexter.main;
 
+import com.omnidex.battlefield.team.DeepTeam;
 import com.omnidex.battlefield.team.Team;
 import com.omnidex.game.Game;
 import com.omnidex.game.GamePrinter;
 import com.omnidex.move.Move;
 import com.omnidex.move.MoveWithPP;
 import com.omnidex.pokemon.InactivePokemon;
+import com.omnidex.pokemon.Pokemon;
+import com.omnidex.pokemon.Species;
 import com.omnidexter.battlefield.BattleField;
 import com.omnidexter.battlefield.SingleBattleField;
 
@@ -38,23 +41,30 @@ public class OmniDexter {
 		Move m2 = Move.TRUMP_CARD;
 
 		BattleField bf = new SingleBattleField();
-		Team team1 = TestTeamBuilder.getTestTeamOne();
+		Team team1 = new DeepTeam();// = TestTeamBuilder.getTestTeamOne();
+		
+		Pokemon p = new InactivePokemon(Species.BULBASAUR);
+		for (int i = 0; i < 6; i++) {
+			team1.addTeamMate(p);
+		}
+		
+		
 		Team team2 = TestTeamBuilder.getTestTeamTwo();
-
+		System.out.println("team 1 size = " + team1.size());
 		Game g = new Game(bf, team1, team2, "Chad");
 
-		// while (!g.isGameOver()) {
 		GamePrinter.printBattleField(team1, team2);
 		int choice = g.getFightOrSwitchInput();
 		if (choice == 1) {
 			GamePrinter.printFightOption(team1.getActivePokemon());
+
+			g.applyTurn(Pokemon.SWITCH_ONE, 1);
 		} else if (choice == 2) {
 			GamePrinter.printSwitchOption(team1);
+			int switchChoice = g.getSwitchChoice();
+			g.applyTurn(switchChoice, 1);
 		}
-
-		// }
-
-		// rc.sendChallengeRequestTo("01110", BattleRC.UU_CHALLENGE);
-
+		GamePrinter.printBattleField(g.getOmnidexter(), g.getOpponent());
+		System.out.println("Game OVER!!!");
 	}
 }

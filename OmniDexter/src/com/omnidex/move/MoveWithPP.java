@@ -14,6 +14,11 @@ public class MoveWithPP {
 		disabledCount = 0;
 	}
 	
+	@Override
+	public String toString() {
+		return move.getName();
+	}
+	
 	public Move getMove() {
 		return move;
 	}

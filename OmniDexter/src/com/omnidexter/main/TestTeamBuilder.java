@@ -173,24 +173,24 @@ public class TestTeamBuilder {
         t2P2.setAtkEv(252);
         t2P2.setSpeEv(252);
 
-        t2P2.setMove(Move.SUCKER_PUNCH, 0);
-        t2P2.setMove(Move.SHADOW_BALL, 1);
-        t2P2.setMove(Move.WILL_O_WISP, 2);
-        t2P2.setMove(Move.PAIN_SPLIT, 3);
-        t2.addTeamMate(t2P2);
-
-        Pokemon t2P3 = new InactivePokemon();
-        t2P3.setSpecies(Species.BRONZONG);
-        t2P3.setAbility(Ability.HEATPROOF);
-
-        t2P3.setHpEv(252);
-        t2P3.setSpDefEv(252);
-
-        t2P3.setMove(Move.GYRO_BALL, 0);
-        t2P3.setMove(Move.EARTHQUAKE, 1);
-        t2P3.setMove(Move.HYPNOSIS, 2);
-        t2P3.setMove(Move.THUNDER_WAVE, 3);
-        t2.addTeamMate(t2P3);
+//        t2P2.setMove(Move.SUCKER_PUNCH, 0);
+//        t2P2.setMove(Move.SHADOW_BALL, 1);
+//        t2P2.setMove(Move.WILL_O_WISP, 2);
+//        t2P2.setMove(Move.PAIN_SPLIT, 3);
+//        t2.addTeamMate(t2P2);
+//
+//        Pokemon t2P3 = new InactivePokemon();
+//        t2P3.setSpecies(Species.BRONZONG);
+//        t2P3.setAbility(Ability.HEATPROOF);
+//
+//        t2P3.setHpEv(252);
+//        t2P3.setSpDefEv(252);
+//
+//        t2P3.setMove(Move.GYRO_BALL, 0);
+//        t2P3.setMove(Move.EARTHQUAKE, 1);
+//        t2P3.setMove(Move.HYPNOSIS, 2);
+//        t2P3.setMove(Move.THUNDER_WAVE, 3);
+//        t2.addTeamMate(t2P3);
         return t2;
     }
 }

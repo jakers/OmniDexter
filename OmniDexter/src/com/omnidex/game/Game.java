@@ -5,14 +5,12 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.omnidex.ability.AbilityActivation;
-import com.omnidex.battlefield.team.DeepTeam;
 import com.omnidex.battlefield.team.Team;
 import com.omnidex.damage.MainDamageFormula;
 import com.omnidex.damage.PokemonMath;
 import com.omnidex.damage.StatusDamage;
 import com.omnidex.damage.WeatherDamage;
 import com.omnidex.item.ItemActivation;
-import com.omnidex.pokemon.Pokemon;
 import com.omnidexter.ai.AiWriter;
 import com.omnidexter.ai.BattleAI;
 import com.omnidexter.ai.Fitness;
@@ -55,7 +53,6 @@ public class Game {
 	public int getFightOrSwitchInput() {
 		Scanner scan = new Scanner(System.in);
 		int choice = scan.nextInt();
-		scan.close();
 		return choice;
 	}
 
@@ -124,6 +121,10 @@ public class Game {
 
 		if (second.getChoice() >= 0 && !second.getActivePokemon().hasFainted()) {
 			attack(second.getTeamId(), second.getChoice());
+		}
+		
+		if (second.getActivePokemon().hasFainted()) {
+			System.out.println("I'm SORRY MISS MOLLY");
 		}
 	}
 
@@ -292,16 +293,16 @@ public class Game {
 
 		damage = MainDamageFormula.damage(attack, defend, bf, attack
 				.getActivePokemon().getMove(moveSlot).getMove());
-
+		System.out.println("currHp = "+defend.getActivePokemon().getCurrHp());
 		defend.getActivePokemon().setCurrHp(
 				defend.getActivePokemon().getCurrHp() - damage[1]);
-
+		System.out.println("currHp = "+defend.getActivePokemon().getCurrHp());
 		AiWriter.writeAttack(attack.getActivePokemon(), moveSlot, damage[1],
 				player);
 	}
 
 	public Team getOmnidexter() {
-		return new DeepTeam(omnidexter);
+		return omnidexter;
 	}
 
 	public void setOmnidexter(Team omnidexter) {
@@ -309,7 +310,7 @@ public class Game {
 	}
 
 	public Team getOpponent() {
-		return new DeepTeam(opponent);
+		return opponent;
 	}
 
 	public void setOpponent(Team opponent) {
@@ -322,5 +323,18 @@ public class Game {
 
 	public void setBf(BattleField bf) {
 		this.bf = bf;
+	}
+
+	public int getFightChoice() {
+		Scanner scan = new Scanner(System.in);
+		
+		int choice = scan.nextInt();
+		return choice;
+	}
+
+	public int getSwitchChoice() {
+		Scanner scan = new Scanner(System.in);
+		int choice = scan.nextInt();
+		return choice;
 	}
 }
