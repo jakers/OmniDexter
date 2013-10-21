@@ -36,7 +36,7 @@ public class InactivePokemon implements Pokemon, Status, Stats {
 	protected Ability ability;
 	protected Item item;
 	protected double weight;
-
+	
 	protected MoveWithPP move1;
 	protected MoveWithPP move2;
 	protected MoveWithPP move3;
@@ -48,7 +48,9 @@ public class InactivePokemon implements Pokemon, Status, Stats {
 	protected MoveWithPP switch5;
 
 	protected int friendship;
-
+	private boolean isActivePokemon;
+	private boolean isGrounded = false;
+	
 	public InactivePokemon() {
 		forme = Species.MISSINGNO;
 		nickName = forme.toString();
@@ -851,4 +853,35 @@ public class InactivePokemon implements Pokemon, Status, Stats {
 	public boolean isSpecies(Species species) {
 		return this.forme.equals(species);
 	}
+	
+	public boolean isActivePokemon() {
+		return isActivePokemon;
+	}
+	
+	public void setAsActivePokemon() {
+		isActivePokemon = true;
+	}
+	
+	public void setAsInactivePokemon() {
+		isActivePokemon = false;
+	}
+	
+	public void damage(int damage) {
+		if (stats.getCurrHp() > 0) {
+			stats.setCurrHp(stats.getCurrHp() - damage);
+		}
+	}
+
+	public void heal(int healing) {
+		if (stats.getCurrHp() > 0) {
+			stats.setCurrHp(stats.getCurrHp() + healing);
+		}
+		
+	}
+
+	@Override
+	public boolean isGrounded() {
+		return !isType(Type.FLYING) && !hasAbility(Ability.LEVITATE) || isGrounded;
+	}
+	
 }

@@ -19,7 +19,7 @@ public class StatusDamageTest {
 		ActivePokemon poke = new ActivePokemon(Species.QUAGSIRE);
 		poke.setHpEv(252);
 		poke.setRegPoison();
-		StatusDamage.applyStatusDamage(poke);
+		StatusDamage.applyPoisonDamage(poke);
 		assertEquals(345, poke.getCurrHp());
 	}
 
@@ -33,9 +33,9 @@ public class StatusDamageTest {
 		poke.setHpEv(252);
 		poke.setToxPoison();
 		assertEquals(394, poke.getCurrHp());
-		StatusDamage.applyStatusDamage(poke);
+		StatusDamage.applyPoisonDamage(poke);
 		assertEquals(370, poke.getCurrHp());
-		StatusDamage.applyStatusDamage(poke);
+		StatusDamage.applyPoisonDamage(poke);
 		assertEquals(321, poke.getCurrHp());
 	}
 
@@ -49,7 +49,7 @@ public class StatusDamageTest {
 		poke.setAbility(Ability.POISON_HEAL);
 		poke.setHpEv(252);
 		poke.setToxPoison();
-		StatusDamage.applyStatusDamage(poke);
+		StatusDamage.applyStatusHealing(poke);
 		assertEquals(324, poke.getCurrHp());
 	}
 
@@ -63,7 +63,7 @@ public class StatusDamageTest {
 		poke.setAbility(Ability.POISON_HEAL);
 		poke.setHpEv(252);
 		poke.setRegPoison();
-		StatusDamage.applyStatusDamage(poke);
+		StatusDamage.applyStatusHealing(poke);
 		assertEquals(324, poke.getCurrHp());
 	}
 
@@ -77,7 +77,7 @@ public class StatusDamageTest {
 		poke.setAbility(Ability.POISON_HEAL);
 		poke.setHpEv(252);
 		poke.setBurnt();
-		StatusDamage.applyStatusDamage(poke);
+		StatusDamage.applyBurnDamage(poke);
 		assertEquals(284, poke.getCurrHp());
 	}
 
@@ -91,7 +91,7 @@ public class StatusDamageTest {
 		poke.setAbility(Ability.EFFECT_SPORE);
 		poke.setHpEv(252);
 		poke.setBurnt();
-		StatusDamage.applyStatusDamage(poke);
+		StatusDamage.applyBurnDamage(poke);
 		assertEquals(284, poke.getCurrHp());
 	}
 
@@ -105,7 +105,7 @@ public class StatusDamageTest {
 		poke.setAbility(Ability.HEATPROOF);
 		poke.setHpEv(252);
 		poke.setBurnt();
-		StatusDamage.applyStatusDamage(poke);
+		StatusDamage.applyBurnDamage(poke);
 		assertEquals(317, poke.getCurrHp());
 	}
 
@@ -119,7 +119,7 @@ public class StatusDamageTest {
 		poke.setAbility(Ability.MAGIC_GUARD);
 		poke.setHpEv(252);
 		poke.setBurnt();
-		StatusDamage.applyStatusDamage(poke);
+		StatusDamage.applyBurnDamage(poke);
 		assertEquals(338, poke.getCurrHp());
 	}
 

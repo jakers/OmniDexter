@@ -25,36 +25,14 @@ public interface Pokemon extends Status, Stats{
     static final int SWITCH_FOUR = -4;
     static final int SWITCH_FIVE = -5;
 
-    /**
-     * @return a Type enum representing the Pokemon's
-     * first type.
-     */
     Type getFirstType();
 
-    /**
-     * @return a Type enum representing the Pokemon's
-     * second type.
-     */
     Type getSecondType();
 
-    /**
-     * @return a Stat object representing the Pokemon's
-     * current stats.
-     */
     Stats getStats();
     
-    /**
-     * @return a Status object representing the Pokemon's
-     * current status.
-     */
     Status getStatus();
     
-    /**
-     * @param type a Type enum to check the type of against the
-     * Pokemon's type(s)
-     * @return true if type matches either of the possible two types
-     * the Pokemon has.
-     */
     boolean isType(Type type);
     
     Ability getAbility();
@@ -78,4 +56,7 @@ public interface Pokemon extends Status, Stats{
     boolean isSpecies(Species species);
     void setWeight(double weight);
     double getWeight();
+    void damage(int damage);
+    void heal(int addHp);
+    boolean isGrounded();
 }

@@ -869,7 +869,7 @@ public class ActivePokemon extends InactivePokemon {
 		return spDefStage.getStage();
 	}
 	
-	public int getSpeStage() {
+	public int getSpeedStage() {
 		return speedStage.getStage();
 	}
 	

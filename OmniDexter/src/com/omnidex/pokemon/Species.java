@@ -761,7 +761,15 @@ public enum Species {
 	STRATAGEM("Stratagem", Type.ROCK, Type.NO_TYPE,90,60,65,120,70,130,99.0),
 	SYCLANT("Syclant", Type.ICE,Type.BUG,70,116,70,114,64,121,115.0),
 	TOMOHAWK("Tomohawk",Type.FLYING,Type.FIGHTING,105,60,90,115,80,85,82.0),
-	VOODOOM("Voodoom",Type.FIGHTING, Type.DARK, 90,85,80,105,80,110,166.6);
+	VOODOOM("Voodoom",Type.FIGHTING, Type.DARK, 90,85,80,105,80,110,166.6),
+	
+	// gen 6 pokemon
+	CHESPIN("Chespin",Type.GRASS, Type.NO_TYPE,0,0,0,0,0,0,19.8);
+	
+	
+	
+	
+	
 	
 	private String forme;
 	private Type firstType, secondType;

@@ -3,6 +3,7 @@ package com.omnidex.game;
 import java.util.List;
 
 import com.omnidex.battlefield.team.Team;
+import com.omnidex.pokemon.InactivePokemon;
 import com.omnidex.pokemon.Pokemon;
 
 public class GamePrinter {
@@ -23,7 +24,7 @@ public class GamePrinter {
 			System.out.println();
 		}
 	}
-	
+
 	private static void printOmniDexterSide(Team team) {
 		printTeamPokeballs(team);
 		System.out.println();
@@ -39,7 +40,7 @@ public class GamePrinter {
 		System.out.print("\t\t\t");
 		printHpBar(team.getActivePokemon());
 	}
-	
+
 	private static void printPokemon(Team team) {
 		System.out.println(team.getActivePokemon().getSpecies() + " Lv:"
 				+ team.getActivePokemon().getLevel());
@@ -66,20 +67,22 @@ public class GamePrinter {
 			System.out.println(i + ") " + poke.getMove(i).getMove().getName());
 		}
 	}
-	
+
 	public static void printSwitchOption(Team team) {
-		List<Pokemon> party = team.getParty();
+		List<InactivePokemon> party = team.getParty();
 
 		if (party.isEmpty()) {
 			System.out.println("No avaliable switches");
 		} else {
-			for (int i = 1; i <= party.size(); i++) {
-				System.out.println(i-1 + ") " + party.get(i - 1).getSpecies() + " "
-						+ party.get(i - 1).getCurrHp() + "/"
-						+ party.get(i - 1).getMaxHp());
+			int i = 1;
+			for (InactivePokemon poke : team.getParty()) {
+				if (!poke.isActivePokemon() && !poke.hasFainted()) {
+
+					System.out.println(-i + ") " + poke.getSpecies() + " "
+							+ poke.getCurrHp() + "/" + poke.getMaxHp());
+				}
+				i++;
 			}
 		}
 	}
-	
-	
 }

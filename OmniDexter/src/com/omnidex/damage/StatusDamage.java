@@ -5,39 +5,40 @@ import com.omnidex.item.Item;
 import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.pokemon.Pokemon;
 
-/**
- * @author Akers
- */
 public class StatusDamage {
 
-	/**
-	 * This deals Burn, Poison, Toxic poison, or Nightmare damage. Also this
-	 * increments the toxCount on the DeepPokemon if they have Toxic poison
-	 * 
-	 * @param poke
-	 *            a DeepPokemon that is the active DeepPokemon on the battle
-	 *            field.
-	 */
-	public static void applyStatusDamage(ActivePokemon poke) {
-		if (!poke.hasAbility(Ability.MAGIC_GUARD)) {
-			if (poke.isBurnt()) {
-				if (poke.hasAbility(Ability.HEATPROOF)) {
-					PokemonMath.applyFractionalDamage(poke,
-							PokemonMath.ONE_SIXTEENTH);
-				} else {
-					PokemonMath.applyFractionalDamage(poke,
-							PokemonMath.ONE_EIGHTH);
-				}
-			} else if (poke.isRegPoison()
-					&& !poke.getAbility().healsWhenPoisoned()) {
-				PokemonMath.applyFractionalDamage(poke, PokemonMath.ONE_EIGHTH);
-			} else if (poke.isToxPoison()
-					&& !poke.getAbility().healsWhenPoisoned()) {
-				PokemonMath.toxicDamage(poke);
+	public static void applyBurnDamage(ActivePokemon poke) {
+		if (noMagicGuard(poke) && poke.isBurnt()) {
+			if (poke.hasAbility(Ability.HEATPROOF)) {
+				MathUtils.passiveDamage(poke, MathUtils.ONE_SIXTEENTH);
+			} else {
+				MathUtils.passiveDamage(poke, MathUtils.ONE_EIGHTH);
 			}
-		} else if (poke.isAsleep() && poke.hasNightmare()) {
-			PokemonMath.applyFractionalDamage(poke, PokemonMath.ONE_QUARTER);
 		}
+	}
+
+	public static void applyPoisonDamage(ActivePokemon poke) {
+		if (noMagicGuard(poke)) {
+			if (poke.isRegPoison()) {
+				MathUtils.passiveDamage(poke, MathUtils.ONE_EIGHTH);
+			} else {
+				MathUtils.toxicDamage(poke);
+			}
+		}
+	}
+
+	public static void applyNightmareDamage(ActivePokemon poke) {
+		if (noMagicGuard(poke) && poke.isAsleep()) {
+			MathUtils.passiveDamage(poke, MathUtils.ONE_QUARTER);
+		}
+	}
+
+	private static boolean noMagicGuard(Pokemon poke) {
+		return !poke.hasAbility(Ability.MAGIC_GUARD);
+	}
+
+	private static boolean hasEitherPoison(Pokemon poke) {
+		return poke.isRegPoison() || poke.isToxPoison();
 	}
 
 	/**
@@ -48,24 +49,14 @@ public class StatusDamage {
 	 *            field.
 	 */
 	public static void applyStatusHealing(Pokemon poke) {
-		if (!poke.hasFainted()) {
-			if ((poke.isRegPoison() || poke.isToxPoison())
-					&& poke.getAbility().healsWhenPoisoned()) {
-				PokemonMath
-						.applyFractionalHealing(poke, PokemonMath.ONE_EIGHTH);
-			}
+		if (!poke.hasFainted() && hasEitherPoison(poke) && poke.hasAbility(Ability.POISON_HEAL)) {
+			MathUtils.applyFractionalHealing(poke, MathUtils.ONE_EIGHTH);
 		}
 	}
 
-	/**
-	 * This deals the Ghost version of the Curse secondary affect.
-	 * 
-	 * @param poke
-	 *            the Pokemon that this curse damage is to be applied to.
-	 */
 	public static void applyCurseDamage(ActivePokemon poke) {
-		if (!poke.hasFainted() && poke.isCursed()) {
-			PokemonMath.applyFractionalDamage(poke, PokemonMath.ONE_QUARTER);
+		if (poke.isCursed()) {
+			MathUtils.passiveDamage(poke, MathUtils.ONE_QUARTER);
 		}
 	}
 
@@ -80,8 +71,8 @@ public class StatusDamage {
 	 */
 	public static void applyLeechSeed(ActivePokemon seeded, ActivePokemon healer) {
 		if (seeded.isSeeded() && !seeded.hasFainted() && !healer.hasFainted()) {
-			PokemonMath.applyFractionalLeeching(seeded, healer,
-					PokemonMath.ONE_EIGHTH);
+			MathUtils.applyFractionalLeeching(seeded, healer,
+					MathUtils.ONE_EIGHTH);
 		}
 	}
 
@@ -94,12 +85,7 @@ public class StatusDamage {
 	 * @param badDream
 	 *            a Pokemon with the ability BadDreams.
 	 */
-	public static void applyBadDreams(Pokemon dreamer, Pokemon badDream) {
-		if (!badDream.hasFainted() && dreamer.isAsleep()
-				&& badDream.hasAbility(Ability.BAD_DREAMS)) {
-			PokemonMath.applyFractionalDamage(dreamer, PokemonMath.ONE_EIGHTH);
-		}
-	}
+	
 
 	/**
 	 * The Pokemon with Ingrain roots is healed by 1/16th of its max hp.
@@ -108,7 +94,7 @@ public class StatusDamage {
 	 */
 	public static void applyIngrainHealing(ActivePokemon poke) {
 		if (!poke.hasFainted() && poke.isIngrained()) {
-			PokemonMath.applyFractionalHealing(poke, PokemonMath.ONE_SIXTEENTH);
+			MathUtils.applyFractionalHealing(poke, MathUtils.ONE_SIXTEENTH);
 		}
 	}
 
@@ -120,7 +106,7 @@ public class StatusDamage {
 	 */
 	public static void applyAquaRingHealing(ActivePokemon poke) {
 		if (!poke.hasFainted() && poke.hasAquaRing()) {
-			PokemonMath.applyFractionalHealing(poke, PokemonMath.ONE_SIXTEENTH);
+			MathUtils.applyFractionalHealing(poke, MathUtils.ONE_SIXTEENTH);
 		}
 	}
 
@@ -150,12 +136,12 @@ public class StatusDamage {
 			applyPartialTrappingDamageWithItemMod(target, trapper);
 			target.decrementWhirlpool();
 		}
-		
+
 		if (!target.hasFainted() && target.hasMagmaStorm()) {
 			applyPartialTrappingDamageWithItemMod(target, trapper);
 			target.decrementMagmaStorm();
 		}
-		
+
 		if (!target.hasFainted() && target.isBound()) {
 			applyPartialTrappingDamageWithItemMod(target, trapper);
 			target.decrementBind();
@@ -165,10 +151,9 @@ public class StatusDamage {
 	private static void applyPartialTrappingDamageWithItemMod(
 			ActivePokemon target, ActivePokemon trapper) {
 		if (trapper.getItem().equals(Item.BINDING_BAND)) {
-			PokemonMath.applyFractionalDamage(target, PokemonMath.ONE_EIGHTH);
+			MathUtils.passiveDamage(target, MathUtils.ONE_EIGHTH);
 		} else {
-			PokemonMath
-					.applyFractionalDamage(target, PokemonMath.ONE_SIXTEENTH);
+			MathUtils.passiveDamage(target, MathUtils.ONE_SIXTEENTH);
 		}
 
 	}

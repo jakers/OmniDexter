@@ -1,5 +1,6 @@
 package com.omnidex.ability;
 
+import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.pokemon.Pokemon;
 import com.omnidex.type.Type;
 import com.omnidex.weather.Weather;
@@ -425,7 +426,7 @@ public enum Ability {
 		return this == TRUANT && loaf;
 	}
 	
-	public void switchActivatedAbility(Pokemon switchIn, Pokemon opponent, Weather weather) {
+	public void switchActivatedAbility(ActivePokemon switchIn, ActivePokemon opponent, Weather weather) {
 		switch (switchIn.getAbility()) {
 			case DRIZZLE:
 				weather.setRain(Weather.PERMANENT);
@@ -440,10 +441,11 @@ public enum Ability {
 				weather.setHail(Weather.PERMANENT);
 				break;
 			case INTIMIDATE:
-				// TODO implement intimidate ability
+				opponent.decreaseAttackStage(1);
 				break;
 			case DOWNLOAD:
 				// TODO implement download
+				AbilityActivation.activateDownload(switchIn, opponent);
 				break;
 			case TRACE:
 				//TODO test for aliasing of abilities

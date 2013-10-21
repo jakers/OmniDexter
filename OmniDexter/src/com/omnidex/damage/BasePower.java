@@ -522,7 +522,7 @@ public class BasePower {
 		if (target.getSpDefStage() > 0) {
 			positiveStatBoosts++;
 		}
-		if (target.getSpeStage() > 0) {
+		if (target.getSpeedStage() > 0) {
 			positiveStatBoosts++;
 		}
 		

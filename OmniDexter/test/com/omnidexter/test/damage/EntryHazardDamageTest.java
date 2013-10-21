@@ -134,4 +134,26 @@ public class EntryHazardDamageTest {
 		EntryHazardDamage.applyStealthRocks(team);
 		assertEquals(180,team.getActivePokemon().getCurrHp());
 	}
+	
+	@Test
+	public void two_times_weak_to_stealthRocks() {
+		Team team = new DeepTeam();
+		team.addTeamMate(accelgor);
+		team.addStealthRocks();
+		EntryHazardDamage.applyStealthRocks(team);
+		assertEquals(273, team.getActivePokemon().getCurrHp());
+	}
+	
+	@Test
+	public void neutral_to_stealthRocks() {
+		Pokemon arbok = new InactivePokemon(Species.ARBOK);
+		arbok.setHpEv(252);
+		Team team = new DeepTeam();
+		team.addTeamMate(arbok);
+		team.addStealthRocks();
+		EntryHazardDamage.applyStealthRocks(team);
+		assertEquals(284, team.getActivePokemon().getCurrHp());
+	}
+	
+	
 }

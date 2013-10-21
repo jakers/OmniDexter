@@ -16,7 +16,7 @@ public class DeepTeam extends FieldScreen implements Team {
 	private int teamId;
 	private int choice;
 	private ActivePokemon activePokemon;
-	private List<Pokemon> party;
+	private List<InactivePokemon> party;
 	private boolean hasStealthRocks;
 
 	private int wishCount;
@@ -37,7 +37,7 @@ public class DeepTeam extends FieldScreen implements Team {
 
 	public DeepTeam() {
 		super();
-		party = new ArrayList<Pokemon>();
+		party = new ArrayList<InactivePokemon>();
 		hasStealthRocks = false;
 		tailwindCount = 0;
 		luckyChantCount = 0;
@@ -51,9 +51,9 @@ public class DeepTeam extends FieldScreen implements Team {
 
 	public DeepTeam(Team team) {
 		super(team);
-		party = new ArrayList<Pokemon>();
+		party = new ArrayList<InactivePokemon>();
 		activePokemon = team.getActivePokemon();
-		List<Pokemon> temp = team.getParty();
+		List<InactivePokemon> temp = team.getParty();
 		for (int i = 0; i < temp.size(); i++) {
 			party.add(temp.get(i));
 		}
@@ -70,12 +70,17 @@ public class DeepTeam extends FieldScreen implements Team {
 		assignSwitchingOptions(poke);
 		
 		if (activePokemon == null) {
-			
 			activePokemon = new ActivePokemon(poke);
 		} 
 		
 		if (party.size() < 6) {
+			
 			party.add(new InactivePokemon(poke));
+			if (party.size() == 1) {
+				party.get(0).setAsActivePokemon();
+			} else {
+				party.get(party.size()-1).setAsInactivePokemon();
+			}
 			teamSize++;
 		}
 	}
@@ -126,7 +131,7 @@ public class DeepTeam extends FieldScreen implements Team {
 	}
 
 	@Override
-	public List<Pokemon> getParty() {
+	public List<InactivePokemon> getParty() {
 		return party;
 	}
 

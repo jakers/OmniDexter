@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.omnidex.move.MoveWithPP;
 import com.omnidex.pokemon.ActivePokemon;
+import com.omnidex.pokemon.InactivePokemon;
 import com.omnidex.pokemon.Pokemon;
 
 /**
@@ -132,7 +133,7 @@ public interface Team extends Screen {
 	/**
 	 * @return a list of the Pokemon that are in the party
 	 */
-	List<Pokemon> getParty();
+	List<InactivePokemon> getParty();
 	
 	void setChoice(int choice);
 	

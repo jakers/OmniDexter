@@ -35,19 +35,19 @@ public class WeatherDamage {
 						|| poke.isType(Type.ROCK) || poke.isDiving()
 						|| poke.isDigging() || poke.hasAbility(Ability.SAND_VEIL)
 						|| poke.hasAbility(Ability.SAND_FORCE) || poke.hasAbility(Ability.SAND_RUSH))) {
-					PokemonMath.applyFractionalDamage(poke, PokemonMath.ONE_SIXTEENTH);
+					MathUtils.passiveDamage(poke, MathUtils.ONE_SIXTEENTH);
 				}
 			} else if (field.isHail()) {
 				if (!(poke.isType(Type.ICE)
 						|| poke.hasAbility(Ability.SNOW_CLOAK) || poke.hasAbility(Ability.ICE_BODY))
 						|| poke.isDigging()
 						|| poke.isDiving()) {
-					PokemonMath.applyFractionalDamage(poke, PokemonMath.ONE_SIXTEENTH);
+					MathUtils.passiveDamage(poke, MathUtils.ONE_SIXTEENTH);
 				}
 			} else if (field.isSun()) {
 				if (poke.hasAbility(Ability.SOLAR_POWER)
 						|| poke.hasAbility(Ability.DRY_SKIN)) {
-					PokemonMath.applyFractionalDamage(poke, PokemonMath.ONE_EIGHTH);
+					MathUtils.passiveDamage(poke, MathUtils.ONE_EIGHTH);
 				}
 			}
 		}
@@ -67,15 +67,15 @@ public class WeatherDamage {
 	public static void applyHealingWeather(Weather weather, ActivePokemon poke) {
 		if (weather.isRain()) {
 			if (poke.hasAbility(Ability.RAIN_DISH)) {
-				PokemonMath.applyFractionalHealing(poke, PokemonMath.ONE_SIXTEENTH);
+				MathUtils.applyFractionalHealing(poke, MathUtils.ONE_SIXTEENTH);
 			} else if (poke.hasAbility(Ability.DRY_SKIN)) {
-				PokemonMath.applyFractionalHealing(poke, PokemonMath.ONE_EIGHTH);
+				MathUtils.applyFractionalHealing(poke, MathUtils.ONE_EIGHTH);
 			} else if (poke.hasAbility(Ability.HYDRATION)) {
 				poke.cureStatus();
 			}
 		} else if (weather.isHail()) {
 			if (poke.hasAbility(Ability.ICE_BODY)) {
-				PokemonMath.applyFractionalHealing(poke, PokemonMath.ONE_SIXTEENTH);
+				MathUtils.applyFractionalHealing(poke, MathUtils.ONE_SIXTEENTH);
 			}
 		}
 	}

@@ -27,49 +27,31 @@ public class FitnessScore {
 	 * (%Hp of team 1/t1 size) - (%Hp of team2)/(t2 size)
 	 */
 	public static double calcFitness(Team t1, Team t2) {
-		double result = 0.0;
-		double team1Score = 0.0;
-//		team1Score = t1.getActivePokemon().getCurrHp()
-//				/ (double) t1.getActivePokemon().getMaxHp();
-
-		List<Pokemon> team1Party = t1.getParty();
-		for (int i = 0; i < team1Party.size(); i++) {
-			double temp = team1Party.get(i).getCurrHp()
-					/ (double) team1Party.get(i).getMaxHp();
-			team1Score += temp;
-		}
-		team1Score /= t1.teamSize();
-		double team2Score = 0.0;
-		team2Score = t2.getActivePokemon().getCurrHp()
-				/ (double) t2.getActivePokemon().getMaxHp();
-
-		List<Pokemon> team2Party = t2.getParty();
-		for (int i = 0; i < team2Party.size(); i++) {
-			double temp = team2Party.get(i).getCurrHp()
-					/ (double) team2Party.get(i).getMaxHp();
-			team2Score += temp;
-		}
-		team2Score /= t2.teamSize();
+		double team1Score = calcTeamScore(t1);
+		double team2Score = calcTeamScore(t2);
+		
+		double fitness = team1Score - team2Score;
+		
 		if (team1Score == 0.0 && team2Score == 0.0) {
-			result = DRAW;
+			fitness = DRAW;
 		} else if (team1Score == 0.0) {
-			result = PLAYER_ONE_WINS;
+			fitness = PLAYER_ONE_WINS;
 		} else if (team2Score == 0.0) {
-			result = PLAYER_TWO_WINS;
+			fitness = PLAYER_TWO_WINS;
 		} else {
-			result = team1Score - team2Score;
+			fitness = team1Score - team2Score;
 		}
-		return result;
+		return fitness;
 	}
 	
-	public double calcTeamScore(Team team) {
+	private static double calcTeamScore(Team team) {
 		double teamScore = 0.0;
-		List<Pokemon> party = team.getParty();
-		for (int i = 0; i < party.size(); i++) {
-			double temp = party.get(i).getCurrHp()
-					/ (double) party.get(i).getMaxHp();
+		for (Pokemon poke : team.getParty()) {
+			double temp = poke.getCurrHp()
+					/ (double) poke.getMaxHp();
 			teamScore += temp;
 		}
+		
 		teamScore /= team.teamSize();
 		return teamScore;
 	}

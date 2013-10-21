@@ -2,6 +2,7 @@ package com.omnidex.damage;
 
 import com.omnidex.item.Item;
 import com.omnidex.move.Move;
+import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.pokemon.Pokemon;
 import com.omnidex.pokemon.Species;
 import com.omnidex.type.Type;
@@ -69,5 +70,105 @@ public class ItemDamageMod {
 
         return damage;
     }
+    
+    public static double berryModifiers(Move move, ActivePokemon defender,
+			double damage) {
+    	
+    	if (move.isType(Type.NORMAL)
+				&& defender.hasItem(Item.CHILAN_BERRY)) {
+			damage *= 0.5;
+			damage = (int) damage;
+			printBerryMsg(defender.getSpecies(), Item.CHILAN_BERRY, Type.NORMAL);
+		}
+    	
+    	
+		if (move.isType(Type.BUG) && defender.hasItem(Item.TANGA_BERRY)) {
+			damage *= 0.5;
+			damage = (int) damage;
+			printBerryMsg(defender.getSpecies(), Item.TANGA_BERRY, Type.BUG);
+		} else if (move.isType(Type.DARK)
+				&& defender.hasItem(Item.COLBUR_BERRY)) {
+			damage *= 0.5;
+			damage = (int) damage;
+			printBerryMsg(defender.getSpecies(), Item.COLBUR_BERRY, Type.DARK);
+		} else if (move.isType(Type.ICE) && defender.hasItem(Item.YACHE_BERRY)) {
+			damage *= 0.5;
+			damage = (int) damage;
+			printBerryMsg(defender.getSpecies(), Item.YACHE_BERRY, Type.ICE);
+		} else if (move.isType(Type.ELECTRIC)
+				&& defender.hasItem(Item.WACAN_BERRY)) {
+			damage *= 0.5;
+			damage = (int) damage;
+			printBerryMsg(defender.getSpecies(), Item.WACAN_BERRY,
+					Type.ELECTRIC);
+		} else if (move.isType(Type.GRASS)
+				&& defender.hasItem(Item.RINDO_BERRY)) {
+			damage *= 0.5;
+			damage = (int) damage;
+			printBerryMsg(defender.getSpecies(), Item.RINDO_BERRY, Type.GRASS);
+		} else if (move.isType(Type.GROUND)
+				&& defender.hasItem(Item.SHUCA_BERRY)) {
+			damage *= 0.5;
+			damage = (int) damage;
+			printBerryMsg(defender.getSpecies(), Item.SHUCA_BERRY, Type.GROUND);
+		} else if (move.isType(Type.FIRE) && defender.hasItem(Item.OCCA_BERRY)) {
+			damage *= 0.5;
+			damage = (int) damage;
+			printBerryMsg(defender.getSpecies(), Item.OCCA_BERRY, Type.FIRE);
+		} else if (move.isType(Type.WATER)
+				&& defender.hasItem(Item.PASSHO_BERRY)) {
+			damage *= 0.5;
+			damage = (int) damage;
+			printBerryMsg(defender.getSpecies(), Item.PASSHO_BERRY, Type.WATER);
+		} else if (move.isType(Type.STEEL)
+				&& defender.hasItem(Item.BABIRI_BERRY)) {
+			damage *= 0.5;
+			damage = (int) damage;
+			printBerryMsg(defender.getSpecies(), Item.BABIRI_BERRY, Type.STEEL);
+		} else if (move.isType(Type.POISON)
+				&& defender.hasItem(Item.KEBIA_BERRY)) {
+			damage *= 0.5;
+			damage = (int) damage;
+			printBerryMsg(defender.getSpecies(), Item.KEBIA_BERRY, Type.POISON);
+		} else if (move.isType(Type.FLYING)
+				&& defender.hasItem(Item.COBA_BERRY)) {
+			damage *= 0.5;
+			damage = (int) damage;
+			printBerryMsg(defender.getSpecies(), Item.COBA_BERRY, Type.FLYING);
+		} else if (move.isType(Type.PSYCHIC)
+				&& defender.hasItem(Item.PAYAPA_BERRY)) {
+			damage *= 0.5;
+			damage = (int) damage;
+			printBerryMsg(defender.getSpecies(), Item.PAYAPA_BERRY,
+					Type.PSYCHIC);
+		} else if (move.isType(Type.ROCK)
+				&& defender.hasItem(Item.CHARTI_BERRY)) {
+			damage *= 0.5;
+			damage = (int) damage;
+			printBerryMsg(defender.getSpecies(), Item.CHARTI_BERRY, Type.ROCK);
+		} else if (move.isType(Type.GHOST)
+				&& defender.hasItem(Item.KASIB_BERRY)) {
+			damage *= 0.5;
+			damage = (int) damage;
+			printBerryMsg(defender.getSpecies(), Item.KASIB_BERRY, Type.GHOST);
+		} else if (move.isType(Type.DRAGON)
+				&& defender.hasItem(Item.HABAN_BERRY)) {
+			damage *= 0.5;
+			damage = (int) damage;
+			printBerryMsg(defender.getSpecies(), Item.HABAN_BERRY, Type.DRAGON);
+		} else if (move.isType(Type.FIGHTING)
+				&& defender.hasItem(Item.CHOPLE_BERRY)) {
+			damage *= 0.5;
+			damage = (int) damage;
+			printBerryMsg(defender.getSpecies(), Item.CHOPLE_BERRY,
+					Type.FIGHTING);
+		}
+		return damage;
+	}
+
+    private static void printBerryMsg(Species forme, Item berry, Type typing) {
+		System.out.println(forme + "'s " + berry + " activates, weakening "
+				+ typing + " type moves!");
+	}
 }
 

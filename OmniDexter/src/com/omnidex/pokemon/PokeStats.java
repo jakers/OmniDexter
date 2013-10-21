@@ -1,6 +1,6 @@
 package com.omnidex.pokemon;
 
-import com.omnidex.damage.PokemonMath;
+import com.omnidex.damage.MathUtils;
 import com.omnidex.type.Type;
 
 public class PokeStats implements Stats {
@@ -29,7 +29,6 @@ public class PokeStats implements Stats {
 	private int[] baseStats;
 	private int level;
 
-//	private int hiddenPowerBasePower;
 	private Type hiddenPowerType;
 
 	public PokeStats(Nature nature, int[] baseStats, int[] ivs, int[] evs) {
@@ -51,7 +50,7 @@ public class PokeStats implements Stats {
 		spDefEv = evs[SPDEF];
 		speEv = evs[SPE];
 
-		int[] stats = PokemonMath.calcPokemon(level, nature, baseStats, ivs,
+		int[] stats = MathUtils.calcPokemon(level, nature, baseStats, ivs,
 				evs);
 		reCalcStats();
 		maxHp = stats[MAX_HP];
@@ -85,7 +84,7 @@ public class PokeStats implements Stats {
 		spDefEv = evs[SPDEF];
 		speEv = evs[SPE];
 
-		int[] stats = PokemonMath.calcPokemon(level, nature, baseStats, ivs,
+		int[] stats = MathUtils.calcPokemon(level, nature, baseStats, ivs,
 				evs);
 		reCalcStats();
 		maxHp = stats[MAX_HP];
@@ -348,10 +347,10 @@ public class PokeStats implements Stats {
 		int ivs[] = { hpIv, atkIv, defIv, spAtkIv, spDefIv, speIv };
 		int evs[] = { hpEv, atkEv, defEv, spAtkEv, spDefEv, speEv };
 
-		int[] stats = PokemonMath.calcPokemon(level, nature, baseStats, ivs,
+		int[] stats = MathUtils.calcPokemon(level, nature, baseStats, ivs,
 				evs);
 
-		hiddenPowerType = PokemonMath.calcHiddenPower(hpIv, atkIv, defIv,
+		hiddenPowerType = MathUtils.calcHiddenPower(hpIv, atkIv, defIv,
 				spAtkIv, spDefIv, speIv);
 
 		// HACK for keeping hp saved

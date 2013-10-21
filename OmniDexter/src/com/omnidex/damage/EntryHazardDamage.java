@@ -13,43 +13,44 @@ public class EntryHazardDamage {
 	private static double NEUTRAL = 1.0;
 	private static double TWO_TIMES_RESIST = 0.5;
 
-	/**
-	 * This method applies appropriate
-	 * 
-	 * @param team
-	 *            the team making its spikes check
-	 */
 	public static void applySpikeDamage(Team team) {
 		int spikeCount = team.getSpikesCount();
 		Pokemon poke = team.getActivePokemon();
-		
-		if (team.hasSpikes() && !poke.hasAbility(Ability.LEVITATE)
-				&& !poke.isType(Type.FLYING)
-				&& !poke.hasAbility(Ability.MAGIC_GUARD)) {
+
+		if (isAffectedBySpikes(team)) {
 			if (spikeCount == 1) {
-				PokemonMath.applyFractionalDamage(poke, PokemonMath.ONE_EIGHTH);
+				MathUtils.passiveDamage(poke, MathUtils.ONE_EIGHTH);
 			} else if (spikeCount == 2) {
-				PokemonMath.applyFractionalDamage(poke, PokemonMath.ONE_SIXTH);
+				MathUtils.passiveDamage(poke, MathUtils.ONE_SIXTH);
 			} else if (spikeCount == 3) {
-				PokemonMath
-						.applyFractionalDamage(poke, PokemonMath.ONE_QUARTER);
+				MathUtils.passiveDamage(poke, MathUtils.ONE_QUARTER);
 			}
 		}
 	}
 
+	private static boolean isAffectedBySpikes(Team team) {
+		Pokemon poke = team.getActivePokemon();
+		return team.hasSpikes() && poke.isGrounded()
+				&& !poke.hasAbility(Ability.MAGIC_GUARD);
+	}
+
 	public static void applyToxicSpikes(Team team) {
 		Pokemon poke = team.getActivePokemon();
-		if (poke.isType(Type.POISON) && !poke.hasAbility(Ability.LEVITATE) 
-			&& !poke.isType(Type.FLYING)) {
+		if (poke.isType(Type.POISON) && poke.isGrounded()) {
 			team.removeToxicSpikes();
-		} else if (team.hasToxicSpikes() && !poke.isType(Type.STEEL)
-				&& !poke.isType(Type.FLYING) && poke.isOk()) {
+		} else if (isAffectedByToxicSpikes(team)) {
 			if (team.getToxicSpikesCount() == 1) {
 				poke.setRegPoison();
-			} else {
+			} else if (team.getToxicSpikesCount() == 2){
 				poke.setToxPoison();
 			}
 		}
+	}
+
+	private static boolean isAffectedByToxicSpikes(Team team) {
+		Pokemon poke = team.getActivePokemon();
+		return poke.isGrounded() && team.hasToxicSpikes() && !poke.isType(Type.STEEL) && poke.isOk()
+				&& !poke.hasAbility(Ability.MAGIC_GUARD);
 	}
 
 	public static void applyStealthRocks(Team team) {
@@ -59,18 +60,15 @@ public class EntryHazardDamage {
 			double mod = tc.getWeaknessResistance(Type.ROCK,
 					poke.getFirstType(), poke.getSecondType());
 			if (mod == FOUR_TIMES_WEAK) {
-				PokemonMath.applyFractionalDamage(poke, PokemonMath.ONE_HALF);
+				MathUtils.passiveDamage(poke, MathUtils.ONE_HALF);
 			} else if (mod == TWO_TIMES_WEAK) {
-				PokemonMath
-						.applyFractionalDamage(poke, PokemonMath.ONE_QUARTER);
+				MathUtils.passiveDamage(poke, MathUtils.ONE_QUARTER);
 			} else if (mod == NEUTRAL) {
-				PokemonMath.applyFractionalDamage(poke, PokemonMath.ONE_EIGHTH);
+				MathUtils.passiveDamage(poke, MathUtils.ONE_EIGHTH);
 			} else if (mod == TWO_TIMES_RESIST) {
-				PokemonMath.applyFractionalDamage(poke,
-						PokemonMath.ONE_SIXTEENTH);
+				MathUtils.passiveDamage(poke, MathUtils.ONE_SIXTEENTH);
 			} else {
-				PokemonMath.applyFractionalDamage(poke,
-						PokemonMath.ONE_THIRTY_SECOND);
+				MathUtils.passiveDamage(poke, MathUtils.ONE_THIRTY_SECOND);
 			}
 		}
 	}

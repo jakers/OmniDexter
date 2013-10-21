@@ -1,9 +1,10 @@
 package com.omnidex.pokemon;
 
+import com.omnidex.damage.MathUtils;
+
 /**
  * This class implements Status Pokemon can have
  * throughout the course of a Pokemon battle
- * @author jakers
  */
 public class PokeStatus implements Status {
 	private boolean isFrozen;
@@ -138,11 +139,7 @@ public class PokeStatus implements Status {
 
 	@Override
 	public boolean doesThaw() {
-		boolean result = false;
-		if (Math.random() < CHANCE_TO_THAW) {
-			result = true;
-		}
-		return result;
+		return MathUtils.eventOccursWithProb(Status.CHANCE_TO_THAW);
 	}
 
 	@Override
@@ -193,11 +190,7 @@ public class PokeStatus implements Status {
 
 	@Override
 	public boolean doesFullyParalyze() {
-		boolean result = false;
-		if (Math.random() < CHANCE_TO_FULL_PARA) {
-			result = true;
-		}
-		return result;
+		return MathUtils.eventOccursWithProb(CHANCE_TO_FULL_PARA);
 	}
 
 	private void cureAll() {

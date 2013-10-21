@@ -1,7 +1,7 @@
 package com.omnidex.item;
 
 import com.omnidex.ability.Ability;
-import com.omnidex.damage.PokemonMath;
+import com.omnidex.damage.MathUtils;
 import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.pokemon.Pokemon;
 import com.omnidex.type.Type;
@@ -17,15 +17,15 @@ public class ItemActivation {
 		if (!poke.hasFainted()) {
 			if (!poke.hasAbility(Ability.KLUTZ)) {
 				if (poke.hasItem(Item.LEFTOVERS)) {
-					PokemonMath.applyFractionalHealing(poke,
-							PokemonMath.ONE_SIXTEENTH);
+					MathUtils.applyFractionalHealing(poke,
+							MathUtils.ONE_SIXTEENTH);
 				} else if (poke.hasItem(Item.BLACK_SLUDGE)) {
 					if (poke.isType(Type.POISON)) {
-						PokemonMath.applyFractionalHealing(poke,
-								PokemonMath.ONE_SIXTEENTH);
+						MathUtils.applyFractionalHealing(poke,
+								MathUtils.ONE_SIXTEENTH);
 					} else {
-						PokemonMath.applyFractionalDamage(poke,
-								PokemonMath.ONE_SIXTEENTH);
+						MathUtils.passiveDamage(poke,
+								MathUtils.ONE_SIXTEENTH);
 					}
 				}
 			}
@@ -51,7 +51,7 @@ public class ItemActivation {
 
 	public static void activateStickBarb(ActivePokemon poke) {
 		if (poke.hasItem(Item.STICKY_BARB) && !poke.hasFainted()) {
-			PokemonMath.applyFractionalDamage(poke, PokemonMath.ONE_EIGHTH);
+			MathUtils.passiveDamage(poke, MathUtils.ONE_EIGHTH);
 		}
 	}
 

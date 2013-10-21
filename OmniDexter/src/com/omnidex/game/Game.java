@@ -7,7 +7,7 @@ import java.util.Scanner;
 import com.omnidex.ability.AbilityActivation;
 import com.omnidex.battlefield.team.Team;
 import com.omnidex.damage.MainDamageFormula;
-import com.omnidex.damage.PokemonMath;
+import com.omnidex.damage.MathUtils;
 import com.omnidex.damage.StatusDamage;
 import com.omnidex.damage.WeatherDamage;
 import com.omnidex.item.ItemActivation;
@@ -24,7 +24,6 @@ public class Game {
 	public static final int OPPONENT = 1;
 
 	private Team omnidexter;
-	private String opponentName;
 	private Team opponent;
 	private BattleField bf;
 
@@ -35,7 +34,6 @@ public class Game {
 		omnidexter.setTeamId(OMNIDEXTER);
 		this.opponent = opponent;
 		opponent.setTeamId(OPPONENT);
-		this.opponentName = oppentName;
 	}
 
 	public Game(Game game) {
@@ -46,14 +44,13 @@ public class Game {
 
 	public boolean isGameOver() {
 		double fitness = FitnessScore.calcFitness(omnidexter, opponent);
+		System.out.println("fitness == " + fitness);
 		return fitness == Fitness.PLAYER_ONE_WINS
 				|| fitness == Fitness.PLAYER_TWO_WINS;
 	}
 
 	public int getFightOrSwitchInput() {
-		Scanner scan = new Scanner(System.in);
-		int choice = scan.nextInt();
-		return choice;
+		return getIntChoice();
 	}
 
 	public List<Integer> getAllPossibleMoves() {
@@ -101,7 +98,7 @@ public class Game {
 		omnidexter.setChoice(player1Choice);
 		opponent.setChoice(player2Choice);
 
-		Team[] speedOrder = PokemonMath.getFasterPoke(omnidexter, opponent);
+		Team[] speedOrder = MathUtils.getFasterPoke(omnidexter, opponent);
 		Team first = speedOrder[0];
 		Team second = speedOrder[1];
 
@@ -122,14 +119,10 @@ public class Game {
 		if (second.getChoice() >= 0 && !second.getActivePokemon().hasFainted()) {
 			attack(second.getTeamId(), second.getChoice());
 		}
-		
-		if (second.getActivePokemon().hasFainted()) {
-			System.out.println("I'm SORRY MISS MOLLY");
-		}
 	}
 
 	public void applieAfterTurnAffects() {
-		Team[] temp = PokemonMath.getFasterPoke(omnidexter, opponent);
+		Team[] temp = MathUtils.getFasterPoke(omnidexter, opponent);
 		Team fasterTeam = temp[0];
 		Team slowerTeam = temp[1];
 
@@ -186,16 +179,17 @@ public class Game {
 
 		// Check for Status Damage/Nightmare
 		// Checks for fainting inside healing method.
-		if (!fasterTeam.getActivePokemon().hasFainted()
-				&& !fasterTeam.getActivePokemon().isOk()) {
-			StatusDamage.applyStatusDamage(fasterTeam.getActivePokemon());
-			StatusDamage.applyStatusHealing(fasterTeam.getActivePokemon());
-		}
-		if (!slowerTeam.getActivePokemon().hasFainted()
-				&& !slowerTeam.getActivePokemon().isOk()) {
-			StatusDamage.applyStatusDamage(slowerTeam.getActivePokemon());
-			StatusDamage.applyStatusHealing(slowerTeam.getActivePokemon());
-		}
+		StatusDamage.applyBurnDamage(fasterTeam.getActivePokemon());
+		StatusDamage.applyBurnDamage(slowerTeam.getActivePokemon());
+
+		StatusDamage.applyPoisonDamage(fasterTeam.getActivePokemon());
+		StatusDamage.applyPoisonDamage(slowerTeam.getActivePokemon());
+		
+		StatusDamage.applyNightmareDamage(fasterTeam.getActivePokemon());
+		StatusDamage.applyNightmareDamage(slowerTeam.getActivePokemon());
+		
+		StatusDamage.applyStatusHealing(fasterTeam.getActivePokemon());
+		StatusDamage.applyStatusHealing(slowerTeam.getActivePokemon());		
 
 		ItemActivation.burnOrbActivation(fasterTeam.getActivePokemon());
 		ItemActivation.toxicOrbActivation(fasterTeam.getActivePokemon());
@@ -211,9 +205,9 @@ public class Game {
 		StatusDamage.applyPartialTrappingDamage(slowerTeam.getActivePokemon(),
 				fasterTeam.getActivePokemon());
 
-		StatusDamage.applyBadDreams(slowerTeam.getActivePokemon(),
+		AbilityActivation.applyBadDreams(slowerTeam.getActivePokemon(),
 				fasterTeam.getActivePokemon());
-		StatusDamage.applyBadDreams(fasterTeam.getActivePokemon(),
+		AbilityActivation.applyBadDreams(fasterTeam.getActivePokemon(),
 				slowerTeam.getActivePokemon());
 
 		// TODO Check for end of outrage, petal dance, uproar, thrash
@@ -244,7 +238,6 @@ public class Game {
 		fasterTeam.getActivePokemon().decrementPerishSong();
 		slowerTeam.getActivePokemon().decrementPerishSong();
 
-		// Trick Room
 		bf.decrementTrickRoom();
 		bf.decrementMagicRoom();
 		bf.decrementWonderRoom();
@@ -268,7 +261,7 @@ public class Game {
 				choice = BattleAI.getNextPoke(this, OPPONENT,
 						BattleAI.MAX_DEPTH);
 			} else {
-//				printSwitchOption(OPPONENT);
+				// printSwitchOption(OPPONENT);
 				System.out.println("Please choice a new pokemon");
 				choice = -1;
 			}
@@ -293,10 +286,8 @@ public class Game {
 
 		damage = MainDamageFormula.damage(attack, defend, bf, attack
 				.getActivePokemon().getMove(moveSlot).getMove());
-		System.out.println("currHp = "+defend.getActivePokemon().getCurrHp());
-		defend.getActivePokemon().setCurrHp(
-				defend.getActivePokemon().getCurrHp() - damage[1]);
-		System.out.println("currHp = "+defend.getActivePokemon().getCurrHp());
+		defend.getActivePokemon().damage(damage[1]);
+
 		AiWriter.writeAttack(attack.getActivePokemon(), moveSlot, damage[1],
 				player);
 	}
@@ -326,15 +317,16 @@ public class Game {
 	}
 
 	public int getFightChoice() {
-		Scanner scan = new Scanner(System.in);
-		
-		int choice = scan.nextInt();
-		return choice;
+		return getIntChoice();
 	}
 
 	public int getSwitchChoice() {
-		Scanner scan = new Scanner(System.in);
-		int choice = scan.nextInt();
-		return choice;
+		return getIntChoice();
 	}
+
+	private int getIntChoice() {
+		Scanner scan = new Scanner(System.in);
+		return scan.nextInt();
+	}
+
 }
