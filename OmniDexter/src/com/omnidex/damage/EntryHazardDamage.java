@@ -4,7 +4,6 @@ import com.omnidex.ability.Ability;
 import com.omnidex.battlefield.team.Team;
 import com.omnidex.pokemon.Pokemon;
 import com.omnidex.type.Type;
-import com.omnidex.type.TypeChart;
 
 public class EntryHazardDamage {
 
@@ -56,9 +55,9 @@ public class EntryHazardDamage {
 	public static void applyStealthRocks(Team team) {
 		if (team.hasStealthRocks()) {
 			Pokemon poke = team.getActivePokemon();
-			TypeChart tc = new TypeChart();
-			double mod = tc.getWeaknessResistance(Type.ROCK,
-					poke.getFirstType(), poke.getSecondType());
+			
+			double mod = Type.ROCK.getEffectiveness(poke);
+			
 			if (mod == FOUR_TIMES_WEAK) {
 				MathUtils.passiveDamage(poke, MathUtils.ONE_HALF);
 			} else if (mod == TWO_TIMES_WEAK) {

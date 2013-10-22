@@ -883,5 +883,10 @@ public class InactivePokemon implements Pokemon, Status, Stats {
 	public boolean isGrounded() {
 		return !isType(Type.FLYING) && !hasAbility(Ability.LEVITATE) || isGrounded;
 	}
+
+	@Override
+	public boolean isStabMove(Move move) {
+		return isType(move.getType());
+	}
 	
 }

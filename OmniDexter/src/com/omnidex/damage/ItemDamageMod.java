@@ -80,8 +80,7 @@ public class ItemDamageMod {
 			damage = (int) damage;
 			printBerryMsg(defender.getSpecies(), Item.CHILAN_BERRY, Type.NORMAL);
 		}
-    	
-    	
+    	    	
 		if (move.isType(Type.BUG) && defender.hasItem(Item.TANGA_BERRY)) {
 			damage *= 0.5;
 			damage = (int) damage;
@@ -169,6 +168,30 @@ public class ItemDamageMod {
     private static void printBerryMsg(Species forme, Item berry, Type typing) {
 		System.out.println(forme + "'s " + berry + " activates, weakening "
 				+ typing + " type moves!");
+	}
+
+    public static double doLifeOrb(ActivePokemon attacker, double damage) {
+    	if (attacker.hasItem(Item.LIFE_ORB)) {
+    		damage *= 1.3;
+    	}
+    	return (int) damage;
+    }
+    
+    public static double doMetalPowder(ActivePokemon defender, double damage) {
+    	if (defender.isSpecies(Species.DITTO)
+				&& defender.hasItem(Item.METAL_POWDER)) {
+			damage /= 1.5;
+    	}
+    	return (int) damage;
+    }
+    
+	public static double doExpertBelt(ActivePokemon attacker,
+			ActivePokemon defender, Move move, double damage) {
+		
+		if (attacker.hasItem(Item.EXPERT_BELT) && move.getType().isSuperEffective(defender)) {
+			damage *= 1.2;
+		}
+		return (int) damage;
 	}
 }
 

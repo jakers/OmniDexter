@@ -44,6 +44,21 @@ public class AbilityDamageMod {
         return damage;
     }
 
+    public static double doFilterAnSolidRock(ActivePokemon defender, Move move, double damage) {
+    	if (defender.getAbility().weakensSEHits()) {
+    		damage *= 0.75;
+    	}
+		return (int)damage;
+    }
+    
+    public static double doMarvelScale(ActivePokemon defender, double damage) {
+    	if (defender.hasAbility(Ability.MARVEL_SCALE) && !defender.isOk()) {
+			damage /= 1.5;
+		}
+    	return (int) damage;
+    }
+    
+    
     public static double doAtkAbilityBasePowerMod(ActivePokemon attacker,
             ActivePokemon defender, Move move, double damage) {
         if (attacker.hasAbility(Ability.RIVALRY)) {

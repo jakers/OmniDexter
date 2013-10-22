@@ -14,10 +14,8 @@ public interface Weather {
 	static final int PERMANENT = -1;
 
 	// SUN and RAIN modifiers
-	static final double RAIN_FIRE_NEG_MOD = 0.5;
-	static final double RAIN_WATER_BOOST_MOD = 2.0;
-	static final double SUN_FIE_BOOST_MOD = 2.0;
-	static final double SUN_WATER_NEG_MOD = 0.5;
+	static final double RAIN_SUN_NEG_MOD = 0.5;
+	static final double RAIN_SUN_BOOST_MOD = 2.0;
 
 	// TODO javadocs getWeatherCondition
 	String getWeatherCondition();

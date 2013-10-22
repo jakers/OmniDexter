@@ -1,7 +1,5 @@
 package com.omnidex.ability;
 
-import java.util.Random;
-
 import com.omnidex.damage.MathUtils;
 import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.pokemon.Pokemon;
@@ -28,8 +26,6 @@ public class AbilityActivation {
 			MathUtils.passiveDamage(dreamer, MathUtils.ONE_EIGHTH);
 		}
 	}
-	
-	
 	
 	public static void activateDownload(ActivePokemon switchIn, ActivePokemon opponent) {
 		int def = opponent.getCurrDef();

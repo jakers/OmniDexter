@@ -276,8 +276,7 @@ public class DeepTeam extends FieldScreen implements Team {
 		if (wishCount > 0) {
 			wishCount--;
 			if (wishCount == 0) {
-				activePokemon.setCurrHp(activePokemon.getCurrHp()
-						+ wishHealAmount);
+				activePokemon.heal(wishHealAmount);
 				wishHealAmount = 0;
 			}
 		}

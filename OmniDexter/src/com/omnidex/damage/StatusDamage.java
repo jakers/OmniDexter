@@ -109,7 +109,7 @@ public class StatusDamage {
 			MathUtils.applyFractionalHealing(poke, MathUtils.ONE_SIXTEENTH);
 		}
 	}
-
+	
 	public static void applyPartialTrappingDamage(ActivePokemon target,
 			ActivePokemon trapper) {
 		if (!target.hasFainted() && target.hasFireSpin()) {
