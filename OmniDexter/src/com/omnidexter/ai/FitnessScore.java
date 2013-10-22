@@ -1,15 +1,9 @@
 package com.omnidexter.ai;
 
-import java.util.List;
-
 import com.omnidex.battlefield.team.Team;
 import com.omnidex.pokemon.Pokemon;
 
 public class FitnessScore {
-	
-	private final static double DRAW = 3.0;
-	private final static double PLAYER_ONE_WINS = 1.0;
-	private final static double PLAYER_TWO_WINS = -1.0;
 	
 	/**
 	 * @param t1 a DeepTeam object that represents team 1
@@ -33,11 +27,11 @@ public class FitnessScore {
 		double fitness = team1Score - team2Score;
 		
 		if (team1Score == 0.0 && team2Score == 0.0) {
-			fitness = DRAW;
+			fitness = Fitness.DRAW;
 		} else if (team1Score == 0.0) {
-			fitness = PLAYER_ONE_WINS;
+			fitness = Fitness.PLAYER_ONE_WINS;
 		} else if (team2Score == 0.0) {
-			fitness = PLAYER_TWO_WINS;
+			fitness = Fitness.PLAYER_TWO_WINS;
 		} else {
 			fitness = team1Score - team2Score;
 		}

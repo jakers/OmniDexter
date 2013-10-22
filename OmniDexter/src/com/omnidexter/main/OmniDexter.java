@@ -2,8 +2,10 @@ package com.omnidexter.main;
 
 import com.omnidex.battlefield.team.DeepTeam;
 import com.omnidex.battlefield.team.Team;
+import com.omnidex.game.ChoiceSelector;
 import com.omnidex.game.Game;
 import com.omnidex.game.GamePrinter;
+import com.omnidex.game.HumanChoiceSelector;
 import com.omnidex.move.Move;
 import com.omnidex.move.MoveWithPP;
 import com.omnidex.pokemon.InactivePokemon;
@@ -39,19 +41,12 @@ public class OmniDexter {
 		Team team1 = TestTeamBuilder.getTestTeamOne();
 		Team team2 = TestTeamBuilder.getTestTeamTwo();
 		Game g = new Game(bf, team1, team2, "Chad");
+		ChoiceSelector player1 = new HumanChoiceSelector();
+		ChoiceSelector player2 = new HumanChoiceSelector();
 
 		while (!g.isGameOver()) {
-			GamePrinter.printBattleField(team1, team2);
-			int choice = g.getFightOrSwitchInput();
-			if (choice == FIGHT) {
-				GamePrinter.printFightOption(team1.getActivePokemon());
-				choice = g.getFightChoice();
-				g.applyTurn(choice, 1);
-			} else if (choice == SWITCH) {
-				GamePrinter.printSwitchOption(team1);
-				int switchChoice = g.getSwitchChoice();
-				g.applyTurn(switchChoice, 1);
-			}
+			int choice = player1.getTurnChoice(team1, team2, bf);
+			g.applyTurn(choice, 1);
 		}
 	}
 }

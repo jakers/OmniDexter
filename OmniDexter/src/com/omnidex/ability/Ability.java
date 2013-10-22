@@ -5,11 +5,6 @@ import com.omnidex.pokemon.Pokemon;
 import com.omnidex.type.Type;
 import com.omnidex.weather.Weather;
 
-/**
- * Enum of all Pokemon abilities.
- * 
- * @author jakers
- */
 public enum Ability {
 	NO_ABILITY("(none)"),
 	UNKNOWN_ABILITY("(unknown)"),
@@ -444,18 +439,13 @@ public enum Ability {
 				opponent.decreaseAttackStage(1);
 				break;
 			case DOWNLOAD:
-				// TODO implement download
 				AbilityActivation.activateDownload(switchIn, opponent);
 				break;
 			case TRACE:
-				//TODO test for aliasing of abilities
 				switchIn.setAbility(opponent.getAbility());
 				break;
 			case FORECAST:
-				// TODO implement forecast
-				break;
-			case FLOWER_GIFT:
-				// TODO implement flower gift
+				AbilityActivation.activateForecast(switchIn, weather);
 				break;
 			default:
 				break;

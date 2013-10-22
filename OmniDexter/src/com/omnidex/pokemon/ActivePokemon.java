@@ -99,7 +99,7 @@ public class ActivePokemon extends InactivePokemon {
 		speedStage = new StatStages();
 		slowStartCount = 0;
 	}
-	
+
 	public ActivePokemon(Pokemon poke) {
 		super(poke);
 		isAttracted = false;
@@ -132,7 +132,7 @@ public class ActivePokemon extends InactivePokemon {
 		speedStage = new StatStages();
 		slowStartCount = 0;
 	}
-	
+
 	public ActivePokemon() {
 		isAttracted = false;
 		isProtected = false;
@@ -156,7 +156,7 @@ public class ActivePokemon extends InactivePokemon {
 		lastMove = Move.NONE;
 		criticalHit = new CriticalHitStages();
 		evasion = new Stage(-6, 6, 0);
-		
+
 		attackStage = new StatStages();
 		defenseStage = new Stage(-6, 6, 0);
 		spAtkStage = new Stage(-6, 6, 0);
@@ -217,7 +217,7 @@ public class ActivePokemon extends InactivePokemon {
 		boolean affectedByYawn = !getAbility().preventsSleep() && !isBehindSub
 				&& isOk() && !hasBeenHitByYawn();
 
-		if (affectedByYawn ) {
+		if (affectedByYawn) {
 			yawnCount = 2;
 		}
 	}
@@ -238,7 +238,7 @@ public class ActivePokemon extends InactivePokemon {
 			}
 		}
 	}
-	
+
 	public void activateSubstitute() {
 		isBehindSub = true;
 	}
@@ -370,7 +370,7 @@ public class ActivePokemon extends InactivePokemon {
 	public int getEncoreCount() {
 		return encoreCount;
 	}
-	
+
 	public void decrementEncore() {
 		if (encoreCount > 0) {
 			encoreCount--;
@@ -673,7 +673,7 @@ public class ActivePokemon extends InactivePokemon {
 	public double getCriticalHitModifier() {
 		return criticalHit.getStageModifier();
 	}
-	
+
 	public void activateElectricMagniticLevitation() {
 		if (hasItem(Item.IRON_BALL)) {
 			electricMagniticLeviationCount = 0;
@@ -711,23 +711,23 @@ public class ActivePokemon extends InactivePokemon {
 	public int getEvasionStage() {
 		return evasion.getStage();
 	}
-	
+
 	public void boostEvasionStage(int boost) {
 		evasion.boostStage(boost);
 	}
-	
+
 	public void decreaseEvasionStage(int decrease) {
 		evasion.decreaseStage(decrease);
 	}
-	
+
 	public int getAccuracyStage() {
 		return accuracy.getStage();
 	}
-	
+
 	public void boostAccuracyStage(int boost) {
 		accuracy.boostStage(boost);
 	}
-	
+
 	public void decreaseAccuracyStage(int decrease) {
 		accuracy.decreaseStage(decrease);
 	}
@@ -796,90 +796,109 @@ public class ActivePokemon extends InactivePokemon {
 	public void boostAttackStage(int boost) {
 		attackStage.boostStage(boost);
 	}
-	
+
 	public void decreaseAttackStage(int decrease) {
 		attackStage.decreaseStage(decrease);
 	}
-	
+
 	public void boostDefenseStage(int boost) {
 		defenseStage.boostStage(boost);
 	}
-	
+
 	public void decreaseDefenseStage(int decrease) {
 		defenseStage.decreaseStage(decrease);
 	}
-	
+
 	public void boostSpAtkStage(int boost) {
 		spAtkStage.boostStage(boost);
 	}
-	
+
 	public void decreaseSpAtkStage(int decrease) {
 		spAtkStage.decreaseStage(decrease);
 	}
-	
+
 	public void boostSpDefStage(int boost) {
 		spDefStage.boostStage(boost);
 	}
-	
+
 	public void decreaseSpDefStage(int decrease) {
 		spDefStage.decreaseStage(decrease);
 	}
-	
+
 	public void boostSpeedStage(int boost) {
 		speedStage.boostStage(boost);
 	}
-	
+
 	public void decreaseSpeStage(int decrease) {
 		speedStage.decreaseStage(decrease);
 	}
-	
+
 	public int getCurrAtk() {
 		return (int) (attackStage.getStageModifier() * stats.getAtk());
 	}
-	
+
 	public int getCurrDef() {
 		return (int) (defenseStage.getStageModifier() * stats.getDef());
 	}
-	
+
 	public int getCurrSpAtk() {
 		return (int) (spAtkStage.getStageModifier() * stats.getSpAtk());
 	}
-	
+
 	public int getCurrSpDef() {
 		return (int) (spDefStage.getStageModifier() * stats.getSpDef());
 	}
-	
+
 	public int getCurrSpe() {
 		return (int) (speedStage.getStageModifier() * stats.getSpe());
 	}
-	
+
 	public int getAtkStage() {
 		return attackStage.getStage();
 	}
-	
+
 	public int getDefStage() {
 		return defenseStage.getStage();
 	}
-	
+
 	public int getSpAtkStage() {
 		return spAtkStage.getStage();
 	}
-	
+
 	public int getSpDefStage() {
 		return spDefStage.getStage();
 	}
-	
+
 	public int getSpeedStage() {
 		return speedStage.getStage();
 	}
-	
+
 	public boolean hasSlowStart() {
 		return slowStartCount > 0;
 	}
-	
+
 	public void decrementSlowStart() {
 		if (slowStartCount > 0) {
 			slowStartCount--;
 		}
+	}
+
+	public int getMoveCount() {
+		int moveCount = 0;
+
+		if (this.move1 != null) {
+			moveCount++;
+		}
+		if (this.move2 != null) {
+			moveCount++;
+		}
+		if (this.move3 != null) {
+			moveCount++;
+		}
+		if (this.move4 != null) {
+			moveCount++;
+		}
+
+		return moveCount;
 	}
 }

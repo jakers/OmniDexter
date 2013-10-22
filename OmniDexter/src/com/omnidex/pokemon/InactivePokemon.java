@@ -876,7 +876,6 @@ public class InactivePokemon implements Pokemon, Status, Stats {
 		if (stats.getCurrHp() > 0) {
 			stats.setCurrHp(stats.getCurrHp() + healing);
 		}
-		
 	}
 
 	@Override
@@ -888,5 +887,4 @@ public class InactivePokemon implements Pokemon, Status, Stats {
 	public boolean isStabMove(Move move) {
 		return isType(move.getType());
 	}
-	
 }

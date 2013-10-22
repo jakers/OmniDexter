@@ -3,6 +3,8 @@ package com.omnidex.ability;
 import com.omnidex.damage.MathUtils;
 import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.pokemon.Pokemon;
+import com.omnidex.pokemon.Species;
+import com.omnidex.weather.Weather;
 
 public class AbilityActivation {
 
@@ -46,6 +48,18 @@ public class AbilityActivation {
 			switchIn.boostAttackStage(1);
 		} else {
 			switchIn.boostSpAtkStage(1);
+		}
+	}
+	
+	public static void activateForecast(Pokemon poke, Weather weather) {
+		if (poke.isSpecies(Species.CASTFORM) && poke.hasAbility(Ability.ADAPTABILITY)) {
+			if (weather.isRain()) {
+				poke.setSpecies(Species.CASTFORM_RAIN);
+			} else if (weather.isSun()) {
+				poke.setSpecies(Species.CASTFORM_SUNNY);
+			} else if (weather.isHail()) {
+				poke.setSpecies(Species.CASTFORM_HAIL);
+			}
 		}
 	}
 	

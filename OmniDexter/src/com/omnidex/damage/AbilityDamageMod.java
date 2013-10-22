@@ -1,10 +1,11 @@
 package com.omnidex.damage;
 
+import com.omnidex.ability.Ability;
+import com.omnidex.move.Move;
 import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.pokemon.Gender;
 import com.omnidex.type.Type;
-import com.omnidex.ability.Ability;
-import com.omnidex.move.*;
+import com.omnidex.weather.Weather;
 import com.omnidexter.battlefield.BattleField;
 
 public class AbilityDamageMod {
@@ -58,6 +59,19 @@ public class AbilityDamageMod {
     	return (int) damage;
     }
     
+    public static double doFlowerGiftAtkBoost(ActivePokemon attacker, Weather weather, double damage) {
+    	if (attacker.hasAbility(Ability.FLOWER_GIFT) && weather.isSun()) {
+    		damage *= 1.5;
+    	}
+    	return (int)damage;
+    }
+    
+    public static double doFlowerGiftSpDefBoost(ActivePokemon defender, Weather weather, double damage) {
+    	if (defender.hasAbility(Ability.FLOWER_GIFT) && weather.isSun()) {
+    		damage *= 0.5;
+    	}
+    	return (int)damage;
+    }
     
     public static double doAtkAbilityBasePowerMod(ActivePokemon attacker,
             ActivePokemon defender, Move move, double damage) {

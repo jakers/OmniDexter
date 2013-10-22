@@ -64,7 +64,6 @@ public enum Nature {
 	    	return nature;
 	    }
         
-        
         @Override
         public String toString() {
         	return nature;
