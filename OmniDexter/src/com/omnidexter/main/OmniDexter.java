@@ -40,13 +40,16 @@ public class OmniDexter {
 		BattleField bf = new SingleBattleField();
 		Team team1 = TestTeamBuilder.getTestTeamOne();
 		Team team2 = TestTeamBuilder.getTestTeamTwo();
-		Game g = new Game(bf, team1, team2, "Chad");
+		
 		ChoiceSelector player1 = new HumanChoiceSelector();
 		ChoiceSelector player2 = new HumanChoiceSelector();
+		Game g = new Game(bf, team1, team2, "Chad", player1, player2);
 
 		while (!g.isGameOver()) {
 			int choice = player1.getTurnChoice(team1, team2, bf);
+			
 			g.applyTurn(choice, 1);
+			g.applieAfterTurnAffects();
 		}
 	}
 }

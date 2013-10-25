@@ -767,10 +767,24 @@ public enum Species {
 	VOODOOM("Voodoom",Type.FIGHTING, Type.DARK, 90,85,80,105,80,110,166.6),
 	
 	// gen 6 pokemon
-	CHESPIN("Chespin",Type.GRASS, Type.NO_TYPE,0,0,0,0,0,0,19.8);
-	
-	
-	
+	CHESPIN("Chespin",Type.GRASS, Type.NO_TYPE,56,61,65,48,45,38,19.8),
+	QUILLADIN("Quilladin", Type.GRASS, Type.NO_TYPE,61,78,95,56,58,57,63.9),
+	CHESNAUGHT("Chesnaught", Type.GRASS, Type.FIGHTING,88,107,122,74,75,64,198.4),
+	FENNEKIN("Fennekin", Type.FIRE, Type.NO_TYPE,40,45,40,62,60,60,20.7),
+	BRAIXEN("Braixen", Type.FIRE, Type.NO_TYPE,59,59,58,90,80,73,32.0) ,
+	DELPHOX("Delphox",Type.FIRE, Type.PSYCHIC,75,69,72,114,100,104,86.0),
+	FROAKIE("Froakie", Type.WATER, Type.NO_TYPE,41,56,40,62,44,71,15.4),
+	FROGADIER("Frogadier", Type.WATER, Type.NO_TYPE,54,63,52,83,56,97,24.0),
+	GRENINJA("Greninja", Type.WATER, Type.DARK,72,95,67,103,71,122,88.2),
+	BUNNELBY("Bunnelby", Type.NORMAL, Type.NO_TYPE,38,36,38,32,36,57,11.0),
+	DIGGERSBY("Diggersby", Type.NORMAL, Type.GROUND,85,56,77,50,77,78,93.5),
+	FLETCHLING("Fletchling", Type.NORMAL, Type.FLYING,45,50,43,40,38,62,3.7),
+	FLETCHINDER("Fletchinder", Type.FIRE, Type.FLYING,62,73,55,56,52,84,35.3),
+	TALONFLAME("Talonflame", Type.FIRE, Type.FLYING,78,81,71,74,69,126,54.0),
+	SCATTERBUG("Scatterbug", Type.BUG, Type.NO_TYPE,38,35,40,27,25,35,5.5),
+	SPEWPA("Spewpa", Type.BUG, Type.NO_TYPE,45,22,60,27,30,29,18.5),
+	VIVILLON("Vivillon", Type.BUG, Type.FLYING,80,52,50,90,50,89,37.5)
+	;
 	
 	
 	

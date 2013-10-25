@@ -146,4 +146,5 @@ public interface Team extends Screen {
 	
 	int getTeamId();
 	void setTeamId(int teamId);
+	boolean[] getValidSwitch();
 }

@@ -16,34 +16,54 @@ public class HumanChoiceSelector extends ChoiceSelector {
 		GamePrinter.printBattleField(self, opponent);
 		int fightOrSwitch = getFightOrSwitchInput();
 		
-		while (fightOrSwitch != FIGHT && fightOrSwitch != SWITCH) {
+		while (isNotValidMainMenuOption(fightOrSwitch)) {
 			fightOrSwitch = getFightOrSwitchInput();
 		}
 		if (fightOrSwitch == FIGHT) {
 			return getFightChoice(self);
-		} else if (fightOrSwitch == SWITCH) {
+		} else {
 			return getSwitchChoice(self);
 		} 
-		
-		return 0;
+	}
+
+	private boolean isNotValidMainMenuOption(int fightOrSwitch) {
+		return fightOrSwitch != FIGHT && fightOrSwitch != SWITCH;
 	}
 
 	private int getSwitchChoice(Team self) {
 		GamePrinter.printSwitchOption(self);
-		return getSwitchChoice();
+		int switchChoice = -1;
+		while (switchChoice == -1 || isNotValidSwitchOption(self,switchChoice)) {
+			switchChoice = getSwitchChoice();
+			
+			if (isNotValidSwitchOption(self, switchChoice)) {
+				System.out.println("Invalid move option try again");
+				GamePrinter.printSwitchOption(self);
+			}
+		}
+		
+		return -1*switchChoice;
+	}
+
+	private boolean isNotValidSwitchOption(Team self, int switchChoice) {
+		return switchChoice < 0 || switchChoice > self.getParty().size() || self.getValidSwitch()[switchChoice];
 	}
 
 	private int getFightChoice(Team self) {
 		GamePrinter.printFightOption(self.getActivePokemon());
 		int fightChoice = -1;
-		while (fightChoice < 0 || fightChoice > self.getActivePokemon().getMoveCount()-1) {
+		while (isNotValidAttackOption(self, fightChoice)) {
 			fightChoice = getFightChoice();
-			if (fightChoice < 0 || fightChoice > self.getActivePokemon().getMoveCount()-1) {
+			if (isNotValidAttackOption(self, fightChoice)) {
 				System.out.println("Invalid move option try again");
 				GamePrinter.printFightOption(self.getActivePokemon());
 			}
 		}
 		return fightChoice;
+	}
+
+	private boolean isNotValidAttackOption(Team self, int fightChoice) {
+		return fightChoice < 0 || fightChoice > self.getActivePokemon().getMoveCount()-1;
 	}
 
 	private int getFightOrSwitchInput() {
@@ -69,6 +89,11 @@ public class HumanChoiceSelector extends ChoiceSelector {
 			return getIntChoice();
 		}
 		return choice;
+	}
+
+	@Override
+	public int getEndTurnSwitchChoice(Team self, Team opponent, BattleField bf) {
+		return getSwitchChoice(self);
 	}
 	
 }

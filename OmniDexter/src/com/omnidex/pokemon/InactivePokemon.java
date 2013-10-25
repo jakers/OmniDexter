@@ -869,6 +869,9 @@ public class InactivePokemon implements Pokemon, Status, Stats {
 	public void damage(int damage) {
 		if (stats.getCurrHp() > 0) {
 			stats.setCurrHp(stats.getCurrHp() - damage);
+			if (stats.getCurrHp() == 0) {
+				status.setFainted();
+			}
 		}
 	}
 

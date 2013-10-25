@@ -428,5 +428,20 @@ public class DeepTeam extends FieldScreen implements Team {
 			default:
 		}
 	}
+
+	@Override
+	public boolean[] getValidSwitch() {
+		// TODO Auto-generated method stub
+		boolean validSwitches[] = new boolean[party.size()];
+		int i = 0;
+		for (InactivePokemon p : party) {
+			if (!p.hasFainted() && !p.isActivePokemon()) {
+				validSwitches[i] = true;
+			} else {
+				validSwitches[i] = false;
+			}
+		}
+		return validSwitches;
+	}
 	
 }

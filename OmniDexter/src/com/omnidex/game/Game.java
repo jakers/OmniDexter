@@ -26,14 +26,19 @@ public class Game {
 	private Team omnidexter;
 	private Team opponent;
 	private BattleField bf;
-
+	private ChoiceSelector player1;
+	private ChoiceSelector player2;
+	
+	
 	public Game(BattleField bf, Team omnidexter, Team opponent,
-			String oppentName) {
+			String oppentName, ChoiceSelector player1, ChoiceSelector player2) {
 		this.bf = bf;
 		this.omnidexter = omnidexter;
 		omnidexter.setTeamId(OMNIDEXTER);
 		this.opponent = opponent;
 		opponent.setTeamId(OPPONENT);
+		this.player1 = player1;
+		this.player2 = player2;
 	}
 
 	public Game(Game game) {
@@ -112,7 +117,7 @@ public class Game {
 					second.getChoice()));
 		}
 
-		if (first.getChoice() >= 0) {
+		if (first.getChoice() >= 0 && !first.getActivePokemon().hasFainted()) {
 			attack(first.getTeamId(), first.getChoice());
 		}
 
@@ -242,26 +247,24 @@ public class Game {
 		bf.decrementMagicRoom();
 		bf.decrementWonderRoom();
 
-		switchIfFainted(fasterTeam);
+		switchIfFainted(fasterTeam, slowerTeam);
 
-		switchIfFainted(slowerTeam);
+		switchIfFainted(slowerTeam, fasterTeam);
 
 		fasterTeam.getActivePokemon().decrementSlowStart();
 		slowerTeam.getActivePokemon().decrementSlowStart();
 	}
 
-	public void switchIfFainted(Team first) {
+	public void switchIfFainted(Team first, Team second) {
 		if (first.getActivePokemon().hasFainted()
 				&& first.getParty().size() > 0) {
 			int choice;
-			if (first.getTeamId() == OMNIDEXTER) {
-				choice = BattleAI.getNextPoke(this, OMNIDEXTER,
-						BattleAI.MAX_DEPTH);
+			if (first.getTeamId() == OPPONENT) {
+				choice = player1.getEndTurnSwitchChoice(first, second, bf);
 			} else if (AiWriter.isSearchMode) {
 				choice = BattleAI.getNextPoke(this, OPPONENT,
 						BattleAI.MAX_DEPTH);
 			} else {
-				// printSwitchOption(OPPONENT);
 				System.out.println("Please choice a new pokemon");
 				choice = -1;
 			}

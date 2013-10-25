@@ -74,11 +74,11 @@ public class GamePrinter {
 		if (party.isEmpty()) {
 			System.out.println("No avaliable switches");
 		} else {
-			int i = 1;
+			int i = 0;
 			for (InactivePokemon poke : team.getParty()) {
 				if (!poke.isActivePokemon() && !poke.hasFainted()) {
 
-					System.out.println(-i + ") " + poke.getSpecies() + " "
+					System.out.println(i + ") " + poke.getSpecies() + " "
 							+ poke.getCurrHp() + "/" + poke.getMaxHp());
 				}
 				i++;
