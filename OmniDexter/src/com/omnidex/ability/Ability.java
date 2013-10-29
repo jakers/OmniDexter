@@ -281,7 +281,7 @@ public enum Ability {
 			case NO_GUARD:
 				return false;
 			default:
-				return target.getAbility() == NO_GUARD;
+				return target.getAbility() != NO_GUARD;
 		}
 	}
 	
@@ -331,8 +331,6 @@ public enum Ability {
 	public boolean healsWhenPoisoned() {
 		return this == POISON_HEAL;
 	}
-	
-	// TODO can cure own status
 	
 	public boolean preventsSoundMoves() {
 		return this == SOUNDPROOF;
@@ -409,7 +407,6 @@ public enum Ability {
 	// TODO buffs defense
 	// TODO buffs spatk
 	// TODO buffs spdef
-	// TODO boost speed
 	
 	// TODO boost speed if flinched
 
