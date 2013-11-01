@@ -1,6 +1,7 @@
 package com.omnidex.ability;
 
 import com.omnidex.damage.MathUtils;
+import com.omnidex.item.Item;
 import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.pokemon.Pokemon;
 import com.omnidex.pokemon.Species;
@@ -51,6 +52,17 @@ public class AbilityActivation {
 		}
 	}
 	
+	public static void activateDrizzle(Pokemon poke, Weather weather) {
+		if (poke.hasAbility(Ability.DRIZZLE)) {
+			if (poke.hasItem(Item.DAMP_ROCK)) {
+				weather.setRain(Weather.DUR_8);
+			} else {
+				weather.setRain(Weather.DUR_5);
+			}
+		}
+	}
+	
+	
 	public static void activateForecast(Pokemon poke, Weather weather) {
 		if (poke.isSpecies(Species.CASTFORM) && poke.hasAbility(Ability.ADAPTABILITY)) {
 			if (weather.isRain()) {
@@ -59,6 +71,38 @@ public class AbilityActivation {
 				poke.setSpecies(Species.CASTFORM_SUNNY);
 			} else if (weather.isHail()) {
 				poke.setSpecies(Species.CASTFORM_HAIL);
+			}
+		}
+	}
+
+	public static void activateDrought(ActivePokemon poke, Weather weather) {
+		if (poke.hasAbility(Ability.DROUGHT)) {
+			if (poke.hasItem(Item.HEAT_ROCK)) {
+				weather.setSun(Weather.DUR_8);
+			} else {
+				weather.setSun(Weather.DUR_5);
+			}
+		}
+	}
+
+	public static void activateSandStream(ActivePokemon poke,
+			Weather weather) {
+		if (poke.hasAbility(Ability.SAND_STREAM)) {
+			if (poke.hasItem(Item.SMOOTH_ROCK)) {
+				weather.setSand(Weather.DUR_8);
+			} else {
+				weather.setSand(Weather.DUR_5);
+			}
+		}
+	}
+
+	public static void activateSnowWarning(ActivePokemon poke,
+			Weather weather) {
+		if (poke.hasAbility(Ability.SNOW_WARNING)) {
+			if (poke.hasItem(Item.ICY_ROCK)) {
+				weather.setHail(Weather.DUR_8);
+			} else {
+				weather.setHail(Weather.DUR_5);
 			}
 		}
 	}

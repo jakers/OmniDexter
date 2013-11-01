@@ -421,16 +421,16 @@ public enum Ability {
 	public void switchActivatedAbility(ActivePokemon switchIn, ActivePokemon opponent, Weather weather) {
 		switch (switchIn.getAbility()) {
 			case DRIZZLE:
-				weather.setRain(Weather.PERMANENT);
+				AbilityActivation.activateDrizzle(switchIn, weather);
 				break;
 			case DROUGHT:
-				weather.setSun(Weather.PERMANENT);
+				AbilityActivation.activateDrought(switchIn, weather);
 				break;
 			case SAND_STREAM:
-				weather.setSand(Weather.PERMANENT);
+				AbilityActivation.activateSandStream(switchIn, weather);
 				break;
 			case SNOW_WARNING:
-				weather.setHail(Weather.PERMANENT);
+				AbilityActivation.activateSnowWarning(switchIn, weather);
 				break;
 			case INTIMIDATE:
 				opponent.decreaseAttackStage(1);
