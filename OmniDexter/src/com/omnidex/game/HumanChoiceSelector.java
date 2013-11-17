@@ -80,6 +80,7 @@ public class HumanChoiceSelector extends ChoiceSelector {
 	}
 
 	private int getIntChoice() {
+		@SuppressWarnings("resource")
 		Scanner scan = new Scanner(System.in);
 		int choice = -50;
 		try {

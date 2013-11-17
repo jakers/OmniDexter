@@ -59,5 +59,5 @@ public interface Pokemon extends Status, Stats{
     void damage(int damage);
     void heal(int addHp);
     boolean isGrounded();
-    boolean isStabMove(Move move);
+    boolean isStabMove(MoveWithPP move);
 }

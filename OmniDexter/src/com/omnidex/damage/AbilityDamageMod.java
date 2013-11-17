@@ -1,7 +1,7 @@
 package com.omnidex.damage;
 
 import com.omnidex.ability.Ability;
-import com.omnidex.move.Move;
+import com.omnidex.move.MoveWithPP;
 import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.pokemon.Gender;
 import com.omnidex.type.Type;
@@ -10,7 +10,7 @@ import com.omnidexter.battlefield.BattleField;
 
 public class AbilityDamageMod {
 
-    public static double doDefAbilityBasePowerMod(ActivePokemon defender, Move move,
+    public static double doDefAbilityBasePowerMod(ActivePokemon defender, MoveWithPP move,
             double damage) {
         if (defender.hasAbility(Ability.THICK_FAT)
                 && (move.isType(Type.ICE)
@@ -27,7 +27,7 @@ public class AbilityDamageMod {
         return damage;
     }
 
-    public static double doFlashFireMod(ActivePokemon attacker, Move move,
+    public static double doFlashFireMod(ActivePokemon attacker, MoveWithPP move,
                                         double damage) {
         if (attacker.hasFlashFireBoost() && move.isType(Type.FIRE)) {
             damage *= 1.5;
@@ -36,7 +36,7 @@ public class AbilityDamageMod {
         return damage;
     }
 
-    public static double doSolarPowerDamageMod(ActivePokemon attacker, Move move,
+    public static double doSolarPowerDamageMod(ActivePokemon attacker, MoveWithPP move,
             BattleField field, double damage) {
         if (attacker.hasAbility(Ability.SOLAR_POWER)
                 && field.isSun()) {
@@ -45,7 +45,7 @@ public class AbilityDamageMod {
         return damage;
     }
 
-    public static double doFilterAnSolidRock(ActivePokemon defender, Move move, double damage) {
+    public static double doFilterAnSolidRock(ActivePokemon defender, MoveWithPP move, double damage) {
     	if (defender.getAbility().weakensSEHits()) {
     		damage *= 0.75;
     	}
@@ -74,7 +74,7 @@ public class AbilityDamageMod {
     }
     
     public static double doAtkAbilityBasePowerMod(ActivePokemon attacker,
-            ActivePokemon defender, Move move, double damage) {
+            ActivePokemon defender, MoveWithPP move, double damage) {
         if (attacker.hasAbility(Ability.RIVALRY)) {
             if ((attacker.isGender(Gender.MALE)
                     && defender.isGender(Gender.MALE))

@@ -1,6 +1,7 @@
 package com.omnidexter.ai;
 
 import com.omnidex.game.Game;
+import com.omnidex.move.MoveWithPP;
 import com.omnidex.pokemon.Pokemon;
 
 /**
@@ -37,7 +38,7 @@ public class AiWriter {
 		}
 	}
 
-	public static void writeAttack(Pokemon poke, int moveChoice, int damage,
+	public static void writeAttack(Pokemon poke, MoveWithPP moveSlot, int damage,
 			int teamId) {
 		if (!isSearchMode) {
 			String statement = "%s";
@@ -47,13 +48,10 @@ public class AiWriter {
 				statement = String.format(statement, "Opponent");
 			}
 			statement = statement.concat(" %s uses %s, dealing %d damage!");
-			String moveName = poke.getMove(moveChoice).getMove().getName();
+			String moveName = moveSlot.getName();
 			statement = String.format(statement, poke.getSpecies(), moveName, damage);
 			System.out.println(statement);
 			
-			if (poke.hasFainted()) {
-				System.out.println("DIE");
-			}
 			
 		}
 	}

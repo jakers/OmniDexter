@@ -55,9 +55,9 @@ public class AbilityActivation {
 	public static void activateDrizzle(Pokemon poke, Weather weather) {
 		if (poke.hasAbility(Ability.DRIZZLE)) {
 			if (poke.hasItem(Item.DAMP_ROCK)) {
-				weather.setRain(Weather.DUR_8);
+				weather.setRain(Weather.DURATION_EIGHT);
 			} else {
-				weather.setRain(Weather.DUR_5);
+				weather.setRain(Weather.DURATION_FIVE);
 			}
 		}
 	}
@@ -78,9 +78,9 @@ public class AbilityActivation {
 	public static void activateDrought(ActivePokemon poke, Weather weather) {
 		if (poke.hasAbility(Ability.DROUGHT)) {
 			if (poke.hasItem(Item.HEAT_ROCK)) {
-				weather.setSun(Weather.DUR_8);
+				weather.setSun(Weather.DURATION_EIGHT);
 			} else {
-				weather.setSun(Weather.DUR_5);
+				weather.setSun(Weather.DURATION_FIVE);
 			}
 		}
 	}
@@ -89,9 +89,9 @@ public class AbilityActivation {
 			Weather weather) {
 		if (poke.hasAbility(Ability.SAND_STREAM)) {
 			if (poke.hasItem(Item.SMOOTH_ROCK)) {
-				weather.setSand(Weather.DUR_8);
+				weather.setSand(Weather.DURATION_EIGHT);
 			} else {
-				weather.setSand(Weather.DUR_5);
+				weather.setSand(Weather.DURATION_FIVE);
 			}
 		}
 	}
@@ -100,9 +100,9 @@ public class AbilityActivation {
 			Weather weather) {
 		if (poke.hasAbility(Ability.SNOW_WARNING)) {
 			if (poke.hasItem(Item.ICY_ROCK)) {
-				weather.setHail(Weather.DUR_8);
+				weather.setHail(Weather.DURATION_EIGHT);
 			} else {
-				weather.setHail(Weather.DUR_5);
+				weather.setHail(Weather.DURATION_FIVE);
 			}
 		}
 	}

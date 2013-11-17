@@ -9,11 +9,11 @@ import com.omnidex.battlefield.team.Team;
 import com.omnidex.db.MovesetDAO;
 import com.omnidex.game.Game;
 import com.omnidex.move.Move;
+import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.pokemon.InactivePokemon;
 import com.omnidex.pokemon.Pokemon;
 import com.omnidex.pokemon.Species;
-import com.omnidexter.ai.BattleAI;
-import com.omnidexter.battlefield.SingleBattleField;
+import com.omnidexter.battlefield.BattleField;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -116,7 +116,7 @@ public class BattleRC {
 
 		boolean isActive = true;
 		for (int i = 0; i < teamList.size(); i++) {
-			Pokemon poke = new InactivePokemon(Species.findSpeciesByName(teamList
+			ActivePokemon poke = new ActivePokemon(Species.findSpeciesByName(teamList
 					.get(i)));
 
 			loadPokemonMoves(poke, isActive, i);
@@ -142,7 +142,7 @@ public class BattleRC {
 	}
 
 	public void deliberate() {
-		clickAttack(BattleAI.getBestMove(game, 1));
+//		clickAttack(BattleAI.getBestMove(game, 1));
 	}
 
 	public void clickAttack(int moveslot) {

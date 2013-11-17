@@ -3,6 +3,7 @@ package com.omnidex.game;
 import java.util.List;
 
 import com.omnidex.battlefield.team.Team;
+import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.pokemon.InactivePokemon;
 import com.omnidex.pokemon.Pokemon;
 
@@ -69,7 +70,7 @@ public class GamePrinter {
 	}
 
 	public static void printSwitchOption(Team team) {
-		List<InactivePokemon> party = team.getParty();
+		List<ActivePokemon> party = team.getParty();
 
 		if (party.isEmpty()) {
 			System.out.println("No avaliable switches");

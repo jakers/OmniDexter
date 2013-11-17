@@ -41,14 +41,9 @@ public class InactivePokemon implements Pokemon, Status, Stats {
 	protected MoveWithPP move2;
 	protected MoveWithPP move3;
 	protected MoveWithPP move4;
-	protected MoveWithPP switch1;
-	protected MoveWithPP switch2;
-	protected MoveWithPP switch3;
-	protected MoveWithPP switch4;
-	protected MoveWithPP switch5;
 
 	protected int friendship;
-	private boolean isActivePokemon;
+	protected boolean isActivePokemon;
 	private boolean isGrounded = false;
 	
 	public InactivePokemon() {
@@ -188,17 +183,7 @@ public class InactivePokemon implements Pokemon, Status, Stats {
 			move3 = new MoveWithPP(move);
 		} else if (slot == MOVE_FOUR) {
 			move4 = new MoveWithPP(move);
-		} else if (slot == SWITCH_ONE) {
-			switch1 = new MoveWithPP(move);
-		} else if (slot == SWITCH_TWO) {
-			switch2 = new MoveWithPP(move);
-		} else if (slot == SWITCH_THREE) {
-			switch3 = new MoveWithPP(move);
-		} else if (slot == SWITCH_FOUR) {
-			switch4 = new MoveWithPP(move);
-		} else if (slot == SWITCH_FIVE) {
-			switch5 = new MoveWithPP(move);
-		}
+		} 
 	}
 
 	@Override
@@ -236,12 +221,6 @@ public class InactivePokemon implements Pokemon, Status, Stats {
 		move2 = p.getMove(MOVE_TWO);
 		move3 = p.getMove(MOVE_THREE);
 		move4 = p.getMove(MOVE_FOUR);
-		
-		switch1 = p.getMove(SWITCH_ONE);
-		switch2 = p.getMove(SWITCH_TWO);
-		switch3 = p.getMove(SWITCH_THREE);
-		switch4 = p.getMove(SWITCH_FOUR);
-		switch5 = p.getMove(SWITCH_FIVE);
 		
 		isShiny = p.isShiny();
 	}
@@ -292,17 +271,7 @@ public class InactivePokemon implements Pokemon, Status, Stats {
 			result = move3;
 		} else if (slot == MOVE_FOUR) {
 			result = move4;
-		} else if (slot == SWITCH_ONE) {
-			result = switch1;
-		} else if (slot == SWITCH_TWO) {
-			result = switch2;
-		} else if (slot == SWITCH_THREE) {
-			result = switch3;
-		} else if (slot == SWITCH_FOUR) {
-			result = switch4;
-		} else if (slot == SWITCH_FIVE) {
-			result = switch5;
-		}
+		} 
 		return result;
 	}
 
@@ -887,7 +856,7 @@ public class InactivePokemon implements Pokemon, Status, Stats {
 	}
 
 	@Override
-	public boolean isStabMove(Move move) {
+	public boolean isStabMove(MoveWithPP move) {
 		return isType(move.getType());
 	}
 }

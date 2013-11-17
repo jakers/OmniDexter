@@ -12,8 +12,8 @@ import com.omnidex.battlefield.team.Team;
 public interface Fitness
 { 
     final double DRAW = 3.0;
-    final double PLAYER_ONE_WINS = 1.0;
-    final double PLAYER_TWO_WINS = -1.0;
+    final double PLAYER_ONE_WINS = 25.0;
+    final double PLAYER_TWO_WINS = -25.0;
 
     /**
      * @param t1 a DeepTeam object that represents team 1

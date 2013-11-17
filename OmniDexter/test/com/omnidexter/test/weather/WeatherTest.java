@@ -1,246 +1,183 @@
 package com.omnidexter.test.weather;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import com.omnidex.weather.FieldWeather;
 import com.omnidex.weather.Weather;
 
-/**
- * @author jakers
- */
 public class WeatherTest {
 
 	private Weather weather;
 
 	@Before
 	public void setUp() {
-		weather = new FieldWeather();
-	}
-
-	/**
-	 * Test of decrementDuration method, of class Weather.
-	 */
-	@Test
-	public void testDecrementDuration() {
-		System.out.println("decrementDuration");
-		weather.setFog(Weather.DUR_5);
-		assertEquals(Weather.DUR_5, weather.getDuration());
-		weather.decrementDuration();
-		assertEquals(Weather.DUR_5 - 1, weather.getDuration());
-	}
-
-	/**
-	 * Test of getDuration method, of class Weather.
-	 */
-	@Test
-	public void testGetDuration() {
-		System.out.println("getDuration");
-		int expResult = Weather.DUR_8;
-		weather.setRain(Weather.DUR_8);
-		int result = weather.getDuration();
-		assertEquals(expResult, result);
-	}
-
-	/**
-	 * Test of isRain method, of class Weather.
-	 */
-	@Test
-	public void testIsRain() {
-		System.out.println("isRain");
-		weather.setRain(Weather.DUR_5);
-		assertEquals(true, weather.isRain());
-		assertEquals(false, weather.isFog());
-		assertEquals(false, weather.isHail());
-		assertEquals(false, weather.isClear());
-		assertEquals(false, weather.isSand());
-		assertEquals(false, weather.isSun());
-	}
-
-	/**
-	 * Test of isFog method, of class Weather.
-	 */
-	@Test
-	public void testIsFog() {
-		System.out.println("isFog");
-		weather.setFog(Weather.DUR_5);
-		assertEquals(false, weather.isRain());
-		assertEquals(true, weather.isFog());
-		assertEquals(false, weather.isHail());
-		assertEquals(false, weather.isClear());
-		assertEquals(false, weather.isSand());
-		assertEquals(false, weather.isSun());
-	}
-
-	/**
-	 * Test of isSun method, of class Weather.
-	 */
-	@Test
-	public void testIsSun() {
-		System.out.println("isSun");
-		weather.setSun(Weather.DUR_5);
-		assertEquals(false, weather.isRain());
-		assertEquals(false, weather.isFog());
-		assertEquals(false, weather.isHail());
-		assertEquals(false, weather.isClear());
-		assertEquals(false, weather.isSand());
-		assertEquals(true, weather.isSun());
-	}
-
-	/**
-	 * Test of isHail method, of class Weather.
-	 */
-	@Test
-	public void testIsHail() {
-		System.out.println("isHail");
-		weather.setHail(Weather.DUR_5);
-		assertEquals(false, weather.isRain());
-		assertEquals(false, weather.isFog());
-		assertEquals(true, weather.isHail());
-		assertEquals(false, weather.isClear());
-		assertEquals(false, weather.isSand());
-		assertEquals(false, weather.isSun());
-	}
-
-	/**
-	 * Test of isSand method, of class Weather.
-	 */
-	@Test
-	public void testIsSand() {
-		System.out.println("isSand");
-		weather.setRain(Weather.DUR_8);
-		weather.setSand(Weather.DUR_5);
-		assertEquals(false, weather.isRain());
-		assertEquals(false, weather.isFog());
-		assertEquals(false, weather.isHail());
-		assertEquals(false, weather.isClear());
-		assertEquals(true, weather.isSand());
-		assertEquals(false, weather.isSun());
-	}
-
-	/**
-	 * Test of isClear method, of class Weather.
-	 */
-	@Test
-	public void testIsClear() {
-		System.out.println("isClear");
-		weather.setClear();
-		assertEquals(false, weather.isRain());
-		assertEquals(false, weather.isFog());
-		assertEquals(false, weather.isHail());
-		assertEquals(true, weather.isClear());
-		assertEquals(false, weather.isSand());
-		assertEquals(false, weather.isSun());
-		assertEquals(Weather.PERMANENT, weather.getDuration());
-	}
-
-	/**
-	 * Test of setRain method, of class Weather.
-	 */
-	@Test
-	public void testSetRain() {
-		System.out.println("setRain");
-		weather.setSand(Weather.DUR_8);
-		weather.setRain(Weather.DUR_5);
-		assertEquals(true, weather.isRain());
-		assertEquals(false, weather.isFog());
-		assertEquals(false, weather.isHail());
-		assertEquals(false, weather.isClear());
-		assertEquals(false, weather.isSand());
-		assertEquals(false, weather.isSun());
-		assertEquals(Weather.DUR_5, weather.getDuration());
-	}
-
-	/**
-	 * Test of setFog method, of class Weather.
-	 */
-	@Test
-	public void testSetFog() {
-		System.out.println("setFog");
-		weather.setSun(Weather.PERMANENT);
-		weather.setFog(Weather.DUR_5);
-		assertEquals(false, weather.isRain());
-		assertEquals(true, weather.isFog());
-		assertEquals(false, weather.isHail());
-		assertEquals(false, weather.isClear());
-		assertEquals(false, weather.isSand());
-		assertEquals(false, weather.isSun());
-		assertEquals(Weather.DUR_5, weather.getDuration());
-	}
-
-	/**
-	 * Test of setSun method, of class Weather.
-	 */
-	@Test
-	public void testSetSun() {
-		System.out.println("setSun");
-		weather.setHail(Weather.DUR_5);
-		weather.setSun(Weather.PERMANENT);
-		assertEquals(false, weather.isRain());
-		assertEquals(false, weather.isFog());
-		assertEquals(false, weather.isHail());
-		assertEquals(false, weather.isClear());
-		assertEquals(false, weather.isSand());
-		assertEquals(true, weather.isSun());
-		assertEquals(Weather.PERMANENT, weather.getDuration());
-	}
-
-	/**
-	 * Test of setHail method, of class Weather.
-	 */
-	@Test
-	public void testSetHail() {
-		System.out.println("setHail");
-		weather.setSand(Weather.DUR_5);
-		weather.setHail(Weather.DUR_8);
-		assertEquals(false, weather.isRain());
-		assertEquals(false, weather.isFog());
-		assertEquals(true, weather.isHail());
-		assertEquals(false, weather.isClear());
-		assertEquals(false, weather.isSand());
-		assertEquals(false, weather.isSun());
-		assertEquals(Weather.DUR_8, weather.getDuration());
-	}
-
-	/**
-	 * Test of setSand method, of class Weather.
-	 */
-	@Test
-	public void testSetSand() {
-		System.out.println("setSand");
-		weather.setSun(Weather.PERMANENT);
-		weather.setSand(Weather.PERMANENT);
-		assertEquals(false, weather.isRain());
-		assertEquals(false, weather.isFog());
-		assertEquals(false, weather.isHail());
-		assertEquals(false, weather.isClear());
-		assertEquals(true, weather.isSand());
-		assertEquals(false, weather.isSun());
-		assertEquals(Weather.PERMANENT, weather.getDuration());
-	}
-
-	/**
-	 * Test of setClear method, of class Weather.
-	 */
-	@Test
-	public void testSetClear() {
-		System.out.println("setClear");
-		weather.setSand(Weather.DUR_8);
-		weather.setRain(Weather.DUR_5);
-		weather.setClear();
-		assertEquals(false, weather.isRain());
-		assertEquals(false, weather.isFog());
-		assertEquals(false, weather.isHail());
-		assertEquals(true, weather.isClear());
-		assertEquals(false, weather.isSand());
-		assertEquals(false, weather.isSun());
-		assertEquals(Weather.PERMANENT, weather.getDuration());
+		weather = new Weather();
 	}
 
 	@After
 	public void tearDown() {
 		weather = null;
+	}
+
+	@Test
+	public void weatherIsClearOnCreation() {
+		checkAllWeatherIsCleared();
+	}
+
+	@Test
+	public void settingWeatherToRain() {
+		weather.setRain(Weather.DURATION_FIVE);
+		assertTrue(weather.isRain());
+		checkWeatherIsNotClearAndHasDuration(Weather.DURATION_FIVE);
+	}
+
+	@Test
+	public void settingWeatherToSun() {
+		weather.setSun(Weather.DURATION_FIVE);
+		assertTrue(weather.isSun());
+		checkWeatherIsNotClearAndHasDuration(Weather.DURATION_FIVE);
+	}
+
+	@Test
+	public void onlyOneWeatherAtATime() {
+		weather.setRain(Weather.DURATION_FIVE);
+		weather.setSun(Weather.DURATION_EIGHT);
+		assertFalse(weather.isRain());
+		assertTrue(weather.isSun());
+		checkWeatherIsNotClearAndHasDuration(Weather.DURATION_EIGHT);
+	}
+
+	@Test
+	public void settingWeatherToSandStorm() {
+		assertFalse(weather.isSand());
+		weather.setSand(Weather.DURATION_EIGHT);
+		assertTrue(weather.isSand());
+		checkWeatherIsNotClearAndHasDuration(Weather.DURATION_EIGHT);
+	}
+
+	@Test
+	public void settingWeatherToHail() {
+		assertFalse(weather.isHail());
+		weather.setHail(Weather.DURATION_FIVE);
+		assertTrue(weather.isHail());
+		checkWeatherIsNotClearAndHasDuration(Weather.DURATION_FIVE);
+	}
+
+	@Test
+	public void settingWeatherToFog() {
+		assertFalse(weather.isFog());
+		weather.setFog(Weather.DURATION_FIVE);
+		assertTrue(weather.isFog());
+		checkWeatherIsNotClearAndHasDuration(Weather.DURATION_FIVE);
+	}
+
+	@Test
+	public void clearingSandByDecrementing() {
+		weather.setSand(1);
+		checkClearingOneTurnWeather();
+	}
+
+	@Test
+	public void clearingSunByDecrementing() {
+		weather.setSun(1);
+		checkClearingOneTurnWeather();
+	}
+
+	@Test
+	public void clearingRainByDecrementing() {
+		weather.setRain(1);
+		checkClearingOneTurnWeather();
+	}
+
+	@Test
+	public void clearingFogByDecrementing() {
+		weather.setFog(1);
+		checkClearingOneTurnWeather();
+	}
+
+	@Test
+	public void clearingHailByDecrementing() {
+		weather.setHail(1);
+		checkClearingOneTurnWeather();
+	}
+
+	@Test
+	public void decrementingPermanentWeather() {
+		weather.setRain(Weather.DURATION_PERMANENT);
+		checkWeatherIsNotClearAndHasDuration(Weather.DURATION_PERMANENT);
+		weather.decrement();
+		assertTrue(weather.isRain());
+		checkWeatherIsNotClearAndHasDuration(Weather.DURATION_PERMANENT);
+	}
+
+	@Test
+	public void clearingWeatherExplicitly() {
+		weather.setFog(Weather.DURATION_PERMANENT);
+		weather.clearWeather();
+		checkAllWeatherIsCleared();
+	}
+
+	@Test
+	public void copyingAWeatherObject() {
+		weather.setSand(Weather.DURATION_PERMANENT);
+		Weather tempWeather = new Weather(weather);
+
+		assertTrue(tempWeather.isSand());
+		assertEquals(Weather.DURATION_PERMANENT, tempWeather.getDuration());
+		tempWeather.setRain(Weather.DURATION_FIVE);
+
+		checkOriginalRemainsUnchanged();
+
+		assertTrue(tempWeather.isRain());
+		assertEquals(Weather.DURATION_FIVE, tempWeather.getDuration());
+
+		tempWeather.clearWeather();
+
+		checkOriginalRemainsUnchanged();
+	}
+
+	@Test
+	public void getWeatherText() {
+		assertEquals(Weather.CLEAR, weather.getWeatherText());
+		weather.setFog(Weather.DURATION_PERMANENT);
+		assertEquals(Weather.FOG, weather.getWeatherText());
+		weather.setHail(Weather.DURATION_PERMANENT);
+		assertEquals(Weather.HAIL, weather.getWeatherText());
+		weather.setRain(Weather.DURATION_PERMANENT);
+		assertEquals(Weather.RAIN, weather.getWeatherText());
+		weather.setSand(Weather.DURATION_PERMANENT);
+		assertEquals(Weather.SAND, weather.getWeatherText());
+		weather.setSun(Weather.DURATION_PERMANENT);
+		assertEquals(Weather.SUN, weather.getWeatherText());
+	}
+
+	private void checkOriginalRemainsUnchanged() {
+		assertTrue(weather.isSand());
+		assertEquals(Weather.DURATION_PERMANENT, weather.getDuration());
+	}
+
+	private void checkAllWeatherIsCleared() {
+		assertTrue(weather.isClear());
+		assertFalse(weather.isSand());
+		assertFalse(weather.isSun());
+		assertFalse(weather.isRain());
+		assertFalse(weather.isHail());
+		assertFalse(weather.isFog());
+		assertEquals(0, weather.getDuration());
+	}
+
+	private void checkWeatherIsNotClearAndHasDuration(int duration) {
+		assertFalse(weather.isClear());
+		assertEquals(duration, weather.getDuration());
+	}
+
+	private void checkClearingOneTurnWeather() {
+		checkWeatherIsNotClearAndHasDuration(1);
+		weather.decrement();
+		checkAllWeatherIsCleared();
 	}
 }

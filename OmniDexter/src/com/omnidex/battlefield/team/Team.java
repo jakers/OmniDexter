@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.omnidex.move.MoveWithPP;
 import com.omnidex.pokemon.ActivePokemon;
-import com.omnidex.pokemon.InactivePokemon;
-import com.omnidex.pokemon.Pokemon;
 
 /**
  * An interface that promises the behaviors of a team
@@ -99,7 +97,7 @@ public interface Team extends Screen {
 
 	int getToxicSpikesCount();
 
-	void addTeamMate(Pokemon p);
+	void addTeamMate(ActivePokemon p);
 
 	void addTailWind();
 
@@ -133,11 +131,11 @@ public interface Team extends Screen {
 	/**
 	 * @return a list of the Pokemon that are in the party
 	 */
-	List<InactivePokemon> getParty();
+	List<ActivePokemon> getParty();
 	
-	void setChoice(int choice);
+	void setChoice(MoveWithPP choice);
 	
-	int getChoice();
+	MoveWithPP getChoice();
 	
 	boolean hasMudSport();
 	void setMudSport(boolean state);
@@ -147,4 +145,5 @@ public interface Team extends Screen {
 	int getTeamId();
 	void setTeamId(int teamId);
 	boolean[] getValidSwitch();
+	List<MoveWithPP> getAllChoices();
 }

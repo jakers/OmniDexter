@@ -2,21 +2,21 @@ package com.omnidex.game;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import com.omnidex.ability.AbilityActivation;
+import com.omnidex.battlefield.team.DeepTeam;
 import com.omnidex.battlefield.team.Team;
 import com.omnidex.damage.MainDamageFormula;
 import com.omnidex.damage.MathUtils;
 import com.omnidex.damage.StatusDamage;
 import com.omnidex.damage.WeatherDamage;
 import com.omnidex.item.ItemActivation;
+import com.omnidex.move.MoveWithPP;
 import com.omnidexter.ai.AiWriter;
-import com.omnidexter.ai.BattleAI;
 import com.omnidexter.ai.Fitness;
 import com.omnidexter.ai.FitnessScore;
 import com.omnidexter.battlefield.BattleField;
-import com.omnidexter.battlefield.SingleBattleField;
+import com.omnidexter.battlefield.BattleField;
 
 public class Game {
 
@@ -28,7 +28,6 @@ public class Game {
 	private BattleField bf;
 	private ChoiceSelector player1;
 	private ChoiceSelector player2;
-	
 	
 	public Game(BattleField bf, Team omnidexter, Team opponent,
 			String oppentName, ChoiceSelector player1, ChoiceSelector player2) {
@@ -42,9 +41,11 @@ public class Game {
 	}
 
 	public Game(Game game) {
-		omnidexter = game.getOmnidexter();
-		opponent = game.getOpponent();
+		omnidexter = new DeepTeam(game.getOmnidexter());
+		opponent = new DeepTeam(game.getOpponent());
 		bf = game.getBf();
+		player1 = game.player1;
+		player2 = game.player2;
 	}
 
 	public boolean isGameOver() {
@@ -54,9 +55,9 @@ public class Game {
 				|| fitness == Fitness.PLAYER_TWO_WINS;
 	}
 
-	public int getFightOrSwitchInput() {
-		return getIntChoice();
-	}
+//	public int getFightOrSwitchInput() {
+//		return getIntChoice();
+//	}
 
 	public List<Integer> getAllPossibleMoves() {
 		List<Integer> allPossibleMoves = new ArrayList<Integer>();
@@ -98,30 +99,28 @@ public class Game {
 		return allPossibleMoves;
 	}
 
-	public void applyTurn(int player1Choice, int player2Choice) {
-
+	public void applyTurn(MoveWithPP player1Choice, MoveWithPP player2Choice) {
+		
 		omnidexter.setChoice(player1Choice);
 		opponent.setChoice(player2Choice);
-
+		
 		Team[] speedOrder = MathUtils.getFasterPoke(omnidexter, opponent);
 		Team first = speedOrder[0];
 		Team second = speedOrder[1];
 
-		if (first.getChoice() < 0) {
-			first.switchActivePokemon(first.getActivePokemon().getMove(
-					first.getChoice()));
+		if (first.getChoice().isSwitch()) {
+			first.switchActivePokemon(first.getChoice());
 		}
 
-		if (second.getChoice() < 0) {
-			second.switchActivePokemon(second.getActivePokemon().getMove(
-					second.getChoice()));
+		if (second.getChoice().isSwitch()) {
+			second.switchActivePokemon(second.getChoice());
 		}
 
-		if (first.getChoice() >= 0 && !first.getActivePokemon().hasFainted()) {
+		if (first.getChoice().isAttack() && !first.getActivePokemon().hasFainted()) {
 			attack(first.getTeamId(), first.getChoice());
 		}
 
-		if (second.getChoice() >= 0 && !second.getActivePokemon().hasFainted()) {
+		if (second.getChoice().isAttack() && !second.getActivePokemon().hasFainted()) {
 			attack(second.getTeamId(), second.getChoice());
 		}
 	}
@@ -158,7 +157,6 @@ public class Game {
 		WeatherDamage.applyHealingWeather(bf, fasterTeam.getActivePokemon());
 		WeatherDamage.applyHealingWeather(bf, slowerTeam.getActivePokemon());
 
-		// Check if Gravity wears off
 		bf.decrementGravity();
 
 		// applies damage/healing from status
@@ -182,8 +180,6 @@ public class Game {
 		StatusDamage.applyLeechSeed(fasterTeam.getActivePokemon(),
 				slowerTeam.getActivePokemon());
 
-		// Check for Status Damage/Nightmare
-		// Checks for fainting inside healing method.
 		StatusDamage.applyBurnDamage(fasterTeam.getActivePokemon());
 		StatusDamage.applyBurnDamage(slowerTeam.getActivePokemon());
 
@@ -260,20 +256,18 @@ public class Game {
 				&& first.getParty().size() > 0) {
 			int choice;
 			if (first.getTeamId() == OPPONENT) {
-				choice = player1.getEndTurnSwitchChoice(first, second, bf);
-			} else if (AiWriter.isSearchMode) {
-				choice = BattleAI.getNextPoke(this, OPPONENT,
-						BattleAI.MAX_DEPTH);
-			} else {
-				System.out.println("Please choice a new pokemon");
-				choice = -1;
-			}
+				choice = -1*player1.getEndTurnSwitchChoice(first, second, bf);
+			} else  {
+//				choice = BattleAI.getNextPoke(this, OPPONENT,
+//						BattleAI.MAX_DEPTH);
+			} 
+			
 			AiWriter.setSearchMode(true);
-			first.switchActivePokemon(first.getActivePokemon().getMove(choice));
+			first.switchActivePokemon(first.getChoice());
 		}
 	}
 
-	public void attack(int player, int moveSlot) {
+	public void attack(int player, MoveWithPP moveSlot) {
 		int damage[];
 
 		Team attack;
@@ -288,7 +282,7 @@ public class Game {
 		}
 
 		damage = MainDamageFormula.damage(attack, defend, bf, attack
-				.getActivePokemon().getMove(moveSlot).getMove());
+				.getChoice());
 		defend.getActivePokemon().damage(damage[1]);
 
 		AiWriter.writeAttack(attack.getActivePokemon(), moveSlot, damage[1],
@@ -312,24 +306,10 @@ public class Game {
 	}
 
 	public BattleField getBf() {
-		return new SingleBattleField(bf);
+		return new BattleField(bf);
 	}
 
 	public void setBf(BattleField bf) {
 		this.bf = bf;
 	}
-
-	public int getFightChoice() {
-		return getIntChoice();
-	}
-
-	public int getSwitchChoice() {
-		return getIntChoice();
-	}
-
-	private int getIntChoice() {
-		Scanner scan = new Scanner(System.in);
-		return scan.nextInt();
-	}
-
 }

@@ -49,7 +49,8 @@ public class StatusDamage {
 	 *            field.
 	 */
 	public static void applyStatusHealing(Pokemon poke) {
-		if (!poke.hasFainted() && hasEitherPoison(poke) && poke.hasAbility(Ability.POISON_HEAL)) {
+		if (!poke.hasFainted() && hasEitherPoison(poke)
+				&& poke.hasAbility(Ability.POISON_HEAL)) {
 			MathUtils.applyFractionalHealing(poke, MathUtils.ONE_EIGHTH);
 		}
 	}
@@ -76,40 +77,18 @@ public class StatusDamage {
 		}
 	}
 
-	/**
-	 * The sleeping Pokemon loses 1/8th of its max hp to the Pokemon with Bad
-	 * dreams.
-	 * 
-	 * @param dreamer
-	 *            a Pokemon that is asleep.
-	 * @param badDream
-	 *            a Pokemon with the ability BadDreams.
-	 */
-	
-
-	/**
-	 * The Pokemon with Ingrain roots is healed by 1/16th of its max hp.
-	 * 
-	 * @param poke
-	 */
 	public static void applyIngrainHealing(ActivePokemon poke) {
 		if (!poke.hasFainted() && poke.isIngrained()) {
 			MathUtils.applyFractionalHealing(poke, MathUtils.ONE_SIXTEENTH);
 		}
 	}
 
-	/**
-	 * The Pokemon with AquaRing is healed by 1/16th of its max hp.
-	 * 
-	 * @param poke
-	 *            a Pokemon with the Aqua Ring affect.
-	 */
 	public static void applyAquaRingHealing(ActivePokemon poke) {
 		if (!poke.hasFainted() && poke.hasAquaRing()) {
 			MathUtils.applyFractionalHealing(poke, MathUtils.ONE_SIXTEENTH);
 		}
 	}
-	
+
 	public static void applyPartialTrappingDamage(ActivePokemon target,
 			ActivePokemon trapper) {
 		if (!target.hasFainted() && target.hasFireSpin()) {
@@ -150,11 +129,10 @@ public class StatusDamage {
 
 	private static void applyPartialTrappingDamageWithItemMod(
 			ActivePokemon target, ActivePokemon trapper) {
-		if (trapper.getItem().equals(Item.BINDING_BAND)) {
+		if (trapper.hasItem(Item.BINDING_BAND)) {
 			MathUtils.passiveDamage(target, MathUtils.ONE_EIGHTH);
 		} else {
 			MathUtils.passiveDamage(target, MathUtils.ONE_SIXTEENTH);
 		}
-
 	}
 }

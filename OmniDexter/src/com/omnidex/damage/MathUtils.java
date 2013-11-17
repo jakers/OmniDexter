@@ -23,30 +23,42 @@ public class MathUtils {/*
 						 * (2 / (double) 7); private static final double
 						 * MINUS_SIX = 0.25;
 						 */
-	public static final double ONE_SIXTEENTH = 1/(double)16;
-	public static final double ONE_EIGHTH = 1/(double)8;
-	public static final double ONE_SIXTH = 1/(double)6;
+	public static final double ONE_SIXTEENTH = 1 / (double) 16;
+	public static final double ONE_EIGHTH = 1 / (double) 8;
+	public static final double ONE_SIXTH = 1 / (double) 6;
 	public static final double ONE_QUARTER = 0.25;
 	public static final double ONE_HALF = 0.5;
-	public static final double ONE_THIRTY_SECOND = 1/(double)32;
-	public static final double ONE_THIRD = 1/(double)3;
+	public static final double ONE_THIRTY_SECOND = 1 / (double) 32;
+	public static final double ONE_THIRD = 1 / (double) 3;
 
 	public static Team[] getFasterPoke(Team omnidexter, Team opponent) {
 		Team[] result = new DeepTeam[2];
-				
-		if (omnidexter.getActivePokemon().getCurrSpe() > opponent.getActivePokemon().getCurrSpe()) {
+
+		if (omnidexter.getChoice().getPriority() > opponent.getChoice()
+				.getPriority()) {
 			result[0] = omnidexter;
 			result[1] = opponent;
-		} else if (omnidexter.getActivePokemon().getCurrSpe() < opponent.getActivePokemon().getCurrSpe()) {
+		} else if (omnidexter.getChoice().getPriority() < opponent.getChoice()
+				.getPriority()) {
 			result[0] = opponent;
 			result[1] = omnidexter;
 		} else {
-			if (Math.random() > 0.5) {
+			if (omnidexter.getActivePokemon().getCurrSpe() > opponent
+					.getActivePokemon().getCurrSpe()) {
 				result[0] = omnidexter;
 				result[1] = opponent;
-			} else {
+			} else if (omnidexter.getActivePokemon().getCurrSpe() < opponent
+					.getActivePokemon().getCurrSpe()) {
 				result[0] = opponent;
 				result[1] = omnidexter;
+			} else {
+				if (Math.random() > 0.5) {
+					result[0] = omnidexter;
+					result[1] = opponent;
+				} else {
+					result[0] = opponent;
+					result[1] = omnidexter;
+				}
 			}
 		}
 		return result;
@@ -58,21 +70,22 @@ public class MathUtils {/*
 
 	public static boolean eventOccursWithProb(double prob) {
 		return new Random().nextDouble() <= prob;
-	} 
-	
-	
+	}
+
 	public static void applyFractionalHealing(Pokemon poke, double fraction) {
 		poke.heal((int) (poke.getMaxHp() * fraction));
 	}
-	
-	public static void applyFractionalLeeching(Pokemon damaged, Pokemon healed, double fraction) {
+
+	public static void applyFractionalLeeching(Pokemon damaged, Pokemon healed,
+			double fraction) {
 		int amountLost = (int) (damaged.getMaxHp() * fraction);
 		damaged.damage(amountLost);
 		healed.heal(amountLost);
 	}
 
 	public static void toxicDamage(Pokemon poke) {
-		MathUtils.passiveDamage(poke, poke.getToxCount() * MathUtils.ONE_SIXTEENTH);
+		MathUtils.passiveDamage(poke, poke.getToxCount()
+				* MathUtils.ONE_SIXTEENTH);
 		poke.incrementToxCount();
 	}
 

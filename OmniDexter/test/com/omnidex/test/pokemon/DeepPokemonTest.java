@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.pokemon.InactivePokemon;
 import com.omnidex.pokemon.Species;
 
@@ -30,5 +31,15 @@ public class DeepPokemonTest {
 		assertFalse(poke.isOk());
 	}
 	
-	
+	@Test
+	public void pokemon_doesnot_alias() {
+		ActivePokemon poke = new ActivePokemon(Species.CHARIZARD);
+		poke.setHpEv(252);
+		ActivePokemon poke2 = new ActivePokemon(poke);
+		assertEquals(360, poke.getCurrHp());
+		assertEquals(360, poke2.getCurrHp());
+		poke2.damage(5);
+		assertEquals(360, poke.getCurrHp());
+		assertEquals(355, poke2.getCurrHp());
+	}
 }

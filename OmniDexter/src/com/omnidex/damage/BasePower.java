@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.omnidex.ability.Ability;
 import com.omnidex.move.Move;
+import com.omnidex.move.MoveWithPP;
 import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.pokemon.Pokemon;
 
@@ -620,7 +621,7 @@ public class BasePower {
 		}
 	}
 
-	public static double applyStab(ActivePokemon poke, Move move, double damage) {
+	public static double applyStab(ActivePokemon poke, MoveWithPP move, double damage) {
 		if (poke.isStabMove(move)) {
 			if (poke.hasAbility(Ability.ADAPTABILITY)) {
 				damage *= 2.0;

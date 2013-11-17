@@ -1,6 +1,8 @@
 package com.omnidex.move;
 
+import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.pokemon.Pokemon;
+import com.omnidex.type.Type;
 
 public class MoveWithPP {
 	
@@ -51,5 +53,49 @@ public class MoveWithPP {
 	
 	public void decrementPP() {
 		currPP--;
+	}
+	
+	public int getBasePower(ActivePokemon attacker, ActivePokemon target) {
+		return move.getBasePower(attacker, target);
+	}
+	
+	public boolean isType(Type type) {
+		return move.isType(type);
+	}
+	
+	public boolean isPhysical() {
+		return move.isPhysical();
+	}
+	
+	public boolean isSpecial() {
+		return move.isSpecial();
+	}
+	
+	public boolean hasRecoil() {
+		return move.hasRecoil();
+	}
+	
+	public boolean isPunch() {
+		return move.isPunch();
+	}
+	
+	public Type getType() {
+		return move.getType();
+	}
+	
+	public String getName() {
+		return move.getName();
+	}
+	
+	public boolean isSwitch() {
+		return move.isSwitch();
+	}
+	
+	public boolean isAttack() {
+		return !move.isSwitch();
+	}
+	
+	public int getPriority() {
+		return move.getPriority();
 	}
 }

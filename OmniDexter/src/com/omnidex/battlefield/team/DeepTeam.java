@@ -14,9 +14,9 @@ import com.omnidexter.ai.AiWriter;
 
 public class DeepTeam extends FieldScreen implements Team {
 	private int teamId;
-	private int choice;
+	private MoveWithPP choice;
 	private ActivePokemon activePokemon;
-	private List<InactivePokemon> party;
+	private List<ActivePokemon> party;
 	private boolean hasStealthRocks;
 
 	private int wishCount;
@@ -37,7 +37,7 @@ public class DeepTeam extends FieldScreen implements Team {
 
 	public DeepTeam() {
 		super();
-		party = new ArrayList<InactivePokemon>();
+		party = new ArrayList<ActivePokemon>();
 		hasStealthRocks = false;
 		tailwindCount = 0;
 		luckyChantCount = 0;
@@ -46,17 +46,20 @@ public class DeepTeam extends FieldScreen implements Team {
 		spikesCount = 0;
 		toxicSpikesCount = 0;
 		teamId = Game.OPPONENT;
-		choice = 0;
+		choice = new MoveWithPP(Move.NONE);
 	}
 
 	public DeepTeam(Team team) {
 		super(team);
-		party = new ArrayList<InactivePokemon>();
-		activePokemon = team.getActivePokemon();
-		List<InactivePokemon> temp = team.getParty();
-		for (int i = 0; i < temp.size(); i++) {
-			party.add(temp.get(i));
+		party = new ArrayList<ActivePokemon>();
+				
+		for (int i = 0; i < team.size(); i++) {
+			party.add(new ActivePokemon(team.getParty().get(i)));
+			if (party.get(i).isActivePokemon()) {
+				activePokemon = party.get(i);
+			}
 		}
+		
 		hasStealthRocks = team.hasStealthRocks();
 		spikesCount = team.getSpikesCount();
 		toxicSpikesCount = team.getToxicSpikesCount();
@@ -66,23 +69,46 @@ public class DeepTeam extends FieldScreen implements Team {
 	}
 
 	@Override
-	public void addTeamMate(Pokemon poke) {
-		assignSwitchingOptions(poke);
-		
+	public void addTeamMate(ActivePokemon poke) {
+
 		if (activePokemon == null) {
-			activePokemon = new ActivePokemon(poke);
-		} 
-		
+			activePokemon = poke;
+		}
+
 		if (party.size() < 6) {
-			
-			party.add(new InactivePokemon(poke));
+
+			party.add(poke);
 			if (party.size() == 1) {
 				party.get(0).setAsActivePokemon();
 			} else {
-				party.get(party.size()-1).setAsInactivePokemon();
+				party.get(party.size() - 1).setAsInactivePokemon();
 			}
 			teamSize++;
 		}
+	}
+
+	public boolean isValidSwitch(Move switchOption) {
+		switch (switchOption) {
+		case SWITCH_1:
+			return isPokemonHealthyAndNotActive(0);
+		case SWITCH_2:
+			return isPokemonHealthyAndNotActive(1);
+		case SWITCH_3:
+			return isPokemonHealthyAndNotActive(2);
+		case SWITCH_4:
+			return isPokemonHealthyAndNotActive(3);
+		case SWITCH_5:
+			return isPokemonHealthyAndNotActive(4);
+		case SWITCH_6:
+			return isPokemonHealthyAndNotActive(5);
+		default:
+			return false;
+		}
+	}
+
+	private boolean isPokemonHealthyAndNotActive(int index) {
+		return index < party.size() && !party.get(index).hasFainted()
+				&& !party.get(index).isActivePokemon();
 	}
 
 	@Override
@@ -98,40 +124,46 @@ public class DeepTeam extends FieldScreen implements Team {
 	@Override
 	public void switchActivePokemon(MoveWithPP switchOption) {
 
-		Move switchTo = switchOption.getMove();
-		
-		activePokemon.setSleep(activePokemon.getInitialSleepDuration());
+		if (switchOption != null) {
+			Move switchTo = switchOption.getMove();
 
-		switch (switchTo) {
-		case SWITCH_1:
-			activePokemon = new ActivePokemon(party.get(0));
-			break;
-		case SWITCH_2:
-			activePokemon = new ActivePokemon(party.get(1));
-			break;
-		case SWITCH_3:
-			activePokemon = new ActivePokemon(party.get(2));
-			break;
-		case SWITCH_4:
-			activePokemon = new ActivePokemon(party.get(3));
-			break;
-		case SWITCH_5:
-			activePokemon = new ActivePokemon(party.get(4));
-			break;
-		case SWITCH_6:
-			activePokemon = new ActivePokemon(party.get(5));
-			break;
-		default:
-			break;
+			activePokemon.setSleep(activePokemon.getInitialSleepDuration());
+
+			if (isValidSwitch(switchTo)) {
+				activePokemon.setAsInactivePokemon();
+				switch (switchTo) {
+				case SWITCH_1:
+					activePokemon = party.get(0);
+					break;
+				case SWITCH_2:
+					activePokemon = party.get(1);
+					break;
+				case SWITCH_3:
+					activePokemon = party.get(2);
+					break;
+				case SWITCH_4:
+					activePokemon = party.get(3);
+					break;
+				case SWITCH_5:
+					activePokemon = party.get(4);
+					break;
+				case SWITCH_6:
+					activePokemon = party.get(5);
+					break;
+				default:
+					break;
+				}
+				activePokemon.setAsActivePokemon();
+				AiWriter.writeSwitch(activePokemon, teamId);
+				EntryHazardDamage.applyToxicSpikes(this);
+				EntryHazardDamage.applySpikeDamage(this);
+				EntryHazardDamage.applyStealthRocks(this);
+			}
 		}
-		AiWriter.writeSwitch(activePokemon, teamId);
-		EntryHazardDamage.applyToxicSpikes(this);
-		EntryHazardDamage.applySpikeDamage(this);
-		EntryHazardDamage.applyStealthRocks(this);
 	}
 
 	@Override
-	public List<InactivePokemon> getParty() {
+	public List<ActivePokemon> getParty() {
 		return party;
 	}
 
@@ -310,12 +342,12 @@ public class DeepTeam extends FieldScreen implements Team {
 	}
 
 	@Override
-	public void setChoice(int choice) {
+	public void setChoice(MoveWithPP choice) {
 		this.choice = choice;
 	}
 
 	@Override
-	public int getChoice() {
+	public MoveWithPP getChoice() {
 		return choice;
 	}
 
@@ -387,47 +419,6 @@ public class DeepTeam extends FieldScreen implements Team {
 			return false;
 		}
 	}
-	
-	private void assignSwitchingOptions(Pokemon poke) {
-		switch(party.size()) {
-		case 0:
-			poke.setMove(Move.SWITCH_2, Pokemon.SWITCH_ONE);
-			poke.setMove(Move.SWITCH_3, Pokemon.SWITCH_TWO);
-			poke.setMove(Move.SWITCH_4, Pokemon.SWITCH_THREE);
-			poke.setMove(Move.SWITCH_5, Pokemon.SWITCH_FOUR);
-			poke.setMove(Move.SWITCH_6, Pokemon.SWITCH_FIVE);
-			break;
-		case 2:
-			poke.setMove(Move.SWITCH_1, Pokemon.SWITCH_ONE);
-			poke.setMove(Move.SWITCH_3, Pokemon.SWITCH_TWO);
-			poke.setMove(Move.SWITCH_4, Pokemon.SWITCH_THREE);
-			poke.setMove(Move.SWITCH_5, Pokemon.SWITCH_FOUR);
-			poke.setMove(Move.SWITCH_6, Pokemon.SWITCH_FIVE);
-			break;
-		case 3:
-			poke.setMove(Move.SWITCH_1, Pokemon.SWITCH_ONE);
-			poke.setMove(Move.SWITCH_2, Pokemon.SWITCH_TWO);
-			poke.setMove(Move.SWITCH_4, Pokemon.SWITCH_THREE);
-			poke.setMove(Move.SWITCH_5, Pokemon.SWITCH_FOUR);
-			poke.setMove(Move.SWITCH_6, Pokemon.SWITCH_FIVE);
-			break;
-		case 4:
-			poke.setMove(Move.SWITCH_1, Pokemon.SWITCH_ONE);
-			poke.setMove(Move.SWITCH_2, Pokemon.SWITCH_TWO);
-			poke.setMove(Move.SWITCH_3, Pokemon.SWITCH_THREE);
-			poke.setMove(Move.SWITCH_5, Pokemon.SWITCH_FOUR);
-			poke.setMove(Move.SWITCH_6, Pokemon.SWITCH_FIVE);
-			break;
-		case 5:
-			poke.setMove(Move.SWITCH_1, Pokemon.SWITCH_ONE);
-			poke.setMove(Move.SWITCH_2, Pokemon.SWITCH_TWO);
-			poke.setMove(Move.SWITCH_3, Pokemon.SWITCH_THREE);
-			poke.setMove(Move.SWITCH_4, Pokemon.SWITCH_FOUR);
-			poke.setMove(Move.SWITCH_6, Pokemon.SWITCH_FIVE);
-			break;
-			default:
-		}
-	}
 
 	@Override
 	public boolean[] getValidSwitch() {
@@ -443,5 +434,40 @@ public class DeepTeam extends FieldScreen implements Team {
 		}
 		return validSwitches;
 	}
-	
+
+	@Override
+	public List<MoveWithPP> getAllChoices() {
+		List<MoveWithPP> choices = new ArrayList<MoveWithPP>();
+		for (int i = 0; i < 4; i++) {
+			addMoveIfUseable(choices, i);
+		}
+		
+		if (isValidSwitch(Move.SWITCH_1)) {
+			choices.add(new MoveWithPP(Move.SWITCH_1));
+		}
+		if (isValidSwitch(Move.SWITCH_2)) {
+			choices.add(new MoveWithPP(Move.SWITCH_2));
+		}
+		if (isValidSwitch(Move.SWITCH_3)) {
+			choices.add(new MoveWithPP(Move.SWITCH_3));
+		}
+		if (isValidSwitch(Move.SWITCH_4)) {
+			choices.add(new MoveWithPP(Move.SWITCH_4));
+		}
+		if (isValidSwitch(Move.SWITCH_5)) {
+			choices.add(new MoveWithPP(Move.SWITCH_5));
+		}
+		if (isValidSwitch(Move.SWITCH_6)) {
+			choices.add(new MoveWithPP(Move.SWITCH_6));
+		}
+
+		return choices;
+	}
+
+	private void addMoveIfUseable(List<MoveWithPP> choices, int index) {
+		if (activePokemon.getMove(index) != null
+				&& activePokemon.getMove(index).getCurrPP() > 0) {
+			choices.add(activePokemon.getMove(index));
+		} 
+	}
 }

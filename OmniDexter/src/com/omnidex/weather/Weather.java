@@ -1,123 +1,137 @@
 package com.omnidex.weather;
 
-/**
- * Weather is a field condition that exists on the field. These are the methods
- * that weather can have.
- * 
- * @author jakers
- */
-public interface Weather {
-	// constants for the duration of weather
-	static final int DUR_0 = 0;
-	static final int DUR_5 = 5;
-	static final int DUR_8 = 8;
-	static final int PERMANENT = -1;
+public class Weather {
 
-	// SUN and RAIN modifiers
-	static final double RAIN_SUN_NEG_MOD = 0.5;
-	static final double RAIN_SUN_BOOST_MOD = 2.0;
+	public static final int DURATION_FIVE = 5;
+	public static final int DURATION_EIGHT = 8;
+	public static final int DURATION_PERMANENT = -1;
+	public static final String CLEAR = "Clear";
+	public static final String FOG = "Fog";
+	public static final String HAIL = "Hail";
+	public static final String RAIN = "Rain";
+	public static final String SAND = "Sand Storm";
+	public static final String SUN = "Sun";
+	public static final double WEATHER_DAMAGE_DEBUFF_MOD = 0;
+	public static final double WEATHER_DAMAGE_BUFF_MOD = 0;
+	
+	private int duration;
+	private boolean isRain;
+	private boolean isSun;
+	private boolean isSand;
+	private boolean isHail;
+	private boolean isFog;
+	
+	public Weather() {
+		clearWeather();
+	}
+	
+	public Weather(Weather weather) {
+		duration = weather.getDuration();
+		isSand = weather.isSand();
+		isRain = weather.isRain();
+		isSun = weather.isSun();
+		isFog = weather.isFog();
+		isHail = weather.isHail();
+	}
 
-	// TODO javadocs getWeatherCondition
-	String getWeatherCondition();
+	public boolean isClear() {
+		return duration == 0;
+	}
 
-	/**
-	 * Decreases the duration of the current weather by 1. If the duration of
-	 * the weather becomes zero then the weather is set to NO_WEATHER.
-	 */
-	void decrementDuration();
+//	// SUN and RAIN modifiers
+//	static final double RAIN_SUN_NEG_MOD = 0.5;
+//	static final double RAIN_SUN_BOOST_MOD = 2.0;
 
-	/**
-	 * Returns the number of turns the weather will be in play.
-	 * 
-	 * @return an int representing the number of turns that the current weather
-	 *         will be in effect. A return value of -1 indicates infinite
-	 *         weather condition.
-	 */
-	int getDuration();
+	public void setRain(int duration) {
+		clearWeather();
+		isRain = true;
+		this.duration = duration; 
+	}
 
-	/**
-	 * @return a boolean representing whether or not the current weather
-	 *         condition is no weather.
-	 */
-	boolean isClear();
+	public boolean isRain() {
+		return isRain;
+	}
 
-	/**
-	 * @return a boolean representing whether or not the current weather
-	 *         condition is Fog.
-	 */
-	boolean isFog();
+	public int getDuration() {
+		return duration;
+	}
 
-	/**
-	 * @return a boolean representing whether or not the current weather
-	 *         condition is Hail.
-	 */
-	boolean isHail();
+	public void setSun(int duration) {
+		clearWeather();
+		isSun = true;
+		this.duration = duration;
+	}
 
-	/**
-	 * @return a boolean representing whether or not the current weather
-	 *         condition is Rain.
-	 */
-	boolean isRain();
+	public boolean isSun() {
+		return isSun;
+	}
 
-	/**
-	 * @return a boolean representing whether or not the current weather
-	 *         condition is Sand.
-	 */
-	boolean isSand();
+	public void clearWeather() {
+		duration = 0;
+		isRain = false;
+		isSun = false;
+		isSand = false;
+		isHail = false;
+		isFog = false;
+	}
 
-	/**
-	 * @return a boolean representing whether or not the current weather
-	 *         condition is Sun.
-	 */
-	boolean isSun();
+	public void setSand(int duration) {
+		clearWeather();
+		isSand = true;
+		this.duration = duration;
+	}
 
-	/**
-	 * Sets the current weather condition to No Weather and sets the duration.
-	 */
-	void setClear();
+	public boolean isSand() {
+		return isSand;
+	}
 
-	/**
-	 * Sets the current weather condition to Fog and sets the duration of the
-	 * weather effect.
-	 * 
-	 * @param duration
-	 *            an int representing how long the Fog will last.
-	 */
-	void setFog(int duration);
+	public boolean isHail() {
+		return isHail;
+	}
 
-	/**
-	 * Sets the current weather condition to Hail and sets the duration of the
-	 * weather effect.
-	 * 
-	 * @param duration
-	 *            an int representing how long the Hail will last.
-	 */
-	void setHail(int duration);
+	public void setHail(int duration) {
+		clearWeather();
+		isHail = true;
+		this.duration = duration;
+	}
 
-	/**
-	 * Sets the current weather condition to Rain and sets the duration of the
-	 * weather effect.
-	 * 
-	 * @param duration
-	 *            an int representing how long the Rain will last.
-	 */
-	void setRain(int duration);
+	public boolean isFog() {
+		return isFog;
+	}
 
-	/**
-	 * Sets the current weather condition to Sand and sets the duration of the
-	 * weather effect.
-	 * 
-	 * @param duration
-	 *            an int representing how long the Sand will last.
-	 */
-	void setSand(int duration);
+	public void setFog(int duration) {
+		clearWeather();
+		isFog = true;
+		this.duration = duration;
+	}
 
-	/**
-	 * Sets the current weather condition to Sun and sets the duration of the
-	 * weather effect.
-	 * 
-	 * @param duration
-	 *            an int representing how long the Sun will last.
-	 */
-	void setSun(int duration);
+	public void decrement() {
+		if (duration > 0) {
+			duration--;
+			if (duration == 0) {
+				clearWeather();
+			}
+		}
+	}
+
+	public String getWeatherText() {
+		
+		String weatherText = null;
+		
+		if (isClear()) {
+			weatherText = Weather.CLEAR;
+		} else if (isSand()) {
+			weatherText = Weather.SAND;
+		} else if (isRain()) {
+			weatherText = Weather.RAIN;
+		} else if (isSun()) {
+			weatherText = Weather.SUN;
+		} else if (isHail()) {
+			weatherText = Weather.HAIL;
+		} else if (isFog()) {
+			weatherText = Weather.FOG;
+		} 
+		
+		return weatherText;
+	}
 }

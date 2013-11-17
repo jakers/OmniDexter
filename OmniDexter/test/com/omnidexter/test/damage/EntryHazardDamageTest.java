@@ -1,20 +1,21 @@
 package com.omnidexter.test.damage;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 import com.omnidex.ability.Ability;
 import com.omnidex.battlefield.team.DeepTeam;
 import com.omnidex.battlefield.team.Team;
 import com.omnidex.damage.EntryHazardDamage;
-import com.omnidex.pokemon.Pokemon;
-import com.omnidex.pokemon.InactivePokemon;
+import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.pokemon.Species;
-
-import static org.junit.Assert.*;
 public class EntryHazardDamageTest {
 	
-	private Pokemon accelgor;
+	private ActivePokemon accelgor;
 	public EntryHazardDamageTest(){
-		accelgor = new InactivePokemon(Species.ACCELGOR);
+		accelgor = new ActivePokemon(Species.ACCELGOR);
 		accelgor.setHpEv(252);
 	}
 	
@@ -71,7 +72,7 @@ public class EntryHazardDamageTest {
 	
 	@Test
 	public void toxic_layers_with_poisonType() {
-		Pokemon arbok = new InactivePokemon(Species.ARBOK);
+		ActivePokemon arbok = new ActivePokemon(Species.ARBOK);
 		Team team = new DeepTeam();
 		team.addTeamMate(arbok);
 		team.addToxicSpikes();
@@ -84,7 +85,7 @@ public class EntryHazardDamageTest {
 	
 	@Test
 	public void toxic_layers_with_lev_poisonType() {
-		Pokemon gengar = new InactivePokemon(Species.GENGAR);
+		ActivePokemon gengar = new ActivePokemon(Species.GENGAR);
 		gengar.setAbility(Ability.LEVITATE);
 		Team team = new DeepTeam();
 		team.addTeamMate(gengar);
@@ -98,7 +99,7 @@ public class EntryHazardDamageTest {
 	
 	@Test
 	public void toxic_layers_with_flying_poisonType() {
-		Pokemon crobat = new InactivePokemon(Species.CROBAT);
+		ActivePokemon crobat = new ActivePokemon(Species.CROBAT);
 		crobat.setAbility(Ability.INNER_FOCUS);
 		Team team = new DeepTeam();
 		team.addTeamMate(crobat);
@@ -112,7 +113,7 @@ public class EntryHazardDamageTest {
 	
 	@Test
 	public void toxic_layers_with_flyingType() {
-		Pokemon pidgeot = new InactivePokemon(Species.PIDGEOT);
+		ActivePokemon pidgeot = new ActivePokemon(Species.PIDGEOT);
 		pidgeot.setAbility(Ability.KEEN_EYE);
 		Team team = new DeepTeam();
 		team.addTeamMate(pidgeot);
@@ -126,7 +127,7 @@ public class EntryHazardDamageTest {
 	
 	@Test
 	public void four_times_weak_to_stealthRocks() {
-		Pokemon charizard = new InactivePokemon(Species.CHARIZARD);
+		ActivePokemon charizard = new ActivePokemon(Species.CHARIZARD);
 		charizard.setHpEv(252);
 		Team team = new DeepTeam();
 		team.addTeamMate(charizard);
@@ -146,7 +147,7 @@ public class EntryHazardDamageTest {
 	
 	@Test
 	public void neutral_to_stealthRocks() {
-		Pokemon arbok = new InactivePokemon(Species.ARBOK);
+		ActivePokemon arbok = new ActivePokemon(Species.ARBOK);
 		arbok.setHpEv(252);
 		Team team = new DeepTeam();
 		team.addTeamMate(arbok);

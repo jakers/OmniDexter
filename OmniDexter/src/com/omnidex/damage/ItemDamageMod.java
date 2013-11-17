@@ -1,7 +1,7 @@
 package com.omnidex.damage;
 
 import com.omnidex.item.Item;
-import com.omnidex.move.Move;
+import com.omnidex.move.MoveWithPP;
 import com.omnidex.pokemon.ActivePokemon;
 import com.omnidex.pokemon.Pokemon;
 import com.omnidex.pokemon.Species;
@@ -9,7 +9,7 @@ import com.omnidex.type.Type;
 
 public class ItemDamageMod {
 
-    public static double doSpecialItemMod(Pokemon attacker, Move move,
+    public static double doSpecialItemMod(Pokemon attacker, MoveWithPP move,
             double damage) {
         if (attacker.hasItem(Item.CHOICE_SPECS)) {
             damage *= 1.5;
@@ -29,7 +29,7 @@ public class ItemDamageMod {
         return damage;
     }
 
-    public static double doPysicalItemMod(Pokemon attacker, Move move,
+    public static double doPysicalItemMod(Pokemon attacker, MoveWithPP move,
             double damage) {
     	if (attacker.hasItem(Item.CHOICE_BAND)) {
             damage *= 1.5;
@@ -42,7 +42,7 @@ public class ItemDamageMod {
         return damage;
     }  
     
-    public static double doBasePowerItemMod(Pokemon attacker, Move move,
+    public static double doBasePowerItemMod(Pokemon attacker, MoveWithPP move,
             double damage) {
         if (attacker.hasItem(Item.ADAMANT_ORB)
                 && attacker.isSpecies(Species.DIALGA)
@@ -71,9 +71,9 @@ public class ItemDamageMod {
         return damage;
     }
     
-    public static double berryModifiers(Move move, ActivePokemon defender,
+    public static double berryModifiers(MoveWithPP move, ActivePokemon defender,
 			double damage) {
-    	
+    	   	
     	if (move.isType(Type.NORMAL)
 				&& defender.hasItem(Item.CHILAN_BERRY)) {
 			damage *= 0.5;
@@ -186,7 +186,7 @@ public class ItemDamageMod {
     }
     
 	public static double doExpertBelt(ActivePokemon attacker,
-			ActivePokemon defender, Move move, double damage) {
+			ActivePokemon defender, MoveWithPP move, double damage) {
 		
 		if (attacker.hasItem(Item.EXPERT_BELT) && move.getType().isSuperEffective(defender)) {
 			damage *= 1.2;

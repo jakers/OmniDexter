@@ -672,6 +672,7 @@ public enum Move {
 		return basePower;
 	}
 	
+	
 	public boolean isSwitch() {
 		switch(this) {
 			case SWITCH_1:

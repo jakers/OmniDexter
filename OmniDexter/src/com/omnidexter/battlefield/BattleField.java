@@ -2,63 +2,119 @@ package com.omnidexter.battlefield;
 
 import com.omnidex.weather.Weather;
 
-/**
- * @author jakers
- */
-public interface BattleField extends Weather {
-	void setGravity(int duration);
+public class BattleField extends Weather {
 
-	void setWonderRoom(int duration);
+	private int gravityCount;
+	private int trickRoomCount;
+	private int wonderRoomCount;
+	private int magicRoomCount;
 
-	void setTrickRoom(int duration);
+	public BattleField() {
+		super();
+		gravityCount = 0;
+		trickRoomCount = 0;
+		wonderRoomCount = 0;
+		magicRoomCount = 0;
+	}
 
-	void setMagicRoom(int duration);
+	public BattleField(BattleField field) {
+		super(field);
+		this.gravityCount = field.getGravityCount();
+		this.trickRoomCount = field.getTrickRoomCount();
+		this.wonderRoomCount = field.getWonderRoomCount();
+		this.magicRoomCount = field.getMagicRoomCount();
+	}
 
-	/**
-	 * @return a boolean representing if Gravity is in affect.
-	 */
-	boolean hasGravity();
+	public boolean hasGravity() {
+		return gravityCount > 0;
+	}
 
-	/**
-	 * @return a boolean representing if Wonder Room is in affect.
-	 */
-	boolean hasWonderRoom();
+	public boolean hasWonderRoom() {
+		return wonderRoomCount > 0;
+	}
 
-	/**
-	 * @return a boolean representing if Trick Room is in affect.
-	 */
-	boolean hasTrickRoom();
+	public boolean hasTrickRoom() {
+		return trickRoomCount > 0;
+	}
 
-	/**
-	 * @return a boolean representing if Magic Room is in affect.
-	 */
-	boolean hasMagicRoom();
+	public boolean hasMagicRoom() {
+		return magicRoomCount > 0;
+	}
 
-	/**
-	 * 
-	 * @return an int representing how many turns of Wonder Room are left.
-	 */
-	int getWonderRoomCount();
+	public int getWonderRoomCount() {
+		return wonderRoomCount;
+	}
 
-	/**
-	 * @return an int representing how many turns of Trick Room are left.
-	 */
-	int getTrickRoomCount();
+	public int getTrickRoomCount() {
+		return trickRoomCount;
+	}
 
-	/**
-	 * @return an int representing how many turns of Magic Room are left
-	 */
-	int getMagicRoomCount();
+	public int getMagicRoomCount() {
+		return magicRoomCount;
+	}
 
-	/**
-	 * @return an int representing how many turns of Gravity are left
-	 */
-	int getGravityCount();
+	public int getGravityCount() {
+		return gravityCount;
+	}
 
-	void printBattleField();
+	public Weather getWeather() {
+		return this;
+	}
 	
-	void decrementGravity();
-	void decrementTrickRoom();
-	void decrementWonderRoom();
-	void decrementMagicRoom();
+	public void printBattleField() {
+		System.out.print("Weather: " + getWeatherText());
+		if (!isClear()) {
+			if (super.getDuration() == Weather.DURATION_PERMANENT) {
+				System.out.print(" : Perma");
+			} else {
+				System.out.print(" for " + super.getDuration()
+						+ " more turn(s)");
+			}
+		}
+		System.out.println();
+		System.out.println("Gravity: " + gravityCount);
+		System.out.println("Trick Room: " + trickRoomCount);
+		System.out.println("Magic Room: " + magicRoomCount);
+		System.out.println("Wonder Room: " + wonderRoomCount);
+	}
+
+	public void setGravity(int duration) {
+		gravityCount = duration;
+	}
+
+	public void setWonderRoom(int duration) {
+		wonderRoomCount = duration;
+	}
+
+	public void setTrickRoom(int duration) {
+		trickRoomCount = duration;
+	}
+
+	public void setMagicRoom(int duration) {
+		magicRoomCount = duration;
+	}
+	
+	public void decrementGravity() {
+		if (gravityCount > 0) {
+			gravityCount--;
+		}
+	}
+
+	public void decrementTrickRoom() {
+		if (trickRoomCount > 0) {
+			trickRoomCount--;
+		}
+	}
+
+	public void decrementWonderRoom() {
+		if (wonderRoomCount > 0) {
+			wonderRoomCount--;
+		}
+	}
+
+	public void decrementMagicRoom() {
+		if (magicRoomCount > 0) {
+			magicRoomCount--;
+		}
+	}
 }

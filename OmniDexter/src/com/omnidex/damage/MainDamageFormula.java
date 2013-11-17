@@ -2,7 +2,7 @@ package com.omnidex.damage;
 
 import com.omnidex.ability.Ability;
 import com.omnidex.battlefield.team.Team;
-import com.omnidex.move.Move;
+import com.omnidex.move.MoveWithPP;
 import com.omnidex.pokemon.ActivePokemon;
 import com.omnidexter.battlefield.BattleField;
 
@@ -17,7 +17,7 @@ public class MainDamageFormula {
 	 * applied.
 	 */
 	public static int[] damage(Team attack, Team defend, BattleField bf,
-			Move move) {
+			MoveWithPP move) {
 		double damage = 1.0;
 		final int A = 5;
 		final double B = 50;

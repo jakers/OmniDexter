@@ -118,7 +118,7 @@ public class PokeStats implements Stats {
 
 		reCalcStats();
 
-		this.currHp = s.getCurrHp();
+		this.currHp = new Integer(s.getCurrHp());
 	}
 
 	@Override

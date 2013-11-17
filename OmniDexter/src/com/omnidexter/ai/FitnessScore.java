@@ -29,9 +29,9 @@ public class FitnessScore {
 		if (team1Score == 0.0 && team2Score == 0.0) {
 			fitness = Fitness.DRAW;
 		} else if (team1Score == 0.0) {
-			fitness = Fitness.PLAYER_ONE_WINS;
-		} else if (team2Score == 0.0) {
 			fitness = Fitness.PLAYER_TWO_WINS;
+		} else if (team2Score == 0.0) {
+			fitness = Fitness.PLAYER_ONE_WINS;
 		} else {
 			fitness = team1Score - team2Score;
 		}

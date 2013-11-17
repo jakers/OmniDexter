@@ -100,7 +100,7 @@ public class ActivePokemon extends InactivePokemon {
 		slowStartCount = 0;
 	}
 
-	public ActivePokemon(Pokemon poke) {
+	public ActivePokemon(ActivePokemon poke) {
 		super(poke);
 		isAttracted = false;
 		isProtected = false;
@@ -131,6 +131,7 @@ public class ActivePokemon extends InactivePokemon {
 		spDefStage = new StatStages();
 		speedStage = new StatStages();
 		slowStartCount = 0;
+		isActivePokemon = poke.isActivePokemon();
 	}
 
 	public ActivePokemon() {
