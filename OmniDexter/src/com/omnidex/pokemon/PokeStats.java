@@ -31,9 +31,9 @@ public class PokeStats implements Stats {
 
 	private Type hiddenPowerType;
 
-	public PokeStats(Nature nature, int[] baseStats, int[] ivs, int[] evs) {
+	public PokeStats(Nature nature, Species species, int[] ivs, int[] evs) {
 		this.nature = nature;
-		this.baseStats = baseStats;
+		this.baseStats = species.getAllBases();
 		this.level = 100;
 
 		hpIv = ivs[MAX_HP];
@@ -50,18 +50,7 @@ public class PokeStats implements Stats {
 		spDefEv = evs[SPDEF];
 		speEv = evs[SPE];
 
-		int[] stats = MathUtils.calcPokemon(level, nature, baseStats, ivs,
-				evs);
 		reCalcStats();
-		maxHp = stats[MAX_HP];
-		currHp = maxHp;
-
-		atk = stats[ATK];
-		def = stats[DEF];
-		spAtk = stats[SPATK];
-		spDef = stats[SPDEF];
-		spe = stats[SPE];
-
 	}
 
 	public PokeStats(int level, Nature nature, int[] baseStats, int[] ivs,
@@ -353,7 +342,6 @@ public class PokeStats implements Stats {
 		hiddenPowerType = MathUtils.calcHiddenPower(hpIv, atkIv, defIv,
 				spAtkIv, spDefIv, speIv);
 
-		// HACK for keeping hp saved
 		if (currHp == maxHp) {
 			maxHp = stats[MAX_HP];
 			currHp = maxHp;

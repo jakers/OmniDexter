@@ -62,7 +62,6 @@ public class AbilityActivation {
 		}
 	}
 	
-	
 	public static void activateForecast(Pokemon poke, Weather weather) {
 		if (poke.isSpecies(Species.CASTFORM) && poke.hasAbility(Ability.ADAPTABILITY)) {
 			if (weather.isRain()) {
@@ -106,5 +105,4 @@ public class AbilityActivation {
 			}
 		}
 	}
-	
 }

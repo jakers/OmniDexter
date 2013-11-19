@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.omnidex.damage.EntryHazardDamage;
+import com.omnidex.damage.MathUtils;
 import com.omnidex.game.Game;
 import com.omnidex.move.Move;
 import com.omnidex.move.MoveWithPP;
@@ -52,14 +53,14 @@ public class DeepTeam extends FieldScreen implements Team {
 	public DeepTeam(Team team) {
 		super(team);
 		party = new ArrayList<ActivePokemon>();
-				
+
 		for (int i = 0; i < team.size(); i++) {
 			party.add(new ActivePokemon(team.getParty().get(i)));
 			if (party.get(i).isActivePokemon()) {
 				activePokemon = party.get(i);
 			}
 		}
-		
+
 		hasStealthRocks = team.hasStealthRocks();
 		spikesCount = team.getSpikesCount();
 		toxicSpikesCount = team.getToxicSpikesCount();
@@ -263,9 +264,7 @@ public class DeepTeam extends FieldScreen implements Team {
 
 	@Override
 	public void decrementMist() {
-		if (mistCount > 0) {
-			mistCount--;
-		}
+		mistCount = MathUtils.decrement(mistCount);
 	}
 
 	@Override
@@ -275,9 +274,7 @@ public class DeepTeam extends FieldScreen implements Team {
 
 	@Override
 	public void decrementLuckyChant() {
-		if (luckyChantCount > 0) {
-			luckyChantCount--;
-		}
+		luckyChantCount = MathUtils.decrement(luckyChantCount);
 	}
 
 	@Override
@@ -287,9 +284,7 @@ public class DeepTeam extends FieldScreen implements Team {
 
 	@Override
 	public void decrementSafeguard() {
-		if (safeguardCount > 0) {
-			safeguardCount--;
-		}
+		safeguardCount = MathUtils.decrement(safeguardCount);
 	}
 
 	@Override
@@ -331,9 +326,7 @@ public class DeepTeam extends FieldScreen implements Team {
 
 	@Override
 	public void decrementTailWind() {
-		if (tailwindCount > 0) {
-			tailwindCount--;
-		}
+		tailwindCount = MathUtils.decrement(tailwindCount);
 	}
 
 	@Override
@@ -422,7 +415,6 @@ public class DeepTeam extends FieldScreen implements Team {
 
 	@Override
 	public boolean[] getValidSwitch() {
-		// TODO Auto-generated method stub
 		boolean validSwitches[] = new boolean[party.size()];
 		int i = 0;
 		for (InactivePokemon p : party) {
@@ -441,7 +433,7 @@ public class DeepTeam extends FieldScreen implements Team {
 		for (int i = 0; i < 4; i++) {
 			addMoveIfUseable(choices, i);
 		}
-		
+
 		if (isValidSwitch(Move.SWITCH_1)) {
 			choices.add(new MoveWithPP(Move.SWITCH_1));
 		}
@@ -468,6 +460,6 @@ public class DeepTeam extends FieldScreen implements Team {
 		if (activePokemon.getMove(index) != null
 				&& activePokemon.getMove(index).getCurrPP() > 0) {
 			choices.add(activePokemon.getMove(index));
-		} 
+		}
 	}
 }

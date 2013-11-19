@@ -13,6 +13,7 @@ public interface Stats {
 	static final int SPE = 5;
 	static final int ACCURARY = 0;
 	static final int EVASION = 1;
+	static final int MAX_EVS = 252;
 
 	/**
 	 * Assigns the Pokemon the specified Nature

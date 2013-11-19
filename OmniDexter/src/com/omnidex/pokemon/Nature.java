@@ -1,14 +1,10 @@
 package com.omnidex.pokemon;
 
-/**
- * An enum containing all the natures a Pokemon could
- * have.
- * @author jakers
- */
 public enum Nature {
 		UNKNOWN("(unknown)",1.0,1.0,1.0,1.0,1.0),
 		ADAMANT("Adamant",1.1,1.0,0.9,1.0,1.0),
 		BASHFUL("Bashful",1.0,1.0,1.0,1.0,1.0),
+		
 		BOLD("Bold",0.9,1.1,1.0,1.0,1.0),
 		BRAVE("Brave",1.1,1.0,1.0,1.0,0.9),
 		CALM("Calm",0.9,1.0,1.0,1.1,1.0),
@@ -35,7 +31,6 @@ public enum Nature {
 		TIMID("Timid",0.9,1.0,1.0,1.0,1.1);	
 		
 		private String nature;
-		private String mods;
 		private double atkMod;
 		private double defMod;
 		private double spAtkMod;
@@ -85,8 +80,5 @@ public enum Nature {
         }
         public double[] getStatMods() {
         	return new double[] {atkMod, defMod, spAtkMod, spDefMod, speMod};
-        }
-        public String getMods() {
-        	return mods;
         }
 	}

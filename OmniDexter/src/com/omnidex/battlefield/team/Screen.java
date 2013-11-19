@@ -29,7 +29,7 @@ public interface Screen {
 	 * Removes the Reflect from the field. Call this in cases like Brick Break.
 	 * The Reflect count is set to 0.
 	 */
-	void removeRelfect();
+	void removeReflect();
 
 	/**
 	 * Removes the Light Screen from the field. Call this in cases like Brick

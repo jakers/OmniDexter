@@ -57,7 +57,7 @@ public class InactivePokemon implements Pokemon, Status, Stats {
 				MAX_IV_VALUE, MAX_IV_VALUE };
 		int[] ev = { 0, 0, 0, 0, 0, 0, 0 };
 
-		stats = new PokeStats(nature, forme.getAllBases(), iv, ev);
+		stats = new PokeStats(nature, forme, iv, ev);
 
 		status = new PokeStatus();
 		MoveWithPP m = new MoveWithPP(Move.NONE);
@@ -89,7 +89,7 @@ public class InactivePokemon implements Pokemon, Status, Stats {
 			evs[4] = rs.getInt("spdef_iv");
 			evs[5] = rs.getInt("spe_iv");
 
-			stats = new PokeStats(nature, forme.getAllBases(), iv, evs);
+			stats = new PokeStats(nature, forme, iv, evs);
 
 			status = new PokeStatus();
 			move1 = new MoveWithPP(Move.findMoveByName(rs.getString("move_1")));

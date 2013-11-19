@@ -16,7 +16,6 @@ import com.omnidexter.ai.AiWriter;
 import com.omnidexter.ai.Fitness;
 import com.omnidexter.ai.FitnessScore;
 import com.omnidexter.battlefield.BattleField;
-import com.omnidexter.battlefield.BattleField;
 
 public class Game {
 

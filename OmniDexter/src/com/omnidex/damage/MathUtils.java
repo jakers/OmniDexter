@@ -7,6 +7,7 @@ import com.omnidex.battlefield.team.Team;
 import com.omnidex.pokemon.Nature;
 import com.omnidex.pokemon.Pokemon;
 import com.omnidex.type.Type;
+import com.omnidex.weather.Weather;
 
 public class MathUtils {/*
 						 * private static final double PLUS_SIX = 4.0; private
@@ -126,9 +127,9 @@ public class MathUtils {/*
 		 * WHERE: A = 4.0 B = 5.0 C = 100.0
 		 */
 
-		final double A = 4.0;
-		final double B = 5.0;
-		final double C = 100.0;
+		final int A = 4;
+		final int B = 5;
+		final int C = 100;
 
 		double stat;
 
@@ -139,7 +140,7 @@ public class MathUtils {/*
 		stat /= C;
 		stat += B;
 		stat *= natureMod;
-
+		
 		return (int) stat;
 	}
 
@@ -250,5 +251,14 @@ public class MathUtils {/*
 		}
 
 		return hiddenPower;
+	}
+
+	public static int decrement(int count) {
+		if (count > 0) {
+			count--;
+		} else if (count != Weather.DURATION_PERMANENT) {
+			count = 0;
+		}
+		return count;
 	}
 }

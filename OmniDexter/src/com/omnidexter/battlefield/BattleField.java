@@ -11,10 +11,7 @@ public class BattleField extends Weather {
 
 	public BattleField() {
 		super();
-		gravityCount = 0;
-		trickRoomCount = 0;
-		wonderRoomCount = 0;
-		magicRoomCount = 0;
+		clearFieldEffects();
 	}
 
 	public BattleField(BattleField field) {
@@ -57,10 +54,6 @@ public class BattleField extends Weather {
 		return gravityCount;
 	}
 
-	public Weather getWeather() {
-		return this;
-	}
-	
 	public void printBattleField() {
 		System.out.print("Weather: " + getWeatherText());
 		if (!isClear()) {
@@ -95,26 +88,39 @@ public class BattleField extends Weather {
 	}
 	
 	public void decrementGravity() {
-		if (gravityCount > 0) {
-			gravityCount--;
-		}
+		gravityCount = decrement(gravityCount);
 	}
 
 	public void decrementTrickRoom() {
-		if (trickRoomCount > 0) {
-			trickRoomCount--;
-		}
+		trickRoomCount = decrement(trickRoomCount);
 	}
 
 	public void decrementWonderRoom() {
-		if (wonderRoomCount > 0) {
-			wonderRoomCount--;
-		}
+		wonderRoomCount = decrement(wonderRoomCount);
 	}
 
 	public void decrementMagicRoom() {
-		if (magicRoomCount > 0) {
-			magicRoomCount--;
+		magicRoomCount = decrement(magicRoomCount);
+	}
+
+	public void clearBattleField() {
+		this.clearWeather();
+		clearFieldEffects();
+	}
+
+	private int decrement(int count) {
+		if (count > 0) {
+			count--;
+		} else if (count < 0) {
+			count = 0;
 		}
+		return count;
+	}
+	
+	private void clearFieldEffects() {
+		gravityCount = 0;
+		trickRoomCount = 0;
+		wonderRoomCount = 0;
+		magicRoomCount = 0;
 	}
 }

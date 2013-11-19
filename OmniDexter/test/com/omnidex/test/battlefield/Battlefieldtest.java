@@ -1,4 +1,5 @@
 package com.omnidex.test.battlefield;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.omnidexter.battlefield.BattleField;
@@ -11,14 +12,22 @@ public class Battlefieldtest {
 		bf = new BattleField();
 	}
 	
+	@Before
+	public void setUp() {
+		bf = new BattleField();
+	}
+	
 	@Test
-	public void printBattleField() {
-		bf.printBattleField();
+	public void battleFieldsAreClearWhenInitialized() {
+		assertFalse(bf.hasGravity());
+		assertFalse(bf.hasMagicRoom());
+		assertFalse(bf.hasTrickRoom());
+		assertFalse(bf.hasWonderRoom());
+		assertTrue(bf.isClear());
 	}
 	
 	@Test
 	public void set_Gravity() {
-		assertFalse(bf.hasGravity());
 		bf.setGravity(BattleField.DURATION_FIVE);
 		assertTrue(bf.hasGravity());
 		assertEquals(BattleField.DURATION_FIVE, bf.getGravityCount());
@@ -26,7 +35,6 @@ public class Battlefieldtest {
 	
 	@Test
 	public void decrement_Gravity() {
-		assertFalse(bf.hasGravity());
 		bf.setGravity(BattleField.DURATION_FIVE);
 		assertTrue(bf.hasGravity());
 		assertEquals(BattleField.DURATION_FIVE, bf.getGravityCount());
@@ -39,10 +47,18 @@ public class Battlefieldtest {
 	public void copy_constructor_test() {
 		bf.setRain(5);
 		BattleField newBf = new BattleField(bf);
-		assertTrue(bf.isRain());
 		assertTrue(newBf.isRain());
 		assertEquals(BattleField.DURATION_FIVE, bf.getDuration());
 		assertEquals(BattleField.DURATION_FIVE, newBf.getDuration());
+		newBf.setTrickRoom(BattleField.DURATION_FIVE);
+		assertTrue(newBf.hasTrickRoom());
+		assertFalse(bf.hasTrickRoom());
+	}
+	
+	@Test
+	public void clearingBattleField() {
+		bf.setMagicRoom(BattleField.DURATION_EIGHT);
+		bf.clearBattleField();
 	}
 	
 }
